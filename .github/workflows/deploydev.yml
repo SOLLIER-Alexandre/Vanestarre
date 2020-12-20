@@ -1,12 +1,12 @@
-name: Deploy to prod
+name: Deploy to dev
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,6 +22,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          ref: develop
 
       - uses: up9cloud/action-rsync@master
         env:
@@ -29,4 +31,4 @@ jobs:
           USER: vanestarreiutinfo
           KEY: ${{secrets.DEPLOY_SSH_KEY}}
           SOURCE: ./src/
-          TARGET: /home/vanestarreiutinfo/www/
+          TARGET: /home/vanestarreiutinfo/www/dev/
