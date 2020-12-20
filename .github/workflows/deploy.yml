@@ -30,4 +30,5 @@ jobs:
           HOST: ssh-vanestarreiutinfo.alwaysdata.net
           USER: vanestarreiutinfo
           KEY: ${{secrets.DEPLOY_SSH_KEY}}
+          SOURCE: ./src/
           TARGET: /home/vanestarreiutinfo/www/
