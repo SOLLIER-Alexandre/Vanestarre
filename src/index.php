@@ -1,1 +1,1 @@
-<h1>Hello, World!</h1>
+<p>The time is <b><?php echo date('F j, Y, g:i'); ?></b></p>
