@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: Deploy to prod
 
 # Controls when the action will run. 
 on:
@@ -30,4 +28,5 @@ jobs:
           HOST: ssh-vanestarreiutinfo.alwaysdata.net
           USER: vanestarreiutinfo
           KEY: ${{secrets.DEPLOY_SSH_KEY}}
+          SOURCE: ./src/
           TARGET: /home/vanestarreiutinfo/www/
