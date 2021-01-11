@@ -1,2 +1,13 @@
-<p>The time is <b><?php echo date('F j, Y, g:i'); ?></b></p>
-<p>Your IP is <b><?php echo $_SERVER['REMOTE_ADDR']; ?></b></p>
+<?php
+    include 'utils.inc.php';
+
+    start_page('Accueil – Vanestarre');
+    start_layout();
+
+    for ($x = 0; $x < 100; $x++) {
+        echo '        <p>Hello, World!</p>' . PHP_EOL;
+    }
+
+    end_layout();
+    end_page();
+?>
