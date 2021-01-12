@@ -6,7 +6,7 @@
      * @param array $stylesheets Array of stylesheets to include in the page
      * @param array $scripts Array of scripts to include in the page
      */
-    function start_page($title = 'Vanestarre', $stylesheets = [], $scripts = [])
+    function start_page($title = 'Vanéstarre', $stylesheets = [], $scripts = [])
     {
         // Start of the <head>
         echo <<<EOL
@@ -19,9 +19,9 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="Description" content="Page d'accueil du blog de Vanéstarre">
             <title>$title</title>
-            <link rel="stylesheet" href="styles/common.css">
+            <link rel="stylesheet" href="/styles/common.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-            <script src="scripts/common.js" async></script>
+            <script src="/scripts/common.js" async></script>
 
         EOL;
 
@@ -72,12 +72,12 @@
             <header id="header">
                 <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
                 <div class="header-right-content">
-                    <form id="search-form" method="get" action="search.php">
+                    <form id="search-form" method="get" action="search">
                         <input id="search-box" name="query" type="search" placeholder="Recherche...">
                     </form>
                     
                     <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
-                    <a href="account.php" id="account-link" class="text-button hidden-on-search">
+                    <a href="account" id="account-link" class="text-button hidden-on-search">
                         <span class="material-icons unselectable">account_circle</span>
         EOL;
 

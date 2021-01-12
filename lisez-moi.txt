@@ -13,18 +13,22 @@ mais où une seule personne (Vanéstarre) peut poster du texte, accompagné
 éventuellement d'une image.
 
 Choix techniques :
-N/A
+    - Nous avons choisi de router toutes les requêtes vers le fichier index.php
+      afin d'avoir une cohérence sur la présentation de toutes les pages du site
+      web, de pouvoir présenter une URL "propre" a l'utilisateur (sans extension
+      .php a la fin) ainsi que de pouvoir restructurer le site web en interne
+      sans que cela n'ait d'impact sur les liens vers les différentes pages.
+    - Nous utilisons l'architecture MVC afin de séparer les différentes
+      responsabilitées de notre programme.
 
 Configuration logicielle minimale (Pré-requis) :
-    - Apache2 ou Nginx
+    - Apache2
     - PHP 7.4
     - MariaDB 10.5
 
 Configuration logicielle conseillée :
-    - Nginx
-    - Dernière version de PHP
-    - Dernière version de MariaDB
-    - sendmail (envoi de mails de réinitialisation)
+    + Pré-requis
+    - sendmail (envoi de mails de réinitialisation de mot de passe)
 
 Identifiants de connexion :
     - Site Web : <redacted>
