@@ -1,0 +1,33 @@
+Nom de l'équipe et de ses membres :
+    Groupe "Da big spaghet"
+    - CHATEAUX Adrien       === adrien.chateaux@etu.univ-amu.fr
+    - DEUDON Eugénie        === eugenie.deudon@etu.univ-amu.fr
+    - RADJA Samy            === samy.radja@etu.univ-amu.fr
+    - SOLLIER Alexandre     === alexandre.sollier@etu.univ-amu.fr
+
+URL du site Web : https://vanestarreiutinfo.alwaysdata.net/index.php
+
+Présentation du projet :
+Le projet Vanéstarre consiste a faire un réseau social comme Instagram,
+mais où une seule personne (Vanéstarre) peut poster du texte, accompagné
+éventuellement d'une image.
+
+Choix techniques :
+N/A
+
+Configuration logicielle minimale (Pré-requis) :
+    - Apache2 ou Nginx
+    - PHP 7.4
+    - MariaDB 10.5
+
+Configuration logicielle conseillée :
+    - Nginx
+    - Dernière version de PHP
+    - Dernière version de MariaDB
+    - sendmail (envoi de mails de réinitialisation)
+
+Identifiants de connexion :
+    - Site Web : <redacted>
+    - Base de données: <redacted>
+    - Hébergement : <redacted>
+    - GitHub: https://github.com/SOLLIER-Alexandre/Vanestarre
