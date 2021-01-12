@@ -15,8 +15,9 @@
         
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <meta name="Description" content="Page d'accueil du blog de Vanéstarre">
             <title>$title</title>
             <link rel="stylesheet" href="styles/common.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -66,11 +67,11 @@
     {
         // Add the standard <header>, and begin a <main> block
         echo <<<'EOL'
-            <header>
-                <a href="/" class="title">Vanestarre</a>
-                <div class="header_right_content">
-                    <input class="search_box" type="search" placeholder="Recherche...">
-                    <span class="material-icons unselectable text_button">search</span>
+            <header id="header">
+                <a href="/" id="page-title" class="hidden-on-search">Vanestarre</a>
+                <div class="header-right-content">
+                    <input id="search-box" type="search" placeholder="Recherche...">
+                    <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
                 </div>
             </header>
             
