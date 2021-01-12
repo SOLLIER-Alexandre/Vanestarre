@@ -78,12 +78,17 @@ p {
     margin-left: 8px;
 }
 
+#search-form {
+    display: flex;
+    flex: 1;
+}
+
 #search-box {
     display: none;
     background: #7E7E7E;
     border-radius: 8px;
     border: none;
-    padding: 6px;
+    padding: 8px;
     transition: background 0.2s;
     width: 100%;
 }
@@ -110,8 +115,12 @@ header.search-shown #search-box {
         display: none;
     }
 
+    #search-form {
+        flex: initial;
+    }
+
     #search-box {
         display: flex;
-        width: initial;
+        width: 275px;
     }
 }

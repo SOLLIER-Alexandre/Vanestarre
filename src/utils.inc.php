@@ -68,9 +68,12 @@
         // Add the standard <header>, and begin a <main> block
         echo <<<'EOL'
             <header id="header">
-                <a href="/" id="page-title" class="hidden-on-search">Vanestarre</a>
+                <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
                 <div class="header-right-content">
-                    <input id="search-box" type="search" placeholder="Recherche...">
+                    <form id="search-form" method="get" action="search.php">
+                        <input id="search-box" name="query" type="search" placeholder="Recherche...">
+                    </form>
+                    
                     <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
                 </div>
             </header>
