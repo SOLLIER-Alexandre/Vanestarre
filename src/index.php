@@ -1,7 +1,7 @@
 <?php
     include 'utils.inc.php';
 
-    start_page('Accueil – Vanéstarre');
+    start_page('Accueil - Vanéstarre');
     start_layout();
 
     for ($x = 0; $x < 100; $x++) {

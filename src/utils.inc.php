@@ -62,19 +62,34 @@
     /**
      * Echoes the start of the standard project layout
      * This contains the page header with the website title, a search box and an account manager
+     *
+     * @param string|null $account_name Name of the account to show. Pass null for the default string.
      */
-    function start_layout()
+    function start_layout($account_name = null)
     {
         // Add the standard <header>, and begin a <main> block
         echo <<<'EOL'
             <header id="header">
-                <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
+                <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
                 <div class="header-right-content">
                     <form id="search-form" method="get" action="search.php">
                         <input id="search-box" name="query" type="search" placeholder="Recherche...">
                     </form>
                     
                     <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
+                    <a href="account.php" id="account-link" class="text-button hidden-on-search">
+                        <span class="material-icons unselectable">account_circle</span>
+        EOL;
+
+        if ($account_name === null) {
+            echo 'Invité';
+        } else {
+            echo $account_name;
+        }
+
+        echo <<<'EOL'
+        
+                    </a>
                 </div>
             </header>
             
