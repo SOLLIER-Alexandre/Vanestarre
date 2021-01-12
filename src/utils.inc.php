@@ -1,5 +1,6 @@
 <?php
-    function start_page($title = 'Vanestarre', $stylesheets = []) {
+    function start_page($title = 'Vanestarre', $stylesheets = [], $scripts = [])
+    {
         echo <<<EOL
         <!doctype html>
         <html lang="en">
@@ -10,11 +11,17 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>$title</title>
             <link rel="stylesheet" href="styles/common.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+            <script src="scripts/common.js" async></script>
 
         EOL;
 
         foreach ($stylesheets as $stylesheet) {
             echo '<link rel="stylesheet" href="' . $stylesheet . '">';
+        }
+
+        foreach ($scripts as $script) {
+            echo '<script src="' . $script . '" async></script>';
         }
 
         echo <<<EOL
