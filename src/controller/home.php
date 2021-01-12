@@ -1,3 +1,3 @@
 <?php
-    echo '        <h1>Accueil Vanéstarre</h1>' . PHP_EOL;
+    require_once __DIR__ . '/../view/home_view.php';
 ?>

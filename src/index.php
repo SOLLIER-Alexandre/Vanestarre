@@ -1,7 +1,7 @@
 <?php
     require_once 'utils.inc.php';
 
-    $request_path = parse_url($_SERVER['REQUEST_URI'])['path'];
+    $request_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $page_title = 'Vanéstarre';
     $controller_path = 'controller/404.php';
 
