@@ -1,29 +1,37 @@
 <?php
-    require_once 'utils.inc.php';
+    require_once __DIR__ . '/utils.inc.php';
 
     $request_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $page_title = 'Vanéstarre';
-    $controller_path = 'controller/404.php';
+    $controller = null;
 
     // Route the request
     if ($request_path === '/' || $request_path === '/index') {
-        $page_title = 'Accueil - ' . $page_title;
-        $controller_path = 'controller/home.php';
+        require_once __DIR__ . '/controller/home_controller.php';
+        $controller = new HomeController();
     } else if ($request_path === '/account') {
-        $page_title = 'Compte - ' . $page_title;
-        $controller_path = 'controller/account.php';
+        require_once __DIR__ . '/controller/account_controller.php';
+        $controller = new AccountController();
     } else if ($request_path === '/search') {
-        $page_title = 'Recherche - ' . $page_title;
-        $controller_path = 'controller/search.php';
+        require_once __DIR__ . '/controller/search_controller.php';
+        $controller = new SearchController();
     } else {
-        $page_title = 'Erreur - ' . $page_title;
+        require_once __DIR__ . '/controller/pnf_controller.php';
+        $controller = new PNFController();
     }
 
-    start_page($page_title);
-    start_layout();
+    if (!is_null($controller)) {
+        // Begin the page
+        start_page($controller->getTitle() . ' – Vanéstarre');
+        start_layout();
 
-    require_once $controller_path;
+        // Execute the selected controller
+        $controller->execute();
 
-    end_layout();
-    end_page();
+        // End the page
+        end_layout();
+        end_page();
+    } else {
+        // That shouldn't have happened?!
+        header("Location: /");
+    }
 ?>
