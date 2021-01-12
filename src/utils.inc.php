@@ -9,7 +9,7 @@
     function start_page($title = 'Vanéstarre', $stylesheets = [], $scripts = [])
     {
         // Start of the <head>
-        echo <<<EOL
+        echo <<<HTML
         <!doctype html>
         <html lang="en">
         
@@ -23,7 +23,7 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
             <script src="/scripts/common.js" async></script>
 
-        EOL;
+        HTML;
 
         // Echo all the stylesheets to the document
         foreach ($stylesheets as $stylesheet) {
@@ -36,12 +36,12 @@
         }
 
         // End of the <head>, begin a <body>
-        echo <<<EOL
+        echo <<<'HTML'
         </head>
         
         <body>
 
-        EOL;
+        HTML;
     }
 
     ;
@@ -52,11 +52,11 @@
     function end_page()
     {
         // End the <body> and <html> tags
-        echo <<<'EOL'
+        echo <<<'HTML'
         </body>
         
         </html>
-        EOL;
+        HTML;
     }
 
     /**
@@ -68,7 +68,7 @@
     function start_layout($account_name = null)
     {
         // Add the standard <header>, and begin a <main> block
-        echo <<<'EOL'
+        echo <<<'HTML'
             <header id="header">
                 <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
                 <div class="header-right-content">
@@ -79,7 +79,7 @@
                     <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
                     <a href="account" id="account-link" class="text-button hidden-on-search">
                         <span class="material-icons unselectable">account_circle</span>
-        EOL;
+        HTML;
 
         if ($account_name === null) {
             echo 'Invité';
@@ -87,7 +87,7 @@
             echo $account_name;
         }
 
-        echo <<<'EOL'
+        echo <<<'HTML'
         
                     </a>
                 </div>
@@ -95,7 +95,7 @@
             
             <main>
 
-        EOL;
+        HTML;
     }
 
     /**
@@ -104,10 +104,10 @@
     function end_layout()
     {
         // End the <main> block
-        echo <<<'EOL'
+        echo <<<'HTML'
             </main>
 
-        EOL;
+        HTML;
     }
 
 ?>
