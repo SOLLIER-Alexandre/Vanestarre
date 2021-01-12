@@ -16,6 +16,11 @@
             http_response_code(404);
 
             require_once __DIR__ . '/../view/pnf_view.php';
+
+            $view = new PNFView();
+
+            // Output the view contents
+            $view->echo_contents();
         }
 
         /**

@@ -13,6 +13,11 @@
          */
         public function execute() {
             require_once __DIR__ . '/../view/search_view.php';
+
+            $view = new SearchView();
+
+            // Output the view contents
+            $view->echo_contents();
         }
 
         /**

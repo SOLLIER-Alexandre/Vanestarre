@@ -13,6 +13,11 @@
          */
         public function execute() {
             require_once __DIR__ . '/../view/account_view.php';
+
+            $view = new AccountView();
+
+            // Output the view contents
+            $view->echo_contents();
         }
 
         /**

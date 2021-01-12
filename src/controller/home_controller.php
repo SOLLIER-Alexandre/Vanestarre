@@ -13,6 +13,11 @@
          */
         public function execute() {
             require_once __DIR__ . '/../view/home_view.php';
+
+            $view = new HomeView();
+
+            // Output the view contents
+            $view->echo_contents();
         }
 
         /**
