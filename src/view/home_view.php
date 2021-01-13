@@ -14,7 +14,19 @@
          * @inheritDoc
          */
         public function echo_contents() {
-            echo '        <h1>Accueil Vanéstarre</h1>' . PHP_EOL;
+            echo <<<'HTML'
+            <div class="card">
+                <p class="post-title">Vanéstarre • Posté il y a 13h</p>
+                <p class="post-message">eske vou konéssé twitch prim xDDDDDDDD</p>
+            </div>
+            
+            <div class="card">
+                <p class="post-title">Vanéstarre • Posté il y a 16h</p>
+                <p class="post-message">yo lé besta g lancé le rézo cmt ça va xoxoxo</p>
+            </div>
+
+            HTML;
+
         }
     }
 

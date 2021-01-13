@@ -33,7 +33,7 @@
          * @inheritDoc
          */
         public function getStylesheets(): array {
-            return [];
+            return ['/styles/home.css'];
         }
 
         /**
