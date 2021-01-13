@@ -20,6 +20,9 @@
     } else if ($request_path === '/search') {
         require_once __DIR__ . '/controller/search_controller.php';
         $controller = new SearchController();
+    } else if ($request_path === '/login') {
+        require_once __DIR__ . '/controller/login_controller.php';
+        $controller = new LoginController();
     } else {
         require_once __DIR__ . '/controller/pnf_controller.php';
         $controller = new PNFController();
