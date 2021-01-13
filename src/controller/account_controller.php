@@ -5,6 +5,8 @@
      * Class AccountController
      *
      * Controller for the account management page
+     *
+     * @author CHATEAUX Adrien
      */
     class AccountController implements IController
     {

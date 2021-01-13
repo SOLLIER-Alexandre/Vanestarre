@@ -1,13 +1,18 @@
 <?php
     /**
+     * Utils for outputting a standard page
+     *
+     * @author SOLLIER Alexandre
+     */
+
+    /**
      * Echoes the start of a regular HTML document
      *
      * @param string $title The title of the page
      * @param array $stylesheets Array of stylesheets to include in the page
      * @param array $scripts Array of scripts to include in the page
      */
-    function start_page($title = 'Vanéstarre', $stylesheets = [], $scripts = [])
-    {
+    function start_page($title = 'Vanéstarre', $stylesheets = [], $scripts = []) {
         // Start of the <head>
         echo <<<HTML
         <!doctype html>

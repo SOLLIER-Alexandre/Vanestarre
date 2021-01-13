@@ -1,3 +1,9 @@
+/**
+ * Common script present on every page of the website
+ *
+ * @author SOLLIER Alexandre
+ */
+
 (() => {
     const header = document.getElementById('header');
     const searchButton = document.getElementById('search-btn');

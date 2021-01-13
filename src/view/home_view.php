@@ -5,6 +5,8 @@
      * Class HomeView
      *
      * View for the home page (website index)
+     *
+     * @author SOLLIER Alexandre
      */
     class HomeView implements IView
     {

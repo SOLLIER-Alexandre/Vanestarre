@@ -5,6 +5,8 @@
      * Class HomeController
      *
      * Controller for the home page (website index)
+     *
+     * @author SOLLIER Alexandre
      */
     class HomeController implements IController
     {

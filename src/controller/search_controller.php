@@ -5,6 +5,8 @@
      * Class SearchController
      *
      * Controller for the search page
+     *
+     * @author DEUDON Eugénie
      */
     class SearchController implements IController
     {

@@ -4,6 +4,8 @@
      * Interface IController
      *
      * Interface for an MVC Controller
+     *
+     * @author SOLLIER Alexandre
      */
     interface IController
     {

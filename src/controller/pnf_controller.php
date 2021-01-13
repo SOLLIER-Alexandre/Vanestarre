@@ -5,6 +5,8 @@
      * Class PNFController
      *
      * Controller for the HTTP 404 error page
+     *
+     * @author SOLLIER Alexandre
      */
     class PNFController implements IController
     {

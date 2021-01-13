@@ -1,4 +1,10 @@
 <?php
+    /**
+     * Index file of the project, where all requests are routed
+     *
+     * @author SOLLIER Alexandre
+     */
+
     require_once __DIR__ . '/utils.inc.php';
 
     $request_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

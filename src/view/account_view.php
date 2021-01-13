@@ -5,6 +5,8 @@
      * Class AccountView
      *
      * View for the account management page
+     *
+     * @author CHATEAUX Adrien
      */
     class AccountView implements IView
     {

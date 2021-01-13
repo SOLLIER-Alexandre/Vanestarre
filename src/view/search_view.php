@@ -5,6 +5,8 @@
      * Class SearchView
      *
      * View for the search page
+     *
+     * @author DEUDON Eugénie
      */
     class SearchView implements IView
     {

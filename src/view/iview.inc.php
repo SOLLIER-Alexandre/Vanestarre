@@ -4,6 +4,8 @@
      * Interface IView
      *
      * Interface for an MVC View
+     *
+     * @author SOLLIER Alexandre
      */
     interface IView
     {
