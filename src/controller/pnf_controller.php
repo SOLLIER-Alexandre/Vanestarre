@@ -28,8 +28,22 @@
         /**
          * @inheritDoc
          */
-        public function getTitle() {
+        public function getTitle(): string {
             return 'Erreur 404';
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getStylesheets(): array {
+            return [];
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getScripts(): array {
+            return [];
         }
     }
 

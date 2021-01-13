@@ -25,8 +25,22 @@
         /**
          * @inheritDoc
          */
-        public function getTitle() {
+        public function getTitle(): string {
             return 'Recherche';
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getStylesheets(): array {
+            return [];
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getScripts(): array {
+            return [];
         }
     }
 

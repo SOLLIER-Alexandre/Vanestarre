@@ -32,12 +32,12 @@
 
         // Echo all the stylesheets to the document
         foreach ($stylesheets as $stylesheet) {
-            echo '<link rel="stylesheet" href="' . $stylesheet . '">';
+            echo '    <link rel="stylesheet" href="' . $stylesheet . '">' . PHP_EOL;
         }
 
         // Echo all the scripts to the document
         foreach ($scripts as $script) {
-            echo '<script src="' . $script . '" async></script>';
+            echo '    <script src="' . $script . '" async></script>' . PHP_EOL;
         }
 
         // End of the <head>, begin a <body>
