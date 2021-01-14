@@ -42,7 +42,7 @@
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return [];
+            return ['/styles/login.css'];
         }
 
         /**
