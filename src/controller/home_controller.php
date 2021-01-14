@@ -20,13 +20,17 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new HomeView();
+            $this->view = new HomeView(0);
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
+            // Add the messages to the view
+            $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, 'https://materializecss.com/images/sample-1.jpg'));
+            $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0));
+
             // Output the view contents
             $this->view->echo_contents();
         }
