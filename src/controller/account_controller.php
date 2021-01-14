@@ -42,14 +42,14 @@
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return [];
+            return ['/styles/account.css'];
         }
 
         /**
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return [];
+            return ['/scripts/account.js'];
         }
 
         /**
