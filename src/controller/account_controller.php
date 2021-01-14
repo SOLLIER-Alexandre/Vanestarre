@@ -42,6 +42,13 @@
         public function get_scripts(): array {
             return [];
         }
+
+        /**
+         * @inheritDoc
+         */
+        public function needs_standard_layout(): bool {
+            return true;
+        }
     }
 
 ?>

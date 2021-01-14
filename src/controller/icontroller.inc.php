@@ -32,5 +32,12 @@
          * @return array The script file paths
          */
         public function get_scripts(): array;
+
+        /**
+         * Returns true if the controller needs to have the common HTML document and layout outputted
+         * to the page, or false if the controller takes care of it
+         * @return bool True if the controller needs the standard layout
+         */
+        public function needs_standard_layout(): bool;
     }
 ?>

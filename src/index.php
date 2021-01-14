@@ -39,16 +39,20 @@
     }
 
     if (!is_null($controller)) {
-        // Begin the page
-        start_page($controller->get_title() . ' – Vanéstarre', $controller->get_stylesheets(), $controller->get_scripts());
-        start_layout();
+        // Begin the common page if needed
+        if ($controller->needs_standard_layout()) {
+            start_page($controller->get_title() . ' – Vanéstarre', $controller->get_stylesheets(), $controller->get_scripts());
+            start_layout();
+        }
 
         // Execute the selected controller
         $controller->execute();
 
-        // End the page
-        end_layout();
-        end_page();
+        // End the common page if needed
+        if ($controller->needs_standard_layout()) {
+            end_layout();
+            end_page();
+        }
     } else {
         // That shouldn't have happened?!
         header("Location: /");
