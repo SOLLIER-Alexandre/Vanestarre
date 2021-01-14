@@ -34,10 +34,25 @@
          * @inheritDoc
          */
         public function echo_contents() {
+            // TODO: Only echo this when the connected account is Vanéstarre
+            $this->echo_message_writer();
+
             // Echo every message
             foreach ($this->messages as $message) {
                 $this->echo_message($message);
             }
+        }
+
+        /**
+         * Outputs the form for writing a message
+         */
+        private function echo_message_writer() {
+            echo <<<'HTML'
+                    <div class="card">
+                        <textarea placeholder="Postez un message"></textarea>
+                    </div>
+
+            HTML;
         }
 
         /**
