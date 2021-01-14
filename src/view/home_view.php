@@ -15,15 +15,16 @@
          */
         public function echo_contents() {
             echo <<<'HTML'
-            <div class="card">
+            <article class="card">
                 <p class="post-title">Vanéstarre • Posté il y a 13h</p>
                 <p class="post-message">eske vou konéssé twitch prim xDDDDDDDD</p>
-            </div>
+                <img src="https://materializecss.com/images/sample-1.jpg" alt="Image du post de Vanéstarre">
+            </article>
             
-            <div class="card">
+            <article class="card">
                 <p class="post-title">Vanéstarre • Posté il y a 16h</p>
                 <p class="post-message">yo lé besta g lancé le rézo cmt ça va xoxoxo</p>
-            </div>
+            </article>
 
             HTML;
 

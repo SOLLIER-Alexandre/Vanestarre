@@ -15,6 +15,10 @@ main > .card:not(:last-child) {
     color: #FFFFFFDE;
 }
 
+.card > img {
+    max-width: 100%;
+}
+
 @media (min-width: 656px) {
     main > .card {
         width: 600px;
