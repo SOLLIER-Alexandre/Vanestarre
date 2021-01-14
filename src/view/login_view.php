@@ -14,7 +14,14 @@
          * @inheritDoc
          */
         public function echo_contents() {
-            echo '        <h1>Template Vanéstarre</h1>' . PHP_EOL;
+            echo <<< 'HTML'
+                <article class="card">
+                    <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre"><br/>
+                    <input type="text" name="usernameEntry"><br/>
+                    <input type="text" name="passwordEntry"><br/>
+                </article>
+            
+            HTML;
         }
     }
 ?>
