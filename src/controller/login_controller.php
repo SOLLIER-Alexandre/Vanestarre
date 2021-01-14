@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/icontroller.inc.php';
+    require_once __DIR__ . '/../view/login_view.php';
 
     /**
      * Class LoginController
@@ -11,15 +12,23 @@
     class LoginController implements IController
     {
         /**
+         * @var LoginView View associated with this controller
+         */
+        private $view;
+
+        /**
+         * AccountController constructor.
+         */
+        public function __construct() {
+            $this->view = new LoginView();
+        }
+
+        /**
          * @inheritDoc
          */
         public function execute() {
-            require_once __DIR__ . '/../view/login_view.php';
-
-            $view = new LoginView();
-
             // Output the view contents
-            $view->echo_contents();
+            $this->view->echo_contents();
         }
 
         /**

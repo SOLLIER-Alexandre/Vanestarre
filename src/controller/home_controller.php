@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/icontroller.inc.php';
+    require_once __DIR__ . '/../view/home_view.php';
 
     /**
      * Class HomeController
@@ -11,15 +12,23 @@
     class HomeController implements IController
     {
         /**
+         * @var HomeView View associated with this controller
+         */
+        private $view;
+
+        /**
+         * AccountController constructor.
+         */
+        public function __construct() {
+            $this->view = new HomeView();
+        }
+
+        /**
          * @inheritDoc
          */
         public function execute() {
-            require_once __DIR__ . '/../view/home_view.php';
-
-            $view = new HomeView();
-
             // Output the view contents
-            $view->echo_contents();
+            $this->view->echo_contents();
         }
 
         /**

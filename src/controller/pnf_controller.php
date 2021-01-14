@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/icontroller.inc.php';
+    require_once __DIR__ . '/../view/pnf_view.php';
 
     /**
      * Class PNFController
@@ -11,18 +12,26 @@
     class PNFController implements IController
     {
         /**
+         * @var PNFView View associated with this controller
+         */
+        private $view;
+
+        /**
+         * AccountController constructor.
+         */
+        public function __construct() {
+            $this->view = new PNFView();
+        }
+
+        /**
          * @inheritDoc
          */
         public function execute() {
             // Set the HTTP response code to 404
             http_response_code(404);
 
-            require_once __DIR__ . '/../view/pnf_view.php';
-
-            $view = new PNFView();
-
             // Output the view contents
-            $view->echo_contents();
+            $this->view->echo_contents();
         }
 
         /**

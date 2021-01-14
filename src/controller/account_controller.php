@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/icontroller.inc.php';
+    require_once __DIR__ . '/../view/account_view.php';
 
     /**
      * Class AccountController
@@ -11,15 +12,23 @@
     class AccountController implements IController
     {
         /**
+         * @var AccountView View associated with this controller
+         */
+        private $view;
+
+        /**
+         * AccountController constructor.
+         */
+        public function __construct() {
+            $this->view = new AccountView();
+        }
+
+        /**
          * @inheritDoc
          */
         public function execute() {
-            require_once __DIR__ . '/../view/account_view.php';
-
-            $view = new AccountView();
-
             // Output the view contents
-            $view->echo_contents();
+            $this->view->echo_contents();
         }
 
         /**

@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/icontroller.inc.php';
+    require_once __DIR__ . '/../view/search_view.php';
 
     /**
      * Class SearchController
@@ -11,15 +12,23 @@
     class SearchController implements IController
     {
         /**
+         * @var SearchView View associated with this controller
+         */
+        private $view;
+
+        /**
+         * AccountController constructor.
+         */
+        public function __construct() {
+            $this->view = new SearchView();
+        }
+
+        /**
          * @inheritDoc
          */
         public function execute() {
-            require_once __DIR__ . '/../view/search_view.php';
-
-            $view = new SearchView();
-
             // Output the view contents
-            $view->echo_contents();
+            $this->view->echo_contents();
         }
 
         /**
