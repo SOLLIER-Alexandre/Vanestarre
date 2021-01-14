@@ -25,21 +25,21 @@
         /**
          * @inheritDoc
          */
-        public function getTitle(): string {
+        public function get_title(): string {
             return 'Accueil';
         }
 
         /**
          * @inheritDoc
          */
-        public function getStylesheets(): array {
+        public function get_stylesheets(): array {
             return ['/styles/home.css'];
         }
 
         /**
          * @inheritDoc
          */
-        public function getScripts(): array {
+        public function get_scripts(): array {
             return [];
         }
     }

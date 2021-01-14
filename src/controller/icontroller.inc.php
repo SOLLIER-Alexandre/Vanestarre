@@ -19,19 +19,18 @@
          * Returns the page title associated with this controller
          * @return string The page title
          */
-        public function getTitle(): string;
+        public function get_title(): string;
 
         /**
          * Returns the .css stylesheet files this page needs
          * @return array The stylesheet file paths
          */
-        public function getStylesheets(): array;
+        public function get_stylesheets(): array;
 
         /**
          * Returns the .js script files this page needs
          * @return array The script file paths
          */
-        public function getScripts(): array;
+        public function get_scripts(): array;
     }
-
 ?>

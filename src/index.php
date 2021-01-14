@@ -30,7 +30,7 @@
 
     if (!is_null($controller)) {
         // Begin the page
-        start_page($controller->getTitle() . ' – Vanéstarre', $controller->getStylesheets(), $controller->getScripts());
+        start_page($controller->get_title() . ' – Vanéstarre', $controller->get_stylesheets(), $controller->get_scripts());
         start_layout();
 
         // Execute the selected controller
