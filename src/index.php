@@ -11,21 +11,31 @@
     $controller = null;
 
     // Route the request
-    if ($request_path === '/' || $request_path === '/index') {
-        require_once __DIR__ . '/controller/home_controller.php';
-        $controller = new HomeController();
-    } else if ($request_path === '/account') {
-        require_once __DIR__ . '/controller/account_controller.php';
-        $controller = new AccountController();
-    } else if ($request_path === '/search') {
-        require_once __DIR__ . '/controller/search_controller.php';
-        $controller = new SearchController();
-    } else if ($request_path === '/login') {
-        require_once __DIR__ . '/controller/login_controller.php';
-        $controller = new LoginController();
-    } else {
-        require_once __DIR__ . '/controller/pnf_controller.php';
-        $controller = new PNFController();
+    switch ($request_path) {
+        case '/':
+        case '/index':
+            require_once __DIR__ . '/controller/home_controller.php';
+            $controller = new HomeController();
+            break;
+
+        case '/account':
+            require_once __DIR__ . '/controller/account_controller.php';
+            $controller = new AccountController();
+            break;
+
+        case '/search':
+            require_once __DIR__ . '/controller/search_controller.php';
+            $controller = new SearchController();
+            break;
+
+        case '/login':
+            require_once __DIR__ . '/controller/login_controller.php';
+            $controller = new LoginController();
+            break;
+
+        default:
+            require_once __DIR__ . '/controller/pnf_controller.php';
+            $controller = new PNFController();
     }
 
     if (!is_null($controller)) {
