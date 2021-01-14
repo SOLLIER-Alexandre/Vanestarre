@@ -4,3 +4,30 @@
  * @author RADJA Samy
  */
 
+.login-box {
+    display: grid;
+    justify-content: center;
+    align-items: flex-start;
+    width: 400px;
+    background-color: #414141;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.login-image {
+    width: 30vh;
+    height: auto;
+}
+
+.login-button {
+    background-color: #f2f2f2;
+    padding: 25px;
+    border-radius: 50px;
+}
+
+.create-account-button {
+    background-color: #5fecff;
+    padding: 25px;
+    border-radius: 50px;
+}

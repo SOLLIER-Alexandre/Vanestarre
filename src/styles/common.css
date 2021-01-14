@@ -20,16 +20,33 @@ a {
 
 /*We need to separate those two because WebKit-based browsers have >60% market share and yet are unable
 to ignore a tag they don't understand*/
-input::-webkit-input-placeholder {
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
     font-family: 'Roboto', sans-serif;
     color: #FFFFFF99;
     font-size: 0.8rem;
 }
 
-input::-moz-placeholder {
+input::-moz-placeholder,
+textarea::-moz-placeholder {
     font-family: 'Roboto', sans-serif;
     color: #FFFFFF99;
     font-size: 0.8rem;
+}
+
+input[type="text"],
+input[type="search"],
+textarea {
+    border: #7E7E7E 1px solid;
+    padding: 8px;
+    color: #FFFFFFDE;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    border-color: #4A00E099;
+    outline: none;
 }
 
 header {
@@ -112,15 +129,7 @@ p {
 #search-box {
     display: none;
     background: #414141;
-    border: #7E7E7E 1px solid;
-    padding: 8px;
     width: 100%;
-    color: #FFFFFFDE;
-}
-
-#search-box:focus {
-    border-color: #4A00E099;
-    outline: none;
 }
 
 #account-link {
@@ -132,6 +141,8 @@ p {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     background-color: #414141;
     padding: 8px;
     border-radius: 8px;

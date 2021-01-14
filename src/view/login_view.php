@@ -14,12 +14,13 @@
          * @inheritDoc
          */
         public function echo_contents() {
-            echo <<< 'HTML'
-                <article class="card">
-                    <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre"><br/>
-                    <input type="text" name="usernameEntry"><br/>
-                    <input type="text" name="passwordEntry"><br/>
-                </article>
+            echo <<<'HTML'
+                    <div class="login-box">
+                        <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre" class="login-image"><br/>
+                        <p>Connectez vous, ou créez un compte !</p>
+                        <input class="login-button" type="button" name="loginToAccount" value="Login"><br/>
+                        <input class="create-account-button" type="button" name="createNewAccount" value="Create an account"><br/>
+                    </div>
             
             HTML;
         }
