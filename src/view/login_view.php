@@ -15,12 +15,12 @@
          */
         public function echo_contents() {
             echo <<<'HTML'
-                    <article class="card">
-                        <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre" class="loginBox"><br/>
-                        <p class="loginBox">Connectez vous, ou créez un compte !</p>
-                        <input type="text" name="usernameEntry" class="loginBox"><br/>
-                        <input type="text" name="passwordEntry" class="loginBox"><br/>
-                    </article>
+                    <div class="login-box">
+                        <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre" class="login-image"><br/>
+                        <p>Connectez vous, ou créez un compte !</p>
+                        <input class="login-button" type="button" name="loginToAccount" value="Login"><br/>
+                        <input class="create-account-button" type="button" name="createNewAccount" value="Create an account"><br/>
+                    </div>
             
             HTML;
         }
