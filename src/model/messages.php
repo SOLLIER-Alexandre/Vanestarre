@@ -31,8 +31,11 @@ class Messages
         $preparedQuery = $this->db_connection()->prepare('SELECT date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
         $preparedQuery->bind_param('ii', $n, $offset);
         $preparedQuery->execute();
-        $messages_list = $preparedQuery->get_result()->fetch_assoc();
-        return $messages_list;
+        return $preparedQuery->get_result()->fetch_assoc();
+    }
+
+    public function instantiate_n_last_messages(int $n, int $offset){
+
     }
 
 }
