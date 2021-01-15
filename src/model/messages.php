@@ -35,8 +35,12 @@ class Messages
         $result = $prepared_query->get_result();
         if($result == false){
             throw new Exception("This query result is empty.");
+
         } else {
             return $result->fetch_assoc();
+//            while($row = $result->fetch_assoc()){
+//                echo $row['content'] . $row['date'] . $row['image_link'];
+//            }
         }
 
     }

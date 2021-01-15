@@ -17,7 +17,6 @@ class MessagesView implements IView
     public function echo_contents() {
         $messages = new Messages;
         $messages_list = $messages->get_n_last_messages(2,0);
-        echo $messages_list;
 
     }
 }
