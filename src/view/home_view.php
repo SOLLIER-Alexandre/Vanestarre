@@ -49,7 +49,10 @@
         private function echo_message_writer() {
             echo <<<'HTML'
                     <div class="card">
-                        <textarea placeholder="Postez un message"></textarea>
+                        <form id="send-message-form" action="/postMessage" method="post">
+                            <textarea placeholder="Postez un message" name="message"></textarea>
+                            <input type="submit" value="Post">
+                        </form>
                     </div>
 
             HTML;
