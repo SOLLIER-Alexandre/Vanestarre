@@ -20,7 +20,7 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new AccountView();
+            $this->view = new AccountView("Username", "User@hotmail.com");
         }
 
         /**
@@ -59,5 +59,4 @@
             return true;
         }
     }
-
 ?>

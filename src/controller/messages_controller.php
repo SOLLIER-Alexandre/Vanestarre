@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/icontroller.inc.php';
-require_once __DIR__ . '/../view/template_view.php';
+require_once __DIR__ . '/../view/messages_view.php';
 
 /**
  * Class MessagesController

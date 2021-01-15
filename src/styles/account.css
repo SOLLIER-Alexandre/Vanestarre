@@ -5,7 +5,7 @@
  */
 
 #pwd_change_frame {
-    visibility: hidden;
+    display: none;
 }
 
 #title {
@@ -21,10 +21,15 @@
     padding-bottom: 10px;
 }
 
+.form_frame {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #main_frame {
-    width: auto;
+    width: 50rem;
     height: auto;
-    margin: 25px 50% 25px 25px;
+    margin: 25px 25px 25px 25px;
     display: grid;
     align-items: flex-start;
     background-size: auto;
@@ -36,8 +41,7 @@
 #show_form_button {
     background-color: #f2f2f2;
     padding: 25px;
-    margin-right: 35%;
-    margin-left: 20%;
+    margin-right: 30rem;
     border-radius: 50px;
 }
 
@@ -45,4 +49,28 @@
     background-color: #f2f2f2;
     padding: 25px 75px 25px 75px;
     border-radius: 50px;
+    margin-top: 10px;
+}
+
+@media (max-width: 920px) {
+    #main_frame {
+        width: auto;
+    }
+
+    #show_form_button {
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 400px) {
+    #show_form_button {
+        padding: 10px;
+        border-radius: 15px;
+        margin-right: auto;
+    }
+
+    #submit_pwd_change {
+        padding: 10px;
+        border-radius: 15px;
+    }
 }

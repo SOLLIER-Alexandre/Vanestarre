@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/iview.inc.php';
+require __DIR__ . '../../model/messages.php';
 
 /**
  * Class MessagesView
@@ -14,7 +15,10 @@ class MessagesView implements IView
      * @inheritDoc
      */
     public function echo_contents() {
-        echo '        <h1>Template Vanéstarre</h1>' . PHP_EOL;
+        $messages = new Messages;
+        $messages_list = $messages->get_n_last_messages(2,0);
+        echo $messages_list;
+
     }
 }
 ?>
