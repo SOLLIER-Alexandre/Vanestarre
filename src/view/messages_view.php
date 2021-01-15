@@ -8,7 +8,7 @@ require_once __DIR__ . '/iview.inc.php';
  *
  * @author DEUDON Eugénie
  */
-class TemplateView implements IView
+class MessagesView implements IView
 {
     /**
      * @inheritDoc

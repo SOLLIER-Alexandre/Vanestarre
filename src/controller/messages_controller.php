@@ -35,7 +35,7 @@ class MessagesController implements IController
      * @inheritDoc
      */
     public function get_title(): string {
-        return 'Template';
+        return 'Messages';
     }
 
     /**
