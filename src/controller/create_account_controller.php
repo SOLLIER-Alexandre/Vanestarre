@@ -17,7 +17,7 @@
         private $view;
 
         /**
-         * TemplateController constructor.
+         * CreateAccountController constructor.
          */
         public function __construct() {
             $this->view = new CreateAccountView();

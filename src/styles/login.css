@@ -26,10 +26,13 @@
 
 .login-button {
     border: none;
+    color: #313131;
     background-color: #f2f2f2;
     margin-top: 5%;
     padding: 20px;
     border-radius: 50px;
+    text-align: center;
+    text-decoration: none;
 }
 
 .login-button:hover {
@@ -43,13 +46,15 @@
     margin-top: 5%;
     padding: 20px;
     border-radius: 50px;
+    text-align: center;
+    text-decoration: none;
 }
 
 .create-account-button:hover {
     background-color: #7f24a5;
 }
 
-@media (max-width: 656px) {
+@media (max-width: 656px), (max-height: 500px) {
     .login-box {
         width: auto;
         margin-top: 0;

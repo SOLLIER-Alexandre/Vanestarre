@@ -27,14 +27,21 @@ class Messages
      * @param int $n Number of messages
      * @param int $offset Offset of the query
      */
-    public function get_n_last_messages(int $n, int $offset) : array{
-        $preparedQuery = $this->db_connection()->prepare('SELECT date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
-        $preparedQuery->bind_param('ii', $n, $offset);
-        $preparedQuery->execute();
-        return $preparedQuery->get_result()->fetch_assoc();
-    }
+    public function get_n_last_messages(int $n, int $offset) : array {
+        $connection = $this->db_connection();
+        $prepared_query = $connection->prepare('SELECT date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
+        $prepared_query->bind_param('ii', $n, $offset);
+        $prepared_query->execute();
+        $result = $prepared_query->get_result();
+        if($result == false){
+            throw new Exception("This query result is empty.");
 
-    public function instantiate_n_last_messages(int $n, int $offset){
+        } else {
+            return $result->fetch_assoc();
+//            while($row = $result->fetch_assoc()){
+//                echo $row['content'] . $row['date'] . $row['image_link'];
+//            }
+        }
 
     }
 

@@ -18,8 +18,8 @@
                     <div class="login-box">
                         <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre" class="login-image"><br/>
                         <p>Connectez vous, ou créez un compte !</p>
-                        <input type="button" name="loginToAccount" value="Login" class="login-button"><br/>
-                        <input type="button" name="createNewAccount" value="Create an account" class="create-account-button"><br/>
+                        <a href="" class="login-button">Login</a><br/>
+                        <a href="/createAccount" class="create-account-button">Create an account</a><br/>
                     </div>
             
             HTML;
