@@ -16,18 +16,21 @@ class CreateAccountView implements IView
     public function echo_contents() {
         echo <<<'HTML'
                 <div class="create-account-box">
-                    <h1>Créez un compte</h1>
-                
-                    <p>Identifiant :</p>
-                    <input type="text" name="username" class="input-zone" style="color: black"/><br/>
+                    <h1>Créez un compte</h1>        
+                            
+                    <form action="user_data_controller.php" method="post">
+                        <p>Identifiant :</p>
+                        <input type="text" name="username" class="input-zone" style="color: black"/><br/>
+                                           
+                        <p>Email :</p>
+                        <input type="text" name="email" class="input-zone" style="color: black"/><br/>
+                        
+                        <p>Mot de passe :</p>
+                        <input type="password" name="motDePasse" class="input-zone" style="color: black"/><br/>
+                        
+                        <input type="submit" name="Envoyer" class="submit-button" value="Créer votre compte">
+                    </form>
                     
-                    <p>Email :</p>
-                    <input type="text" name="email" class="input-zone" style="color: black"/><br/>
-                    
-                    <p>Mot de passe :</p>
-                    <input type="password" name="motDePasse" class="input-zone" style="color: black"/><br/>
-                    
-                    <input type="submit" name="Envoyer" class="submit-button" value="Créer votre compte">
                 <div/>
         HTML;
 
