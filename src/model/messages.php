@@ -7,6 +7,8 @@
  * @author DEUDON Eugénie
  */
 
+require __DIR__ . '/message.php';
+
 class Messages
 {
     /**
@@ -35,12 +37,12 @@ class Messages
         $result = $prepared_query->get_result();
         if($result == false){
             throw new Exception("This query result is empty.");
-
         } else {
-            return $result->fetch_assoc();
-//            while($row = $result->fetch_assoc()){
-//                echo $row['content'] . $row['date'] . $row['image_link'];
-//            }
+            $messages_list = array();
+            while($row = $result->fetch_assoc()){
+                array_push($messages_list, new Message($row['content'], $row['date'], $row['image_link']));
+            }
+            return $messages_list;
         }
 
     }
