@@ -4,6 +4,45 @@
  * @author CHATEAUX Adrien
  */
 
-#form_modif_pwd {
-visibility: hidden;
+#pwd_change_frame {
+    visibility: hidden;
+}
+
+#title {
+    margin-left: 25px;
+}
+
+.frame {
+    display: grid;
+    justify-content: flex-start;
+    align-content: center;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+#main_frame {
+    width: auto;
+    height: auto;
+    margin: 25px 50% 25px 25px;
+    display: grid;
+    align-items: flex-start;
+    background-size: auto;
+    background-color: #414141;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+#show_form_button {
+    background-color: #f2f2f2;
+    padding: 25px;
+    margin-right: 35%;
+    margin-left: 20%;
+    border-radius: 50px;
+}
+
+#submit_pwd_change {
+    background-color: #f2f2f2;
+    padding: 25px 75px 25px 75px;
+    border-radius: 50px;
 }
