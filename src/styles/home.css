@@ -24,7 +24,7 @@ main > .card:not(:last-child) {
     margin-bottom: 8px;
 }
 
-#send-message-form > input[type="submit"] {
+#send-message-form input[type="submit"] {
     align-self: flex-end;
     padding: 6px 24px;
     width: max-content;
@@ -33,6 +33,32 @@ main > .card:not(:last-child) {
     background-color: #8F23BB;
     color: #FFFFFFDE;
     border-radius: 4px;
+}
+
+#send-message-buttons,
+#send-message-buttons > * {
+    display: flex;
+    align-items: center;
+}
+
+#send-message-buttons:nth-child(2) {
+    justify-content: flex-end;
+}
+
+#message-length-counter {
+    margin-right: 8px;
+}
+
+#send-message-button[disabled] {
+    opacity: 0.5;
+}
+
+.warning-chars-left {
+    color: #F57C0099;
+}
+
+.critical-chars-left {
+    color: #E64A1999;
 }
 
 .post-title {

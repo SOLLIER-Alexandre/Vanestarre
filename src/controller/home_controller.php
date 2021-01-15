@@ -53,7 +53,7 @@
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return [];
+            return ['/scripts/home.js'];
         }
 
         /**
