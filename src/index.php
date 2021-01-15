@@ -33,6 +33,11 @@
             $controller = new LoginController();
             break;
 
+        case '/createAccount':
+            require_once __DIR__ . '/controller/create_account_controller.php';
+            $controller = new CreateAccountController();
+            break;
+
         default:
             require_once __DIR__ . '/controller/pnf_controller.php';
             $controller = new PNFController();
