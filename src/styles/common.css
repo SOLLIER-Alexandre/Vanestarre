@@ -7,7 +7,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@300&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
     background-color: #313131;
     margin: 0;
     padding: 0;
@@ -16,6 +15,11 @@ body {
 body,
 a {
     color: #FFFFFF99;
+}
+
+body,
+input {
+    font-family: 'Roboto', sans-serif;
 }
 
 /*We need to separate those two because WebKit-based browsers have >60% market share and yet are unable

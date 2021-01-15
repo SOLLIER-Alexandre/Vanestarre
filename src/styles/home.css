@@ -1,7 +1,8 @@
-textarea {
-    resize: none;
-    background-color: #313131;
-}
+/**
+ * Stylesheet for the home page
+ *
+ * @author SOLLIER Alexandre
+ */
 
 main > .card {
     margin: 0 auto;
@@ -9,6 +10,29 @@ main > .card {
 
 main > .card:not(:last-child) {
     margin-bottom: 16px;
+}
+
+#send-message-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#send-message-form > textarea {
+    resize: none;
+    background-color: #313131;
+    flex: 1;
+    margin-bottom: 8px;
+}
+
+#send-message-form > input[type="submit"] {
+    align-self: flex-end;
+    padding: 6px 24px;
+    width: max-content;
+    border: none;
+    text-transform: capitalize;
+    background-color: #8F23BB;
+    color: #FFFFFFDE;
+    border-radius: 4px;
 }
 
 .post-title {
