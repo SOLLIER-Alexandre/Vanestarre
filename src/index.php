@@ -38,6 +38,11 @@
             $controller = new CreateAccountController();
             break;
 
+        case '/postMessage':
+            require_once __DIR__ . '/controller/post_message_controller.php';
+            $controller = new PostMessageController();
+            break;
+
         case '/messages':
             require_once __DIR__ . '/controller/messages_controller.php';
             $controller = new MessagesController();
