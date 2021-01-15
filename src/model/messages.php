@@ -34,10 +34,6 @@ class Messages
         return $preparedQuery->get_result()->fetch_assoc();
     }
 
-    public function instantiate_n_last_messages(int $n, int $offset){
-
-    }
-
 }
 
 ?>
