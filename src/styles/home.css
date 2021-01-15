@@ -74,6 +74,21 @@ main > .card:not(:last-child) {
     max-width: 100%;
 }
 
+#pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pager > span {
+    padding: 6px;
+    cursor: pointer;
+}
+
+#pager > span:not(:last-child) {
+    margin-right: 4px;
+}
+
 @media (min-width: 656px) {
     main > .card {
         width: 600px;

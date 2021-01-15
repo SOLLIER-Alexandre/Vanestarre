@@ -41,6 +41,9 @@
             foreach ($this->messages as $message) {
                 $this->echo_message($message);
             }
+
+            // Echo page selector
+            $this->echo_pager();
         }
 
         /**
@@ -83,6 +86,19 @@
 
             // End the message card
             echo '        </article>' . PHP_EOL;
+        }
+
+        /**
+         * Outputs the page selector
+         */
+        private function echo_pager() {
+            echo '        <div id="pager">' . PHP_EOL;
+            echo '            <span class="material-icons">keyboard_arrow_left</span>' . PHP_EOL;
+            echo '            <span>1</span>' . PHP_EOL;
+            echo '            <span>2</span>' . PHP_EOL;
+            echo '            <span>3</span>' . PHP_EOL;
+            echo '            <span class="material-icons">keyboard_arrow_right</span>' . PHP_EOL;
+            echo '        </div>' . PHP_EOL;
         }
 
         /**
