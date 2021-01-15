@@ -38,6 +38,11 @@
             $controller = new CreateAccountController();
             break;
 
+        case '/messages':
+            require_once __DIR__ . '/controller/messages_controller.php';
+            $controller = new MessagesController();
+            break;
+
         default:
             require_once __DIR__ . '/controller/pnf_controller.php';
             $controller = new PNFController();
