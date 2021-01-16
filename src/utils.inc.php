@@ -75,7 +75,7 @@
         // Add the standard <header>, and begin a <main> block
         echo <<<'HTML'
             <header id="header">
-                <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
+                <h1><a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a></h1>
                 <div class="header-right-content">
                     <form id="search-form" method="get" action="/search">
                         <input id="search-box" name="query" type="search" placeholder="Recherche...">
