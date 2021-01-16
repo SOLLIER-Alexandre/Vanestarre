@@ -15,10 +15,16 @@
             // Beta insert button functionality
             if (betaInsertButton !== null) {
                 betaInsertButton.addEventListener('click', () => {
+                    // Insert the character where the cursor is
                     const cursorPos = sendMessageText.selectionStart;
                     sendMessageText.value = sendMessageText.value.substring(0, cursorPos) + 'β' + sendMessageText.value.substring(cursorPos);
+
+                    // (Re)focus the textarea
                     sendMessageText.focus();
                     sendMessageText.setSelectionRange(cursorPos + 1, cursorPos + 1);
+
+                    // Dispatch the input event to update the counter
+                    sendMessageText.dispatchEvent(new InputEvent('input'));
                 });
             }
 
