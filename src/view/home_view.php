@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . '/iview.inc.php';
-    require_once __DIR__ . '/../model/message.php';
+    require __DIR__ . '/iview.inc.php';
+    require __DIR__ . '/../model/message.php';
 
     /**
      * Class HomeView

@@ -1,16 +1,16 @@
 <?php
-require_once __DIR__ . '/icontroller.inc.php';
-require_once __DIR__ . '/../view/messages_view.php';
+    require __DIR__ . '/icontroller.inc.php';
+    require __DIR__ . '/../view/messages_view.php';
 
-/**
- * Class MessagesController
- *
- * Controller for a template page
- *
- * @author DEUDON Eugénie
- */
-class MessagesController implements IController
-{
+    /**
+     * Class MessagesController
+     *
+     * Controller for a template page
+     *
+     * @author DEUDON Eugénie
+     */
+    class MessagesController implements IController
+    {
     /**
      * @var MessagesView View associated with this controller
      */

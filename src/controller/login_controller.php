@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . '/icontroller.inc.php';
-    require_once __DIR__ . '/../view/login_view.php';
+    require __DIR__ . '/icontroller.inc.php';
+    require __DIR__ . '/../view/login_view.php';
 
     /**
      * Class LoginController
