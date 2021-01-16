@@ -1,6 +1,9 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/HomeView.php';
+
+    namespace Vanestarre\Controller;
+
+    use Vanestarre\Model\Message;
+    use Vanestarre\View\HomeView;
 
     /**
      * Class HomeController
@@ -12,7 +15,7 @@
     class HomeController implements IController
     {
         /**
-         * @var HomeView View associated with this controller
+         * @var HomeView View associated with this Controller
          */
         private $view;
 
@@ -39,11 +42,11 @@
                 }
             }
 
-            // Add the messages to the view
+            // Add the messages to the View
             $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, 'https://materializecss.com/images/sample-1.jpg'));
             $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0));
 
-            // Output the view contents
+            // Output the View contents
             $this->view->echo_contents();
         }
 

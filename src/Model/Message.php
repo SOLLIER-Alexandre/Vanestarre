@@ -1,5 +1,7 @@
 <?php
 
+    namespace Vanestarre\Model;
+
     /**
      * Class Message
      *
@@ -79,4 +81,4 @@
         }
     }
 
-?>
+    ?>

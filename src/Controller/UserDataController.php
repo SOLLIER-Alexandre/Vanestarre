@@ -1,48 +1,40 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/CreateAccountView.php';
+    namespace Vanestarre\Controller;
 
     /**
-     * Class CreateAccountController
+     * Class UserDataController
      *
-     * Controller for the create account page
+     * Controller for the treatment of user data
      *
      * @author RADJA Samy
      */
-    class CreateAccountController implements IController
+    class UserData implements IController
     {
-        /**
-         * @var CreateAccountView View associated with this controller
-         */
-        private $view;
 
         /**
-         * CreateAccountController constructor.
+         * TemplateController constructor.
          */
         public function __construct() {
-            $this->view = new CreateAccountView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
-            // Output the view contents
-            $this->view->echo_contents();
         }
 
         /**
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Create account';
+            return '';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/create_account.css'];
+            return [];
         }
 
         /**
@@ -56,7 +48,7 @@
          * @inheritDoc
          */
         public function needs_standard_layout(): bool {
-            return true;
+            return false;
         }
     }
 ?>

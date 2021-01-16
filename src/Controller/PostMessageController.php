@@ -1,5 +1,5 @@
 <?php
-    require __DIR__ . '/IController.php';
+    namespace Vanestarre\Controller;
 
     /**
      * Class PostMessageController

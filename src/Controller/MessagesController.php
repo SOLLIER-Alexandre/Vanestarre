@@ -1,6 +1,8 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/MessagesView.php';
+
+    namespace Vanestarre\Controller;
+
+    use Vanestarre\View\MessagesView;
 
     /**
      * Class MessagesController
@@ -11,9 +13,9 @@
      */
     class MessagesController implements IController
     {
-    /**
-     * @var MessagesView View associated with this controller
-     */
+        /**
+         * @var MessagesView View associated with this Controller
+         */
     private $view;
 
     /**
@@ -27,7 +29,7 @@
      * @inheritDoc
      */
     public function execute() {
-        // Output the view contents
+        // Output the View contents
         $this->view->echo_contents();
     }
 

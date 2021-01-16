@@ -1,6 +1,8 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/AccountView.php';
+
+    namespace Vanestarre\Controller;
+
+    use Vanestarre\View\AccountView;
 
     /**
      * Class AccountController
@@ -12,7 +14,7 @@
     class AccountController implements IController
     {
         /**
-         * @var AccountView View associated with this controller
+         * @var AccountView View associated with this Controller
          */
         private $view;
 
@@ -27,7 +29,7 @@
          * @inheritDoc
          */
         public function execute() {
-            // Output the view contents
+            // Output the View contents
             $this->view->echo_contents();
         }
 

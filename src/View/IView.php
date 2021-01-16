@@ -1,5 +1,7 @@
 <?php
 
+    namespace Vanestarre\View;
+
     /**
      * Interface IView
      *
@@ -16,4 +18,4 @@
         public function echo_contents();
     }
 
-?>
+    ?>

@@ -1,6 +1,5 @@
 <?php
-    require __DIR__ . '/IView.php';
-    require __DIR__ . '/../model/Messages.php';
+    namespace Vanestarre\View;
 
     /**
      * Class MessagesView

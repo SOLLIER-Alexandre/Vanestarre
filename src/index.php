@@ -10,47 +10,51 @@
     $request_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $controller = null;
 
+    // Register autoloader for MVC classes, following https://www.php-fig.org/psr/psr-4/
+    spl_autoload_register(function ($class) {
+        // Check that the class begins with the right vendor namespace
+        $vendorNamespace = 'Vanestarre\\';
+        if (strncmp($class, $vendorNamespace, strlen($vendorNamespace)) !== 0) {
+            return;
+        }
+
+        $classWithoutVendor = substr($class, strlen($vendorNamespace));
+        require __DIR__ . '/' . str_replace('\\', '/', $classWithoutVendor) . '.php';
+    });
+
     // Route the request
     switch ($request_path) {
         case '/':
         case '/home':
-            require __DIR__ . '/controller/HomeController.php';
-            $controller = new HomeController();
+            $controller = new Vanestarre\Controller\HomeController();
             break;
 
         case '/account':
-            require __DIR__ . '/controller/AccountController.php';
-            $controller = new AccountController();
+            $controller = new Vanestarre\Controller\AccountController();
             break;
 
         case '/search':
-            require __DIR__ . '/controller/SearchController.php';
-            $controller = new SearchController();
+            $controller = new Vanestarre\Controller\SearchController();
             break;
 
         case '/login':
-            require __DIR__ . '/controller/LoginController.php';
-            $controller = new LoginController();
+            $controller = new Vanestarre\Controller\LoginController();
             break;
 
         case '/createAccount':
-            require __DIR__ . '/controller/CreateAccountController.php';
-            $controller = new CreateAccountController();
+            $controller = new Vanestarre\Controller\CreateAccountController();
             break;
 
         case '/postMessage':
-            require __DIR__ . '/controller/PostMessageController.php';
-            $controller = new PostMessageController();
+            $controller = new Vanestarre\Controller\PostMessageController();
             break;
 
         case '/messages':
-            require __DIR__ . '/controller/MessagesController.php';
-            $controller = new MessagesController();
+            $controller = new Vanestarre\Controller\MessagesController();
             break;
 
         default:
-            require __DIR__ . '/controller/PNFController.php';
-            $controller = new PNFController();
+            $controller = new Vanestarre\Controller\PNFController();
     }
 
     if (!is_null($controller)) {
@@ -60,7 +64,7 @@
             start_layout();
         }
 
-        // Execute the selected controller
+        // Execute the selected Controller
         $controller->execute();
 
         // End the common page if needed

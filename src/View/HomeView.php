@@ -1,6 +1,8 @@
 <?php
-    require __DIR__ . '/IView.php';
-    require __DIR__ . '/../model/Message.php';
+
+    namespace Vanestarre\View;
+
+    use Vanestarre\Model\Message;
 
     /**
      * Class HomeView
@@ -22,7 +24,7 @@
         private $page_count;
 
         /**
-         * @var array $messages Array of messages this view has
+         * @var array $messages Array of messages this View has
          */
         private $messages;
 

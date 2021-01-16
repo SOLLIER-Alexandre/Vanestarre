@@ -1,5 +1,5 @@
 <?php
-    require __DIR__ . '/IView.php';
+    namespace Vanestarre\View;
 
     /**
      * Class SearchView

@@ -1,18 +1,20 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/SearchView.php';
+
+    namespace Vanestarre\Controller;
+
+    use Vanestarre\View\LoginView;
 
     /**
-     * Class SearchController
+     * Class LoginController
      *
-     * Controller for the search page
+     * Controller for the login page
      *
-     * @author DEUDON Eugénie
+     * @author RADJA Samy
      */
-    class SearchController implements IController
+    class LoginController implements IController
     {
         /**
-         * @var SearchView View associated with this controller
+         * @var LoginView View associated with this Controller
          */
         private $view;
 
@@ -20,14 +22,14 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new SearchView();
+            $this->view = new LoginView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
-            // Output the view contents
+            // Output the View contents
             $this->view->echo_contents();
         }
 
@@ -35,14 +37,14 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Recherche';
+            return 'Login';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return [];
+            return ['/styles/login.css'];
         }
 
         /**

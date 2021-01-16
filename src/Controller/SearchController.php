@@ -1,18 +1,20 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/PNFView.php';
+
+    namespace Vanestarre\Controller;
+
+    use Vanestarre\View\SearchView;
 
     /**
-     * Class PNFController
+     * Class SearchController
      *
-     * Controller for the HTTP 404 error page
+     * Controller for the search page
      *
-     * @author SOLLIER Alexandre
+     * @author DEUDON Eugénie
      */
-    class PNFController implements IController
+    class SearchController implements IController
     {
         /**
-         * @var PNFView View associated with this controller
+         * @var SearchView View associated with this Controller
          */
         private $view;
 
@@ -20,17 +22,14 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new PNFView();
+            $this->view = new SearchView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
-            // Set the HTTP response code to 404
-            http_response_code(404);
-
-            // Output the view contents
+            // Output the View contents
             $this->view->echo_contents();
         }
 
@@ -38,7 +37,7 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Erreur 404';
+            return 'Recherche';
         }
 
         /**

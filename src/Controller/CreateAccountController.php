@@ -1,33 +1,35 @@
 <?php
-    require __DIR__ . '/IController.php';
-    require __DIR__ . '/../view/LoginView.php';
+
+    namespace Vanestarre\Controller;
+
+    use Vanestarre\View\CreateAccountView;
 
     /**
-     * Class LoginController
+     * Class CreateAccountController
      *
-     * Controller for the login page
+     * Controller for the create account page
      *
      * @author RADJA Samy
      */
-    class LoginController implements IController
+    class CreateAccountController implements IController
     {
         /**
-         * @var LoginView View associated with this controller
+         * @var CreateAccountView View associated with this Controller
          */
         private $view;
 
         /**
-         * AccountController constructor.
+         * CreateAccountController constructor.
          */
         public function __construct() {
-            $this->view = new LoginView();
+            $this->view = new CreateAccountView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
-            // Output the view contents
+            // Output the View contents
             $this->view->echo_contents();
         }
 
@@ -35,14 +37,14 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Login';
+            return 'Create account';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/login.css'];
+            return ['/styles/create_account.css'];
         }
 
         /**
@@ -59,5 +61,4 @@
             return true;
         }
     }
-
 ?>
