@@ -18,7 +18,8 @@ a {
 }
 
 body,
-input {
+input,
+textarea {
     font-family: 'Roboto', sans-serif;
 }
 

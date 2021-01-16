@@ -100,10 +100,11 @@
         }
 
         /**
-         * @param int $count
-         * @param bool $selected
-         * @param string $iconName
-         * @param string $className
+         * Outputs a single reaction button
+         * @param int $count Count of this reaction
+         * @param bool $selected Has this reaction been reacted to by the user?
+         * @param string $iconName Name of the materialicon to use
+         * @param string $className Name of the class to give to this button
          */
         private function echo_message_reaction_button(int $count, bool $selected, string $iconName, string $className): void {
             $classList = 'button-like message-footer-reaction unselectable ' . $className;
@@ -111,7 +112,7 @@
                 $classList .= ' selected';
             }
 
-            echo '                <div class="' . $classList . '">' . PHP_EOL;
+            echo '                <div class="' . $classList . '" role="button">' . PHP_EOL;
             echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
             echo '                    <span>' . $count . '</span>' . PHP_EOL;
             echo '                </div>' . PHP_EOL;
