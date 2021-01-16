@@ -40,7 +40,7 @@
         /**
          * @inheritDoc
          */
-        public function echo_contents() {
+        public function echo_contents(): void {
             // TODO: Only echo this when the connected account is Vanéstarre
             $this->echo_message_writer();
 
@@ -56,7 +56,7 @@
         /**
          * Outputs the form for writing a message
          */
-        private function echo_message_writer() {
+        private function echo_message_writer(): void {
             echo <<<'HTML'
                     <div class="card">
                         <form id="send-message-form" action="/postMessage" method="post">
@@ -78,7 +78,7 @@
          * Outputs a single message to the page
          * @param Message $message Message to output
          */
-        private function echo_message(Message $message) {
+        private function echo_message(Message $message): void {
             // Begin the message card
             echo '        <article class="card">' . PHP_EOL;
 
@@ -91,14 +91,54 @@
                 echo '            <img src="' . $message->get_image() . '" alt="Image du post de Vanéstarre">' . PHP_EOL;
             }
 
+            // Output message footer
+            $this->echo_message_footer($message);
+
             // End the message card
             echo '        </article>' . PHP_EOL;
         }
 
         /**
+         * @param int $count
+         * @param bool $selected
+         * @param string $iconName
+         * @param string $className
+         */
+        private function echo_message_reaction_button(int $count, bool $selected, string $iconName, string $className): void {
+            $classList = 'button-like message-footer-reaction ' . $className;
+            if ($selected) {
+                $classList .= ' selected';
+            }
+
+            echo '                <div class="' . $classList . '">' . PHP_EOL;
+            echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
+            echo '                    <span>' . $count . '</span>' . PHP_EOL;
+            echo '                </div>' . PHP_EOL;
+        }
+
+        /**
+         * Outputs the footer of a message (with reaction buttons)
+         * @param Message $message Message to get reactions from
+         */
+        private function echo_message_footer(Message $message): void {
+            // Begin of footer
+            echo '            <div class="message-footer">' . PHP_EOL;
+
+            // Output all reaction buttons
+            $messageReactions = $message->get_reactions();
+            $this->echo_message_reaction_button($messageReactions->get_love_reaction(), $messageReactions->is_love_reacted(), 'favorite', 'reaction-love');
+            $this->echo_message_reaction_button($messageReactions->get_cute_reaction(), $messageReactions->is_cute_reacted(), 'pets', 'reaction-cute');
+            $this->echo_message_reaction_button($messageReactions->get_style_reaction(), $messageReactions->is_style_reacted(), 'star', 'reaction-style');
+            $this->echo_message_reaction_button($messageReactions->get_swag_reaction(), $messageReactions->is_swag_reacted(), 'mood', 'reaction-swag');
+
+            // End of footer
+            echo '            </div>' . PHP_EOL;
+        }
+
+        /**
          * Outputs the page selector
          */
-        private function echo_pager() {
+        private function echo_pager(): void {
             // Begin the pager
             echo '        <div id="pager">' . PHP_EOL;
 
@@ -116,8 +156,8 @@
          * @param int $page_number Page number to show
          * @param bool $is_selected Is this element the current one?
          */
-        private function echo_pager_element(int $page_number, bool $is_selected) {
-            $classList = 'text-button';
+        private function echo_pager_element(int $page_number, bool $is_selected): void {
+            $classList = 'button-like';
             if ($is_selected) {
                 $classList .= ' selected';
             }

@@ -81,8 +81,8 @@
                         <input id="search-box" name="query" type="search" placeholder="Recherche...">
                     </form>
                     
-                    <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
-                    <a href="/account" id="account-link" class="text-button hidden-on-search">
+                    <span id="search-btn" class="material-icons unselectable button-like hidden-on-search">search</span>
+                    <a href="/account" id="account-link" class="button-like hidden-on-search">
                         <span class="material-icons unselectable">account_circle</span>
         HTML;
 

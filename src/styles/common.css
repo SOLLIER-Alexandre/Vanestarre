@@ -101,11 +101,11 @@ h1 {
     user-select: none;
 }
 
-.text-button {
+.button-like {
     cursor: pointer;
 }
 
-.text-button:hover {
+.button-like:hover {
     color: #FFFFFFDE;
 }
 

@@ -32,17 +32,38 @@
         private $swag_reaction;
 
         /**
-         * MessageReactions constructor.
-         * @param int $love_reaction Count of "love" reaction
-         * @param int $cute_reaction Count of "cute" reaction
-         * @param int $style_reaction Count of "much style" reaction
-         * @param int $swag_reaction Count of "swag" reaction
+         * @var boolean $love_reacted True if the message was reacted with "love", false otherwise
          */
-        public function __construct(int $love_reaction = 0, int $cute_reaction = 0, int $style_reaction = 0, int $swag_reaction = 0) {
-            $this->love_reaction = $love_reaction;
-            $this->cute_reaction = $cute_reaction;
-            $this->style_reaction = $style_reaction;
-            $this->swag_reaction = $swag_reaction;
+        private $love_reacted;
+
+        /**
+         * @var boolean $love_reacted True if the message was reacted with "cute", false otherwise
+         */
+        private $cute_reacted;
+
+        /**
+         * @var boolean $love_reacted True if the message was reacted with "much style", false otherwise
+         */
+        private $style_reacted;
+
+        /**
+         * @var boolean $love_reacted True if the message was reacted with "swag", false otherwise
+         */
+        private $swag_reacted;
+
+        /**
+         * MessageReactions constructor.
+         */
+        public function __construct() {
+            $this->love_reaction = 0;
+            $this->cute_reaction = 0;
+            $this->style_reaction = 0;
+            $this->swag_reaction = 0;
+
+            $this->love_reacted = false;
+            $this->cute_reacted = false;
+            $this->style_reacted = false;
+            $this->swag_reacted = false;
         }
 
         /**
@@ -99,6 +120,62 @@
          */
         public function set_swag_reaction(int $swag_reaction): void {
             $this->swag_reaction = $swag_reaction;
+        }
+
+        /**
+         * @return bool True if the message was reacted with "love", false otherwise
+         */
+        public function is_love_reacted(): bool {
+            return $this->love_reacted;
+        }
+
+        /**
+         * @param bool $love_reacted New reaction state for "love"
+         */
+        public function set_love_reacted(bool $love_reacted): void {
+            $this->love_reacted = $love_reacted;
+        }
+
+        /**
+         * @return bool True if the message was reacted with "cute", false otherwise
+         */
+        public function is_cute_reacted(): bool {
+            return $this->cute_reacted;
+        }
+
+        /**
+         * @param bool $cute_reacted New reaction state for "cute"
+         */
+        public function set_cute_reacted(bool $cute_reacted): void {
+            $this->cute_reacted = $cute_reacted;
+        }
+
+        /**
+         * @return bool True if the message was reacted with "much style", false otherwise
+         */
+        public function is_style_reacted(): bool {
+            return $this->style_reacted;
+        }
+
+        /**
+         * @param bool $style_reacted New reaction state for "much style"
+         */
+        public function set_style_reacted(bool $style_reacted): void {
+            $this->style_reacted = $style_reacted;
+        }
+
+        /**
+         * @return bool True if the message was reacted with "swag", false otherwise
+         */
+        public function is_swag_reacted(): bool {
+            return $this->swag_reacted;
+        }
+
+        /**
+         * @param bool $swag_reacted New reaction state for "swag"
+         */
+        public function set_swag_reacted(bool $swag_reacted): void {
+            $this->swag_reacted = $swag_reacted;
         }
     }
 

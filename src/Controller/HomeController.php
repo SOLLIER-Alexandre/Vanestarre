@@ -44,7 +44,17 @@
             }
 
             // Add the messages to the View
-            $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, new MessageReactions(), 'https://materializecss.com/images/sample-1.jpg'));
+            $testReactions = new MessageReactions();
+            $testReactions->set_love_reaction(69);
+            $testReactions->set_cute_reaction(42);
+            $testReactions->set_style_reaction(1337);
+            $testReactions->set_swag_reaction(420);
+            $testReactions->set_love_reacted(true);
+            $testReactions->set_cute_reacted(true);
+            $testReactions->set_style_reacted(true);
+            $testReactions->set_swag_reacted(true);
+
+            $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
             $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0, new MessageReactions()));
 
             // Output the View contents
