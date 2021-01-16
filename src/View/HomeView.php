@@ -81,10 +81,10 @@
          */
         private function echo_message(Message $message): void {
             // Begin the message card
-            echo '        <article class="card">' . PHP_EOL;
+            echo '        <article class="card" data-message-id="' . $message->get_id() . '">' . PHP_EOL;
 
             // Output message date and content
-            echo '            <p class="post-title">Vanéstarre • Posté le ' . $message->get_creation_date() . '</p>' . PHP_EOL;
+            echo '            <h2 class="post-title">Vanéstarre • Posté le ' . $message->get_creation_date() . '</h2>' . PHP_EOL;
             echo '            <p class="post-message">' . $message->get_message() . '</p>' . PHP_EOL;
 
             // Output the image if there is one

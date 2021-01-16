@@ -64,6 +64,8 @@ main > .card:not(:last-child) {
 .post-title {
     font-family: 'Ubuntu', sans-serif;
     margin: 0 0 8px;
+    font-weight: normal;
+    font-size: 1rem;
 }
 
 .post-message {
