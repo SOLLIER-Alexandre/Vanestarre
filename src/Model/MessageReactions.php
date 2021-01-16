@@ -8,6 +8,7 @@
      * Reactions of a message
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\Model
      */
     class MessageReactions
     {

@@ -7,6 +7,7 @@
      * View for a template page
      *
      * @author DEUDON Eugénie
+     * @package Vanestarre\View
      */
     class MessagesView implements IView
     {

@@ -10,6 +10,7 @@
      * View for the home page (website index)
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\View
      */
     class HomeView implements IView
     {

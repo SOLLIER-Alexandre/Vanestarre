@@ -3,7 +3,10 @@
      * Index file of the project, where all requests are routed
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre
      */
+
+    namespace Vanestarre;
 
     require __DIR__ . '/utils.inc.php';
 
@@ -26,35 +29,35 @@
     switch ($request_path) {
         case '/':
         case '/home':
-            $controller = new Vanestarre\Controller\HomeController();
+            $controller = new Controller\HomeController();
             break;
 
         case '/account':
-            $controller = new Vanestarre\Controller\AccountController();
+            $controller = new Controller\AccountController();
             break;
 
         case '/search':
-            $controller = new Vanestarre\Controller\SearchController();
+            $controller = new Controller\SearchController();
             break;
 
         case '/login':
-            $controller = new Vanestarre\Controller\LoginController();
+            $controller = new Controller\LoginController();
             break;
 
         case '/createAccount':
-            $controller = new Vanestarre\Controller\CreateAccountController();
+            $controller = new Controller\CreateAccountController();
             break;
 
         case '/postMessage':
-            $controller = new Vanestarre\Controller\PostMessageController();
+            $controller = new Controller\PostMessageController();
             break;
 
         case '/messages':
-            $controller = new Vanestarre\Controller\MessagesController();
+            $controller = new Controller\MessagesController();
             break;
 
         default:
-            $controller = new Vanestarre\Controller\PNFController();
+            $controller = new Controller\PNFController();
     }
 
     if (!is_null($controller)) {

@@ -7,6 +7,7 @@
      * View for the account management page
      *
      * @author CHATEAUX Adrien
+     * @package Vanestarre\View
      */
     class AccountView implements IView
     {

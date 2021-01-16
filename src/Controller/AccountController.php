@@ -10,6 +10,7 @@
      * Controller for the account management page
      *
      * @author CHATEAUX Adrien
+     * @package Vanestarre\Controller
      */
     class AccountController implements IController
     {

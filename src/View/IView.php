@@ -8,6 +8,7 @@
      * Interface for an MVC View
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\View
      */
     interface IView
     {

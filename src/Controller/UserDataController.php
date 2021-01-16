@@ -7,6 +7,7 @@
      * Controller for the treatment of user data
      *
      * @author RADJA Samy
+     * @package Vanestarre\Controller
      */
     class UserData implements IController
     {

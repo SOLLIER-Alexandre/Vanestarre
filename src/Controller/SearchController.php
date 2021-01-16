@@ -10,6 +10,7 @@
      * Controller for the search page
      *
      * @author DEUDON Eugénie
+     * @package Vanestarre\Controller
      */
     class SearchController implements IController
     {

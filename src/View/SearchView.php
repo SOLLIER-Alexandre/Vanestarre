@@ -7,6 +7,7 @@
      * View for the search page
      *
      * @author DEUDON Eugénie
+     * @package Vanestarre\View
      */
     class SearchView implements IView
     {

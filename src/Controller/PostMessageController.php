@@ -7,6 +7,7 @@
      * Controller for the message posting
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\Controller
      */
     class PostMessageController implements IController
     {

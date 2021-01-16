@@ -12,6 +12,7 @@
      * Controller for the home page (website index)
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\Controller
      */
     class HomeController implements IController
     {

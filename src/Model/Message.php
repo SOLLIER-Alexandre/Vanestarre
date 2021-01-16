@@ -8,6 +8,7 @@
      * Holds properties of a message
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\Model
      */
     class Message
     {

@@ -10,6 +10,7 @@
      * Controller for the login page
      *
      * @author RADJA Samy
+     * @package Vanestarre\Controller
      */
     class LoginController implements IController
     {

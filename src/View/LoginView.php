@@ -7,6 +7,7 @@
      * View for the login page
      *
      * @author RADJA Samy
+     * @package Vanestarre\View
      */
     class LoginView implements IView
     {

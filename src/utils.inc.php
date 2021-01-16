@@ -3,7 +3,10 @@
      * Utils for outputting a standard page
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre
      */
+
+    namespace Vanestarre;
 
     /**
      * Echoes the start of a regular HTML document
@@ -54,8 +57,7 @@
     /**
      * Echoes the end of a regular HTML document (started with the start_page() function)
      */
-    function end_page()
-    {
+    function end_page() {
         // End the <body> and <html> tags
         echo <<<'HTML'
         </body>
@@ -70,8 +72,7 @@
      *
      * @param string|null $account_name Name of the account to show. Pass null for the default string.
      */
-    function start_layout($account_name = null)
-    {
+    function start_layout($account_name = null) {
         // Add the standard <header>, and begin a <main> block
         echo <<<'HTML'
             <header id="header">
@@ -106,8 +107,7 @@
     /**
      * Echoes the end of the standard project layout (started with the start_layout() function)
      */
-    function end_layout()
-    {
+    function end_layout() {
         // End the <main> block
         echo <<<'HTML'
             </main>
@@ -115,4 +115,4 @@
         HTML;
     }
 
-?>
+    ?>

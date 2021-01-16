@@ -8,6 +8,7 @@
      * Interface for an MVC Controller
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\Controller
      */
     interface IController
     {

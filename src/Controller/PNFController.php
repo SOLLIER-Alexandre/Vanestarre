@@ -10,6 +10,7 @@
      * Controller for the HTTP 404 error page
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\Controller
      */
     class PNFController implements IController
     {

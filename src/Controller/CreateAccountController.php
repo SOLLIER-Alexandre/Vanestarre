@@ -10,6 +10,7 @@
      * Controller for the create account page
      *
      * @author RADJA Samy
+     * @package Vanestarre\Controller
      */
     class CreateAccountController implements IController
     {

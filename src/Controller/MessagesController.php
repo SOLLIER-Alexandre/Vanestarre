@@ -10,6 +10,7 @@
      * Controller for a template page
      *
      * @author DEUDON Eugénie
+     * @package Vanestarre\Controller
      */
     class MessagesController implements IController
     {

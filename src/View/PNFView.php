@@ -7,6 +7,7 @@
      * View for the HTTP 404 error page
      *
      * @author SOLLIER Alexandre
+     * @package Vanestarre\View
      */
     class PNFView implements IView
     {

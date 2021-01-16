@@ -7,6 +7,7 @@
      * View for the create account page
      *
      * @author RADJA Samy
+     * @package Vanestarre\View
      */
     class CreateAccountView implements IView
     {
