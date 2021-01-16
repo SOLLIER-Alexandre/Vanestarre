@@ -63,7 +63,9 @@
                         <form id="send-message-form" action="/postMessage" method="post">
                             <textarea id="send-message-text" placeholder="Postez un message" name="message"></textarea>
                             <div id="send-message-buttons">
-                                <div></div>
+                                <div>
+                                    <span id="beta-insert-button" class="button-like unselectable" role="button">β</span>
+                                </div>
                                 <div>
                                     <span id="message-length-counter">50</span>
                                     <input id="send-message-button" type="submit" value="Post">

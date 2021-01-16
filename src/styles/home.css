@@ -41,8 +41,8 @@ main > .card:not(:last-child) {
     align-items: center;
 }
 
-#send-message-buttons:nth-child(2) {
-    justify-content: flex-end;
+#send-message-buttons > :first-child {
+    flex: 1;
 }
 
 #message-length-counter {
