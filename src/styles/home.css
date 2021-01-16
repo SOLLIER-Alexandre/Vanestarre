@@ -80,15 +80,16 @@ main > .card:not(:last-child) {
     align-items: center;
 }
 
-#pager > span {
+#pager > a {
     padding: 6px;
+    text-decoration: none;
 }
 
-#pager > span:not(:last-child) {
+#pager > a:not(:last-child) {
     margin-right: 4px;
 }
 
-#pager > span.selected {
+#pager > a.selected {
     color: #8F23BB;
     font-weight: bold;
 }

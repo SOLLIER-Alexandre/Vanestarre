@@ -13,7 +13,7 @@
     // Route the request
     switch ($request_path) {
         case '/':
-        case '/index':
+        case '/home':
             require_once __DIR__ . '/controller/home_controller.php';
             $controller = new HomeController();
             break;

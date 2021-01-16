@@ -20,13 +20,25 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new HomeView(1, 5);
+            $this->view = new HomeView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
+            // Set page data
+            // TODO: Get the real page count
+            $this->view->set_page_count(5);
+
+            if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+                // We got a page number in the request, check it and set it if it's good
+                $page = intval($_GET['page']);
+                if ($page >= 1 && $page <= $this->view->get_page_count()) {
+                    $this->view->set_current_page($page);
+                }
+            }
+
             // Add the messages to the view
             $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, 'https://materializecss.com/images/sample-1.jpg'));
             $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0));
