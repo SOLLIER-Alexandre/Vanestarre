@@ -40,7 +40,7 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Erreur 404';
+            return 'Page non trouvée';
         }
 
         /**
