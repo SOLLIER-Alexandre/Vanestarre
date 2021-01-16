@@ -5,7 +5,7 @@
  */
 
 (() => {
-    window.onload = () => {
+    window.addEventListener('load', () => {
         const messageLengthCounter = document.getElementById('message-length-counter');
         const sendMessageText = document.getElementById('send-message-text');
         const sendMessageButton = document.getElementById('send-message-button');
@@ -44,5 +44,5 @@
             // Update the states on load too
             updateStates();
         }
-    };
+    });
 })();
