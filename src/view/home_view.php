@@ -120,7 +120,7 @@
                 $classList .= ' selected';
             }
 
-            echo '<a class="' . $classList . '" href="/home?page=' . $page_number . '">' . $page_number . '</a>' . PHP_EOL;
+            echo '            <a class="' . $classList . '" href="/home?page=' . $page_number . '">' . $page_number . '</a>' . PHP_EOL;
         }
 
         /**

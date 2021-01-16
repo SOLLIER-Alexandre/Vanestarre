@@ -77,12 +77,12 @@
             <header id="header">
                 <a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a>
                 <div class="header-right-content">
-                    <form id="search-form" method="get" action="search">
+                    <form id="search-form" method="get" action="/search">
                         <input id="search-box" name="query" type="search" placeholder="Recherche...">
                     </form>
                     
                     <span id="search-btn" class="material-icons unselectable text-button hidden-on-search">search</span>
-                    <a href="account" id="account-link" class="text-button hidden-on-search">
+                    <a href="/account" id="account-link" class="text-button hidden-on-search">
                         <span class="material-icons unselectable">account_circle</span>
         HTML;
 
