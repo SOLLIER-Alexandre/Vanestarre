@@ -97,11 +97,10 @@ p {
 
 .text-button {
     cursor: pointer;
-    transition: color 0.2s;
 }
 
 .text-button:hover {
-    color: #A580F099;
+    color: #FFFFFFDE;
 }
 
 .flexbox {

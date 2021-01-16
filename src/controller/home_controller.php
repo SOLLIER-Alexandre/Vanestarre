@@ -20,7 +20,7 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new HomeView(0);
+            $this->view = new HomeView(1, 5);
         }
 
         /**

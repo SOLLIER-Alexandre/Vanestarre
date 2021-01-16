@@ -82,11 +82,15 @@ main > .card:not(:last-child) {
 
 #pager > span {
     padding: 6px;
-    cursor: pointer;
 }
 
 #pager > span:not(:last-child) {
     margin-right: 4px;
+}
+
+#pager > span.selected {
+    color: #8F23BB;
+    font-weight: bold;
 }
 
 @media (min-width: 656px) {

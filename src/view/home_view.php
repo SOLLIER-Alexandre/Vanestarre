@@ -12,6 +12,11 @@
     class HomeView implements IView
     {
         /**
+         * @var int $current_page The current page number
+         */
+        private $current_page;
+
+        /**
          * @var int $page_count The number of pages to show
          */
         private $page_count;
@@ -23,9 +28,11 @@
 
         /**
          * HomeView constructor.
+         * @param int $current_page The current page number
          * @param int $page_count The number of pages to show
          */
-        public function __construct(int $page_count) {
+        public function __construct(int $current_page, int $page_count) {
+            $this->current_page = $current_page;
             $this->page_count = $page_count;
             $this->messages = array();
         }
@@ -92,12 +99,24 @@
          * Outputs the page selector
          */
         private function echo_pager() {
+            // Begin the pager
             echo '        <div id="pager">' . PHP_EOL;
-            echo '            <span class="material-icons">keyboard_arrow_left</span>' . PHP_EOL;
-            echo '            <span>1</span>' . PHP_EOL;
-            echo '            <span>2</span>' . PHP_EOL;
-            echo '            <span>3</span>' . PHP_EOL;
-            echo '            <span class="material-icons">keyboard_arrow_right</span>' . PHP_EOL;
+
+            // Output every page number from 1 to the current page
+            for ($i = 1; $i < $this->current_page; ++$i) {
+                echo '<span class="text-button">' . $i . '</span>' . PHP_EOL;
+            }
+
+            // Output the current page with a special class
+            echo '<span class="text-button selected">' . $i . '</span>' . PHP_EOL;
+            ++$i;
+
+            // Output the rest of the pages
+            for (; $i <= $this->page_count; ++$i) {
+                echo '<span class="text-button">' . $i . '</span>' . PHP_EOL;
+            }
+
+            // End the pager
             echo '        </div>' . PHP_EOL;
         }
 
