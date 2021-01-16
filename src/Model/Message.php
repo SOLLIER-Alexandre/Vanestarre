@@ -22,6 +22,11 @@
         private $creation_date;
 
         /**
+         * @var MessageReactions $reactions Reactions this message has
+         */
+        private $reactions;
+
+        /**
          * @var string|null $image URL to an image, if any
          */
         private $image;
@@ -30,11 +35,13 @@
          * Constructs a new message
          * @param string $message Message contents
          * @param int $creation_date Timestamp of the creation of the message
+         * @param MessageReactions $reactions Reactions this message has
          * @param string|null $image URL to an image, if any
          */
-        public function __construct(string $message, int $creation_date, ?string $image = null) {
+        public function __construct(string $message, int $creation_date, MessageReactions $reactions, ?string $image = null) {
             $this->message = $message;
             $this->creation_date = $creation_date;
+            $this->reactions = $reactions;
             $this->image = $image;
         }
 
@@ -64,6 +71,20 @@
          */
         public function set_creation_date(int $creation_date): void {
             $this->creation_date = $creation_date;
+        }
+
+        /**
+         * @return MessageReactions The reactions
+         */
+        public function get_reactions(): MessageReactions {
+            return $this->reactions;
+        }
+
+        /**
+         * @param MessageReactions $reactions New reactions
+         */
+        public function set_reactions(MessageReactions $reactions): void {
+            $this->reactions = $reactions;
         }
 
         /**

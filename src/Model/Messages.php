@@ -44,7 +44,7 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    array_push($messages_list, new Message($row['content'], $row['date'], $row['image_link']));
+                    array_push($messages_list, new Message($row['content'], $row['date'], new MessageReactions(), $row['image_link']));
                 }
                 return $messages_list;
             }

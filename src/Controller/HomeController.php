@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller;
 
     use Vanestarre\Model\Message;
+    use Vanestarre\Model\MessageReactions;
     use Vanestarre\View\HomeView;
 
     /**
@@ -43,8 +44,8 @@
             }
 
             // Add the messages to the View
-            $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, 'https://materializecss.com/images/sample-1.jpg'));
-            $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0));
+            $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, new MessageReactions(), 'https://materializecss.com/images/sample-1.jpg'));
+            $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0, new MessageReactions()));
 
             // Output the View contents
             $this->view->echo_contents();
