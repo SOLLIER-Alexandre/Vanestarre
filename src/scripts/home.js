@@ -44,5 +44,54 @@
             // Update the states on load too
             updateStates();
         }
+
+        // Add a click listener on every reaction button
+        const messageReactionButtons = document.getElementsByClassName('message-footer-reaction');
+        const onReactionClick = (event) => {
+            // Grab the button container
+            let buttonContainer = event.target;
+            while (buttonContainer !== null && !buttonContainer.classList.contains('message-footer-reaction')) {
+                buttonContainer = buttonContainer.parentElement;
+            }
+
+            // We couldn't grab the container, exit
+            if (buttonContainer === null) return;
+
+            // Check if the button is selected (user has reacted to this message)
+            const isButtonSelected = buttonContainer.classList.contains('selected');
+            const reactionCounterSpan = buttonContainer.children[buttonContainer.children.length - 1];
+            const reactionCount = parseInt(reactionCounterSpan.innerHTML);
+
+            // Grab message ID associated with the button
+            let messageCard = buttonContainer.parentElement;
+            while (messageCard !== null && !messageCard.dataset.messageId) {
+                messageCard = messageCard.parentElement;
+            }
+
+            // We couldn't grab the message card, exit
+            if (messageCard === null) return;
+
+            // Store the message ID
+            const messageID = messageCard.dataset.messageId;
+
+            // TODO: XMLHttpRequest the message reaction endpoint
+            if (isButtonSelected) {
+                // Unselect the button
+                buttonContainer.classList.remove('selected');
+                if (!isNaN(reactionCount)) {
+                    reactionCounterSpan.innerHTML = reactionCount - 1;
+                }
+            } else {
+                // Select the button
+                buttonContainer.classList.add('selected');
+                if (!isNaN(reactionCount)) {
+                    reactionCounterSpan.innerHTML = reactionCount + 1;
+                }
+            }
+        };
+
+        for (const button of messageReactionButtons) {
+            button.addEventListener('click', onReactionClick);
+        }
     });
 })();

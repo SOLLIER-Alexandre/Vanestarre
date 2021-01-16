@@ -106,7 +106,7 @@
          * @param string $className
          */
         private function echo_message_reaction_button(int $count, bool $selected, string $iconName, string $className): void {
-            $classList = 'button-like message-footer-reaction ' . $className;
+            $classList = 'button-like message-footer-reaction unselectable ' . $className;
             if ($selected) {
                 $classList .= ' selected';
             }
