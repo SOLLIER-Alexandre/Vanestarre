@@ -1,18 +1,18 @@
 <?php
-    require __DIR__ . '/icontroller.inc.php';
-    require __DIR__ . '/../view/pnf_view.php';
+    require __DIR__ . '/IController.php';
+    require __DIR__ . '/../view/LoginView.php';
 
     /**
-     * Class PNFController
+     * Class LoginController
      *
-     * Controller for the HTTP 404 error page
+     * Controller for the login page
      *
-     * @author SOLLIER Alexandre
+     * @author RADJA Samy
      */
-    class PNFController implements IController
+    class LoginController implements IController
     {
         /**
-         * @var PNFView View associated with this controller
+         * @var LoginView View associated with this controller
          */
         private $view;
 
@@ -20,16 +20,13 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new PNFView();
+            $this->view = new LoginView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
-            // Set the HTTP response code to 404
-            http_response_code(404);
-
             // Output the view contents
             $this->view->echo_contents();
         }
@@ -38,14 +35,14 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Erreur 404';
+            return 'Login';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return [];
+            return ['/styles/login.css'];
         }
 
         /**

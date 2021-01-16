@@ -14,42 +14,42 @@
     switch ($request_path) {
         case '/':
         case '/home':
-        require __DIR__ . '/controller/home_controller.php';
-        $controller = new HomeController();
+            require __DIR__ . '/controller/HomeController.php';
+            $controller = new HomeController();
             break;
 
         case '/account':
-            require __DIR__ . '/controller/account_controller.php';
+            require __DIR__ . '/controller/AccountController.php';
             $controller = new AccountController();
             break;
 
         case '/search':
-            require __DIR__ . '/controller/search_controller.php';
+            require __DIR__ . '/controller/SearchController.php';
             $controller = new SearchController();
             break;
 
         case '/login':
-            require __DIR__ . '/controller/login_controller.php';
+            require __DIR__ . '/controller/LoginController.php';
             $controller = new LoginController();
             break;
 
         case '/createAccount':
-            require __DIR__ . '/controller/create_account_controller.php';
+            require __DIR__ . '/controller/CreateAccountController.php';
             $controller = new CreateAccountController();
             break;
 
         case '/postMessage':
-            require __DIR__ . '/controller/post_message_controller.php';
+            require __DIR__ . '/controller/PostMessageController.php';
             $controller = new PostMessageController();
             break;
 
         case '/messages':
-            require __DIR__ . '/controller/messages_controller.php';
+            require __DIR__ . '/controller/MessagesController.php';
             $controller = new MessagesController();
             break;
 
         default:
-            require __DIR__ . '/controller/pnf_controller.php';
+            require __DIR__ . '/controller/PNFController.php';
             $controller = new PNFController();
     }
 

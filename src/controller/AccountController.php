@@ -1,26 +1,26 @@
 <?php
-    require __DIR__ . '/icontroller.inc.php';
-    require __DIR__ . '/../view/create_account_view.php';
+    require __DIR__ . '/IController.php';
+    require __DIR__ . '/../view/AccountView.php';
 
     /**
-     * Class CreateAccountController
+     * Class AccountController
      *
-     * Controller for the create account page
+     * Controller for the account management page
      *
-     * @author RADJA Samy
+     * @author CHATEAUX Adrien
      */
-    class CreateAccountController implements IController
+    class AccountController implements IController
     {
         /**
-         * @var CreateAccountView View associated with this controller
+         * @var AccountView View associated with this controller
          */
         private $view;
 
         /**
-         * CreateAccountController constructor.
+         * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new CreateAccountView();
+            $this->view = new AccountView("Username", "User@hotmail.com");
         }
 
         /**
@@ -35,21 +35,21 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Create account';
+            return 'Compte';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/create_account.css'];
+            return ['/styles/account.css'];
         }
 
         /**
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return [];
+            return ['/scripts/account.js'];
         }
 
         /**

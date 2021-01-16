@@ -7,7 +7,7 @@
  * @author DEUDON Eugénie
  */
 
-require __DIR__ . '/message.php';
+require __DIR__ . '/Message.php';
 
 class Messages
 {

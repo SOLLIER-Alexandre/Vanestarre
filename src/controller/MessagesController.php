@@ -1,33 +1,41 @@
 <?php
-require __DIR__ . '/icontroller.inc.php';
+    require __DIR__ . '/IController.php';
+    require __DIR__ . '/../view/MessagesView.php';
 
-/**
- * Class UserDataController
- *
- * Controller for the treatment of user data
- *
- * @author RADJA Samy
- */
-class UserData implements IController
-{
+    /**
+     * Class MessagesController
+     *
+     * Controller for a template page
+     *
+     * @author DEUDON Eugénie
+     */
+    class MessagesController implements IController
+    {
+    /**
+     * @var MessagesView View associated with this controller
+     */
+    private $view;
 
     /**
      * TemplateController constructor.
      */
     public function __construct() {
+        $this->view = new MessagesView();
     }
 
     /**
      * @inheritDoc
      */
     public function execute() {
+        // Output the view contents
+        $this->view->echo_contents();
     }
 
     /**
      * @inheritDoc
      */
     public function get_title(): string {
-        return '';
+        return 'Messages';
     }
 
     /**
@@ -48,7 +56,7 @@ class UserData implements IController
      * @inheritDoc
      */
     public function needs_standard_layout(): bool {
-        return false;
+        return true;
     }
 }
 ?>

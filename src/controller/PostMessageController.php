@@ -1,5 +1,5 @@
 <?php
-    require __DIR__ . '/icontroller.inc.php';
+    require __DIR__ . '/IController.php';
 
     /**
      * Class PostMessageController

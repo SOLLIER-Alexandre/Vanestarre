@@ -1,6 +1,6 @@
 <?php
-    require __DIR__ . '/icontroller.inc.php';
-    require __DIR__ . '/../view/home_view.php';
+    require __DIR__ . '/IController.php';
+    require __DIR__ . '/../view/HomeView.php';
 
     /**
      * Class HomeController

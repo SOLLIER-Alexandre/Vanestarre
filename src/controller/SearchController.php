@@ -1,18 +1,18 @@
 <?php
-    require __DIR__ . '/icontroller.inc.php';
-    require __DIR__ . '/../view/account_view.php';
+    require __DIR__ . '/IController.php';
+    require __DIR__ . '/../view/SearchView.php';
 
     /**
-     * Class AccountController
+     * Class SearchController
      *
-     * Controller for the account management page
+     * Controller for the search page
      *
-     * @author CHATEAUX Adrien
+     * @author DEUDON Eugénie
      */
-    class AccountController implements IController
+    class SearchController implements IController
     {
         /**
-         * @var AccountView View associated with this controller
+         * @var SearchView View associated with this controller
          */
         private $view;
 
@@ -20,7 +20,7 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new AccountView("Username", "User@hotmail.com");
+            $this->view = new SearchView();
         }
 
         /**
@@ -35,21 +35,21 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Compte';
+            return 'Recherche';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/account.css'];
+            return [];
         }
 
         /**
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return ['/scripts/account.js'];
+            return [];
         }
 
         /**
@@ -59,4 +59,5 @@
             return true;
         }
     }
+
 ?>

@@ -1,5 +1,5 @@
 <?php
-    require __DIR__ . '/iview.inc.php';
+    require __DIR__ . '/IView.php';
 
     /**
      * Class LoginView

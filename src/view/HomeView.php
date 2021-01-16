@@ -1,6 +1,6 @@
 <?php
-    require __DIR__ . '/iview.inc.php';
-    require __DIR__ . '/../model/message.php';
+    require __DIR__ . '/IView.php';
+    require __DIR__ . '/../model/Message.php';
 
     /**
      * Class HomeView

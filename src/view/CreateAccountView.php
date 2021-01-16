@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/iview.inc.php';
+require __DIR__ . '/IView.php';
 
 /**
  * Class CreateAccountView
@@ -18,7 +18,7 @@ class CreateAccountView implements IView
                 <div class="create-account-box">
                     <h1>Créez un compte</h1>        
                             
-                    <form action="user_data_controller.php" method="post">
+                    <form action="UserDataController.php" method="post">
                         <p>Identifiant :</p>
                         <input type="text" name="username" class="input-zone" style="color: black"/><br/>
                                            
