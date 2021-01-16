@@ -1,16 +1,26 @@
 Nom de l'équipe et de ses membres :
     Groupe "Da big spaghet"
-    - CHATEAUX Adrien       === adrien.chateaux@etu.univ-amu.fr
-    - DEUDON Eugénie        === eugenie.deudon@etu.univ-amu.fr
-    - RADJA Samy            === samy.radja@etu.univ-amu.fr
-    - SOLLIER Alexandre     === alexandre.sollier@etu.univ-amu.fr
+    - CHATEAUX Adrien   <adrien.chateaux@etu.univ-amu.fr>
+    - DEUDON Eugénie    <eugenie.deudon@etu.univ-amu.fr>
+    - RADJA Samy        <samy.radja@etu.univ-amu.fr>
+    - SOLLIER Alexandre <alexandre.sollier@etu.univ-amu.fr>
+
+Répartition des tâches :
+    - CHATEAUX Adrien : Pages de compte (affichage username/mail, modification mot de passe) et administration
+      (dispo uniquement pour Vanessa: gestion des membres, paramètre de pagination, paramètre des dons).
+    - DEUDON Eugénie : Base de données (Setup de la base de données, des tables, choix des types), écriture des modèles
+      (communication avec la DB) et page de recherche.
+    - RADJA Samy : Gestion de l'authentification coté serveur (hash du mot de passe, membre connecté dans $_SESSION),
+      page de connexion (login/logout/register/mot de passe perdu) et des privilèges.
+    - SOLLIER Alexandre : Framework (MVC, router, scripts/stylesheets communs) et page d'accueil
+      (lecture/écriture/modification/suppression de messages, pagination, réactions, tags, dons, upload d'images).
 
 URL du site Web : https://vanestarreiutinfo.alwaysdata.net/index.php
 
 Présentation du projet :
-Le projet Vanéstarre consiste a faire un réseau social comme Instagram,
-mais où une seule personne (Vanéstarre) peut poster du texte, accompagné
-éventuellement d'une image.
+    Le projet Vanéstarre consiste a faire un réseau social comme Instagram,
+    mais où une seule personne (Vanéstarre) peut poster du texte, accompagné
+    éventuellement d'une image.
 
 Choix techniques :
     - Nous avons choisi de router toutes les requêtes vers le fichier index.php
