@@ -1,9 +1,9 @@
 Nom de l'équipe et de ses membres :
     Groupe "Da big spaghet"
-    - CHATEAUX Adrien   <adrien.chateaux@etu.univ-amu.fr>
-    - DEUDON Eugénie    <eugenie.deudon@etu.univ-amu.fr>
-    - RADJA Samy        <samy.radja@etu.univ-amu.fr>
-    - SOLLIER Alexandre <alexandre.sollier@etu.univ-amu.fr>
+    - CHATEAUX Adrien   <Mail: adrien.chateaux@etu.univ-amu.fr; GitHub: RaspDonut>
+    - DEUDON Eugénie    <Mail: eugenie.deudon@etu.univ-amu.fr; GitHub: Cyani-Maisou>
+    - RADJA Samy        <Mail: samy.radja@etu.univ-amu.fr; GitHub: RadjaSamy>
+    - SOLLIER Alexandre <Mail: alexandre.sollier@etu.univ-amu.fr; GitHub: SOLLIER-Alexandre>
 
 Répartition des tâches :
     - CHATEAUX Adrien : Pages de compte (affichage username/mail, modification mot de passe) et administration
