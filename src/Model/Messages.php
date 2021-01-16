@@ -36,7 +36,7 @@
          */
         public function get_n_last_messages(int $n, int $offset): array {
             $connection = $this->db_connection();
-            $prepared_query = $connection->prepare('SELECT date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
+            $prepared_query = $connection->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
@@ -45,7 +45,7 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    array_push($messages_list, new Message($row['content'], $row['date'], new MessageReactions(), $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], $row['date'], new MessageReactions(), $row['image_link']));
                 }
                 return $messages_list;
             }

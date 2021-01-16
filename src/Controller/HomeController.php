@@ -55,8 +55,8 @@
             $testReactions->set_style_reacted(true);
             $testReactions->set_swag_reacted(true);
 
-            $this->view->add_message(new Message('eske vou konéssé twitch prim xDDDDDDDD', 10, $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
-            $this->view->add_message(new Message('yo lé besta g lancé le rézo cmt ça va xoxoxo', 0, new MessageReactions()));
+            $this->view->add_message(new Message(1, 'eske vou konéssé twitch prim xDDDDDDDD', 10, $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
+            $this->view->add_message(new Message(0, 'yo lé besta g lancé le rézo cmt ça va xoxoxo', 0, new MessageReactions()));
 
             // Output the View contents
             $this->view->echo_contents();

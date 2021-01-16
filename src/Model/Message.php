@@ -13,6 +13,11 @@
     class Message
     {
         /**
+         * @var int $id Message ID
+         */
+        private $id;
+
+        /**
          * @var string $message Message contents
          */
         private $message;
@@ -34,16 +39,25 @@
 
         /**
          * Constructs a new message
+         * @param int $id Message ID
          * @param string $message Message contents
          * @param int $creation_date Timestamp of the creation of the message
          * @param MessageReactions $reactions Reactions this message has
          * @param string|null $image URL to an image, if any
          */
-        public function __construct(string $message, int $creation_date, MessageReactions $reactions, ?string $image = null) {
+        public function __construct(int $id, string $message, int $creation_date, MessageReactions $reactions, ?string $image = null) {
+            $this->id = $id;
             $this->message = $message;
             $this->creation_date = $creation_date;
             $this->reactions = $reactions;
             $this->image = $image;
+        }
+
+        /**
+         * @return int The message ID
+         */
+        public function get_id(): int {
+            return $this->id;
         }
 
         /**
