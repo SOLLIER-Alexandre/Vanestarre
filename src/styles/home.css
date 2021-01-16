@@ -72,6 +72,11 @@ main > .card:not(:last-child) {
     color: #FFFFFFDE;
 }
 
+.post-tag {
+    text-decoration-style: dotted;
+    color: #9C4ABD;
+}
+
 .card > img {
     max-width: 100%;
 }

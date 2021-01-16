@@ -82,12 +82,17 @@
          * @param Message $message Message to output
          */
         private function echo_message(Message $message): void {
+            // Check for tags in the message
+            $message_text = preg_replace_callback('/β\w+/m', function ($matches) {
+                return '<a href="/search?query=' . mb_substr($matches[0], 1) . '" class="post-tag">' . $matches[0] . '</a>';
+            }, $message->get_message());
+
             // Begin the message card
             echo '        <article class="card" data-message-id="' . $message->get_id() . '">' . PHP_EOL;
 
             // Output message date and content
             echo '            <h2 class="post-title">Vanéstarre • Posté le ' . $message->get_creation_date() . '</h2>' . PHP_EOL;
-            echo '            <p class="post-message">' . $message->get_message() . '</p>' . PHP_EOL;
+            echo '            <p class="post-message">' . $message_text . '</p>' . PHP_EOL;
 
             // Output the image if there is one
             if (!is_null($message->get_image())) {
