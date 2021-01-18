@@ -18,16 +18,27 @@
     class MessagesDB
     {
         /**
-         * Connect to the database
-         * @return mysqli A mysqli connection to the database
+         * @var $mysqli A mysqli connection to the database.
          */
-        public function db_connection(): mysqli {
-            $mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+        private $mysqli;
+
+        /**
+         * MessagesDB constructor. Connects MessagesDB to the database.
+         */
+        public function __construct(){
+            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
             if (mysqli_connect_errno()) {
                 throw new Error("Echec lors de la connexion à la base de données : " . mysqli_connect_error());
             }
-            return $mysqli;
         }
+
+        /**
+         * MessagesDB destructor. Closes the mysqli connection to the database.
+         */
+        public function __destruct(){
+            $this->mysqli->close();
+        }
+
 
         /**
          * Get last n messages with an offset
@@ -36,7 +47,7 @@
          * @return array A list with the last n messages
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $connection = $this->db_connection();
+            $connection = $this->mysqli;
             $prepared_query = $connection->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
