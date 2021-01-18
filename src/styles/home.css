@@ -12,19 +12,20 @@ main > .card:not(:last-child) {
     margin-bottom: 16px;
 }
 
-#send-message-form {
+.message-form {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
-#send-message-form > textarea {
+.message-form > textarea {
     resize: none;
     background-color: #313131;
     flex: 1;
     margin-bottom: 8px;
 }
 
-#send-message-form input[type="submit"] {
+.message-form input[type="submit"] {
     align-self: flex-end;
     padding: 6px 24px;
     width: max-content;
@@ -35,21 +36,21 @@ main > .card:not(:last-child) {
     border-radius: 4px;
 }
 
-#send-message-buttons,
-#send-message-buttons > * {
+.message-form-buttons,
+.message-form-buttons > * {
     display: flex;
     align-items: center;
 }
 
-#send-message-buttons > :first-child {
+.message-form-buttons > :first-child {
     flex: 1;
 }
 
-#message-length-counter {
+.message-length-counter {
     margin-right: 8px;
 }
 
-#send-message-button[disabled] {
+.send-message-button[disabled] {
     opacity: 0.5;
 }
 
@@ -135,6 +136,51 @@ main > .card:not(:last-child) {
 #pager > a.selected {
     color: #8F23BB;
     font-weight: bold;
+}
+
+.modal {
+    display: none;
+}
+
+.modal.is-open {
+    display: block;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-container {
+    padding: 16px;
+    width: 512px;
+    height: 256px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.modal-container > div {
+    display: flex;
+    flex: 1;
+}
+
+.dialog-header {
+    background-color: initial;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 8px;
+}
+
+.dialog-header > h2 {
+    margin: 0 auto 0 0;
 }
 
 @media (min-width: 656px) {

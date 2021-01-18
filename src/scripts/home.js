@@ -6,62 +6,85 @@
 
 (() => {
     window.addEventListener('load', () => {
-        const sendMessageText = document.getElementById('send-message-text');
-        const betaInsertButton = document.getElementById('beta-insert-button');
-        const messageLengthCounter = document.getElementById('message-length-counter');
-        const sendMessageButton = document.getElementById('send-message-button');
+        // Init the modal lib
+        MicroModal.init();
 
-        if (sendMessageText !== null) {
-            // Beta insert button functionality
-            if (betaInsertButton !== null) {
-                betaInsertButton.addEventListener('click', () => {
-                    // Insert the character where the cursor is
-                    const cursorPos = sendMessageText.selectionStart;
-                    sendMessageText.value = sendMessageText.value.substring(0, cursorPos) + 'β' + sendMessageText.value.substring(cursorPos);
+        // Update states of message length counters and send message buttons based on their textareas
+        const MAX_MESSAGE_LENGTH = 50;
+        const messageLengthCounters = document.getElementsByClassName('message-length-counter');
+        const sendMessageButtons = document.getElementsByClassName('send-message-button');
 
-                    // (Re)focus the textarea
-                    sendMessageText.focus();
-                    sendMessageText.setSelectionRange(cursorPos + 1, cursorPos + 1);
-
-                    // Dispatch the input event to update the counter
-                    sendMessageText.dispatchEvent(new InputEvent('input'));
-                });
-            }
-
-            // Message counter and button functionality
-            if (messageLengthCounter !== null && sendMessageButton !== null) {
-                const updateStates = () => {
+        for (const counter of messageLengthCounters) {
+            const targetTextarea = document.getElementById(counter.dataset.forTextarea);
+            if (targetTextarea !== null) {
+                function updateCounterState() {
                     // Updates the length counter with the remaining count of chars available
-                    const MAX_MESSAGE_LENGTH = 50;
                     let charsLeft = MAX_MESSAGE_LENGTH;
-                    if (sendMessageText.value.trim().length > 0) {
-                        charsLeft -= sendMessageText.value.length;
+                    if (targetTextarea.value.trim().length > 0) {
+                        charsLeft -= targetTextarea.value.length;
                     }
 
-                    messageLengthCounter.innerText = charsLeft.toString();
+                    counter.innerText = charsLeft.toString();
 
                     // Change the counter color depending on the number of chars left
                     if (charsLeft <= 0) {
-                        messageLengthCounter.classList.add('critical-chars-left');
-                        messageLengthCounter.classList.remove('warning-chars-left');
+                        counter.classList.add('critical-chars-left');
+                        counter.classList.remove('warning-chars-left');
                     } else if (charsLeft < 10) {
-                        messageLengthCounter.classList.add('warning-chars-left');
-                        messageLengthCounter.classList.remove('critical-chars-left');
+                        counter.classList.add('warning-chars-left');
+                        counter.classList.remove('critical-chars-left');
                     } else {
-                        messageLengthCounter.classList.remove('warning-chars-left', 'critical-chars-left');
+                        counter.classList.remove('warning-chars-left', 'critical-chars-left');
+                    }
+                }
+
+                // Update the counter state on each input in their textarea
+                targetTextarea.addEventListener('input', updateCounterState);
+
+                // Update the counter state on load too
+                updateCounterState();
+            }
+        }
+
+        for (const button of sendMessageButtons) {
+            const targetTextarea = document.getElementById(button.dataset.forTextarea);
+            if (targetTextarea !== null) {
+                const updateButtonState = () => {
+                    // Updates the length counter with the remaining count of chars available
+                    let charsLeft = MAX_MESSAGE_LENGTH;
+                    if (targetTextarea.value.trim().length > 0) {
+                        charsLeft -= targetTextarea.value.length;
                     }
 
                     // Update button state
-                    sendMessageButton.disabled = (charsLeft === MAX_MESSAGE_LENGTH);
+                    button.disabled = (charsLeft === MAX_MESSAGE_LENGTH);
                 };
 
-                // Update the states on each input in the <textarea>
-                sendMessageText.addEventListener('input', () => {
-                    updateStates();
-                });
+                // Update the button state on each input in their textarea
+                targetTextarea.addEventListener('input', updateButtonState);
 
-                // Update the states on load too
-                updateStates();
+                // Update the button state on load too
+                updateButtonState();
+            }
+        }
+
+        // Add a click listener on every beta insert button
+        const betaInsertButtons = document.getElementsByClassName('beta-insert-button');
+        for (const button of betaInsertButtons) {
+            const targetTextarea = document.getElementById(button.dataset.forTextarea);
+            if (targetTextarea !== null) {
+                button.addEventListener('click', () => {
+                    // Insert the character where the cursor is
+                    const cursorPos = targetTextarea.selectionStart;
+                    targetTextarea.value = targetTextarea.value.substring(0, cursorPos) + 'β' + targetTextarea.value.substring(cursorPos);
+
+                    // (Re)focus the textarea
+                    targetTextarea.focus();
+                    targetTextarea.setSelectionRange(cursorPos + 1, cursorPos + 1);
+
+                    // Dispatch the input event to update the counter
+                    targetTextarea.dispatchEvent(new InputEvent('input'));
+                });
             }
         }
 
@@ -122,33 +145,47 @@
         }
 
         // Add a click listener on every message edit button
-        const messageEditButtons = document.getElementsByClassName('message-edit-button');
+        const editMessageText = document.getElementById('edit-message-text');
+        const editMessageId = document.getElementById('edit-message-id');
 
-        function onEditClick(event) {
-            // Grab message ID associated with the button
-            const messageID = getMessageIdFromButton(event.target);
-            if (!messageID) return;
+        if (editMessageText !== null && editMessageId !== null) {
+            const messageEditButtons = document.getElementsByClassName('message-edit-button');
 
-            console.log('Edit: ' + messageID);
-        }
+            function onEditClick(event) {
+                // Grab message ID associated with the button
+                const messageID = getMessageIdFromButton(event.target);
+                if (!messageID) return;
 
-        for (const button of messageEditButtons) {
-            button.addEventListener('click', onEditClick);
-        }
+                // Set dialog values
+                const messageText = document.querySelector('article[data-message-id="' + messageID + '"] > .post-message');
+                if (!messageText) return;
 
-        // Add a click listener on every message delete button
-        const messageDeleteButtons = document.getElementsByClassName('message-delete-button');
+                editMessageText.value = messageText.innerText;
+                editMessageText.dispatchEvent(new InputEvent('input'));
+                editMessageId.value = messageID;
 
-        function onDeleteClick(event) {
-            // Grab message ID associated with the button
-            const messageID = getMessageIdFromButton(event.target);
-            if (!messageID) return;
+                // Show the message edit modal
+                MicroModal.show('modal-edit-message');
+            }
 
-            console.log('Delete: ' + messageID);
-        }
+            for (const button of messageEditButtons) {
+                button.addEventListener('click', onEditClick);
+            }
 
-        for (const button of messageDeleteButtons) {
-            button.addEventListener('click', onDeleteClick);
+            // Add a click listener on every message delete button
+            const messageDeleteButtons = document.getElementsByClassName('message-delete-button');
+
+            function onDeleteClick(event) {
+                // Grab message ID associated with the button
+                const messageID = getMessageIdFromButton(event.target);
+                if (!messageID) return;
+
+                console.log('Delete: ' + messageID);
+            }
+
+            for (const button of messageDeleteButtons) {
+                button.addEventListener('click', onDeleteClick);
+            }
         }
     });
 })();

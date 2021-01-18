@@ -52,6 +52,10 @@
 
             // Echo page selector
             $this->echo_pager();
+
+            // Echo dialogs
+            // TODO: Only output this when user is authorized
+            $this->echo_edit_message_dialog();
         }
 
         /**
@@ -60,15 +64,15 @@
         private function echo_message_writer(): void {
             echo <<<'HTML'
                     <div class="card">
-                        <form id="send-message-form" action="/postMessage" method="post">
+                        <form class="message-form" action="/postMessage" method="post">
                             <textarea id="send-message-text" placeholder="Postez un message" name="message"></textarea>
-                            <div id="send-message-buttons">
+                            <div class="message-form-buttons">
                                 <div>
-                                    <span id="beta-insert-button" class="button-like unselectable" role="button">β</span>
+                                    <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="send-message-text">β</span>
                                 </div>
                                 <div>
-                                    <span id="message-length-counter">50</span>
-                                    <input id="send-message-button" type="submit" value="Post">
+                                    <span class="message-length-counter" data-for-textarea="send-message-text">50</span>
+                                    <input class="send-message-button" type="submit" value="Post" data-for-textarea="send-message-text">
                                 </div>
                             </div>
                         </form>
@@ -130,7 +134,7 @@
          * @param string $buttonType Type of authoring button
          * @param string $iconName Name of the materialicon to use
          */
-        private function echo_message_authoring_button(string $buttonType, string $iconName) {
+        private function echo_message_authoring_button(string $buttonType, string $iconName): void {
             echo '                <div class="button-like unselectable ' . $buttonType . '" role="button">' . PHP_EOL;
             echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
             echo '                </div>' . PHP_EOL;
@@ -187,6 +191,42 @@
             }
 
             echo '            <a class="' . $classList . '" href="/home?page=' . $page_number . '">' . $page_number . '</a>' . PHP_EOL;
+        }
+
+        /**
+         * Outputs the dialog for editing a message
+         */
+        private function echo_edit_message_dialog(): void {
+            echo <<<'HTML'
+                    <div id="modal-edit-message" class="modal" aria-hidden="true">
+                        <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-edit-message-title">
+                                <header class="dialog-header">
+                                    <h2 id="modal-edit-message-title">Editer un message</h2>
+                                    <span class="material-icons button-like unselectable" aria-label="Close modal" data-micromodal-close>close</span>
+                                </header>
+                        
+                                <div>
+                                    <form class="message-form" action="/postMessage" method="post">
+                                        <input id="edit-message-id" name="messageId" type="hidden">
+                                        <textarea id="edit-message-text" placeholder="Message" name="message"></textarea>
+                                        <div class="message-form-buttons">
+                                            <div>
+                                                <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="edit-message-text">β</span>
+                                            </div>
+                                            <div>
+                                                <span class="message-length-counter" data-for-textarea="edit-message-text">50</span>
+                                                <input class="send-message-button" type="submit" value="Post" data-for-textarea="edit-message-text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            HTML;
+
         }
 
         /**
