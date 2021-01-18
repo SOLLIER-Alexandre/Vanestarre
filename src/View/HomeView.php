@@ -111,15 +111,15 @@
          * @param int $count Count of this reaction
          * @param bool $selected Has this reaction been reacted to by the user?
          * @param string $iconName Name of the materialicon to use
-         * @param string $className Name of the class to give to this button
+         * @param string $reactionType Type of the reaction of this button
          */
-        private function echo_message_reaction_button(int $count, bool $selected, string $iconName, string $className): void {
-            $classList = 'button-like message-footer-reaction unselectable ' . $className;
+        private function echo_message_reaction_button(int $count, bool $selected, string $iconName, string $reactionType): void {
+            $classList = 'button-like message-footer-reaction unselectable ';
             if ($selected) {
                 $classList .= ' selected';
             }
 
-            echo '                <div class="' . $classList . '" role="button">' . PHP_EOL;
+            echo '                <div class="' . $classList . '" role="button" data-reaction-type="' . $reactionType . '">' . PHP_EOL;
             echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
             echo '                    <span>' . $count . '</span>' . PHP_EOL;
             echo '                </div>' . PHP_EOL;
@@ -135,10 +135,10 @@
 
             // Output all reaction buttons
             $messageReactions = $message->get_reactions();
-            $this->echo_message_reaction_button($messageReactions->get_love_reaction(), $messageReactions->is_love_reacted(), 'favorite', 'reaction-love');
-            $this->echo_message_reaction_button($messageReactions->get_cute_reaction(), $messageReactions->is_cute_reacted(), 'pets', 'reaction-cute');
-            $this->echo_message_reaction_button($messageReactions->get_style_reaction(), $messageReactions->is_style_reacted(), 'star', 'reaction-style');
-            $this->echo_message_reaction_button($messageReactions->get_swag_reaction(), $messageReactions->is_swag_reacted(), 'mood', 'reaction-swag');
+            $this->echo_message_reaction_button($messageReactions->get_love_reaction(), $messageReactions->is_love_reacted(), 'favorite', 'love');
+            $this->echo_message_reaction_button($messageReactions->get_cute_reaction(), $messageReactions->is_cute_reacted(), 'pets', 'cute');
+            $this->echo_message_reaction_button($messageReactions->get_style_reaction(), $messageReactions->is_style_reacted(), 'star', 'style');
+            $this->echo_message_reaction_button($messageReactions->get_swag_reaction(), $messageReactions->is_swag_reacted(), 'mood', 'swag');
 
             // End of footer
             echo '            </div>' . PHP_EOL;

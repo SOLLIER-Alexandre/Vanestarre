@@ -80,7 +80,7 @@
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return ['/scripts/home.js'];
+            return ['/scripts/home.js', 'https://unpkg.com/micromodal/dist/micromodal.min.js'];
         }
 
         /**

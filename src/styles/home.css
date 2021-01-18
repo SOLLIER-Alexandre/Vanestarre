@@ -97,22 +97,22 @@ main > .card:not(:last-child) {
     margin-right: 6px;
 }
 
-.reaction-love.selected {
+.message-footer-reaction[data-reaction-type="love"].selected {
     color: #D94179;
     text-shadow: #D9417999 0 0 8px;
 }
 
-.reaction-cute.selected {
+.message-footer-reaction[data-reaction-type="cute"].selected {
     color: #1E88E5;
     text-shadow: #1E88E599 0 0 8px;
 }
 
-.reaction-style.selected {
+.message-footer-reaction[data-reaction-type="style"].selected {
     color: #43A047;
     text-shadow: #43A04799 0 0 8px;
 }
 
-.reaction-swag.selected {
+.message-footer-reaction[data-reaction-type="swag"].selected {
     color: #9C4ABD;
     text-shadow: #9C4ABD99 0 0 8px;
 }
