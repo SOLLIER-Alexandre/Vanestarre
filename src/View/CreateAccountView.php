@@ -27,7 +27,7 @@
                             <input type="text" name="email" class="input-zone" style="color: black"/><br/>
                             
                             <p>Mot de passe :</p>
-                            <input type="password" name="motDePasse" class="input-zone" style="color: black"/><br/>
+                            <input type="password" name="mdp" class="input-zone" style="color: black"/><br/>
                             
                             <input type="submit" name="Envoyer" class="submit-button" value="Créer votre compte">
                         </form>
