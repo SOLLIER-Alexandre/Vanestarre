@@ -29,7 +29,7 @@ class AuthDB{
          * @param string $mot_de_passe
          * Create a new user in the database.
          */
-        public function add_user(string $pseudo, string $email, string $mot_de_passe){
+        public function add_user(string $pseudo, string $email, string $mot_de_passe): void {
             $connection = $this->mysqli;
             $prepared_query = $connection->prepare('INSERT INTO UTILISATEURS(date_inscription, email, mot_de_passe, pseudo) VALUES (NOW(),?,?,?)');
             $prepared_query->bind_param('sss', $email, $mot_de_passe, $pseudo);
