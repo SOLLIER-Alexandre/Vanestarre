@@ -6,15 +6,15 @@
     use mysqli;
 
     /**
-    * Class Messages
-    *
-    * Access the table MESSAGES from the database
-    *
-    * @author DEUDON Eugénie
-    * @package Vanestarre\Model
-    */
+     * Class Messages
+     *
+     * Access the table MESSAGES from the database
+     *
+     * @author DEUDON Eugénie
+     * @package Vanestarre\Model
+     */
 
-class AuthDB{
+    class AuthDB{
         /**
          * @var mysqli $mysqli A mysqli connection to the database.
          */
@@ -53,6 +53,27 @@ class AuthDB{
                 throw new Exception("The user couldn't be inserted in the table.");
             }
         }
+
+        /**
+         * @param string $pseudo
+         * @return array
+         * @throws Exception
+         * Return user's data as an array.
+         */
+        public function get_user_data(string $pseudo): array {
+            $connection = $this->mysqli;
+            $prepared_query = $connection->prepare('SELECT * FROM UTILISATEURS WHERE pseudo = ?');
+            $prepared_query->bind_param('s', $pseudo);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if ($result == false) {
+                throw new Exception("Couldn't get data associated to the user.");
+            } else {
+                $user_data = $result->fetch_row();
+                return $user_data;
+            }
+        }
+
     }
 
 ?>
