@@ -85,6 +85,7 @@ main > .card:not(:last-child) {
     display: flex;
     justify-content: space-around;
     margin-top: 8px;
+    text-shadow: #00000099 0 0 8px;
 }
 
 .message-footer > div {
@@ -98,18 +99,22 @@ main > .card:not(:last-child) {
 
 .reaction-love.selected {
     color: #D94179;
+    text-shadow: #D9417999 0 0 8px;
 }
 
 .reaction-cute.selected {
     color: #1E88E5;
+    text-shadow: #1E88E599 0 0 8px;
 }
 
 .reaction-style.selected {
     color: #43A047;
+    text-shadow: #43A04799 0 0 8px;
 }
 
 .reaction-swag.selected {
     color: #9C4ABD;
+    text-shadow: #9C4ABD99 0 0 8px;
 }
 
 #pager {
