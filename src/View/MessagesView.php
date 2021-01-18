@@ -2,6 +2,7 @@
     namespace Vanestarre\View;
 
     use Vanestarre\Model\Messages;
+    use Vanestarre\Model\MessagesDB;
 
     /**
      * Class MessagesView
@@ -17,7 +18,7 @@
          * @inheritDoc
          */
         public function echo_contents() {
-            $messages = new Messages;
+            $messages = new MessagesDB;
             $messages_list = $messages->get_n_last_messages(2, 0);
         }
     }

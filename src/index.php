@@ -56,6 +56,10 @@
             $controller = new Controller\MessagesController();
             break;
 
+        case '/register':
+            $controller = new Controller\RegisterController();
+            break;
+
         default:
             $controller = new Controller\PNFController();
     }
