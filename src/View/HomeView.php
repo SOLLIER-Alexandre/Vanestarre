@@ -126,6 +126,17 @@
         }
 
         /**
+         * Outputs a single authoring button
+         * @param string $buttonType Type of authoring button
+         * @param string $iconName Name of the materialicon to use
+         */
+        private function echo_message_authoring_button(string $buttonType, string $iconName) {
+            echo '                <div class="button-like unselectable ' . $buttonType . '" role="button">' . PHP_EOL;
+            echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
+            echo '                </div>' . PHP_EOL;
+        }
+
+        /**
          * Outputs the footer of a message (with reaction buttons)
          * @param Message $message Message to get reactions from
          */
@@ -139,6 +150,10 @@
             $this->echo_message_reaction_button($messageReactions->get_cute_reaction(), $messageReactions->is_cute_reacted(), 'pets', 'cute');
             $this->echo_message_reaction_button($messageReactions->get_style_reaction(), $messageReactions->is_style_reacted(), 'star', 'style');
             $this->echo_message_reaction_button($messageReactions->get_swag_reaction(), $messageReactions->is_swag_reacted(), 'mood', 'swag');
+
+            // TODO: Only output this when user is authorized
+            $this->echo_message_authoring_button('message-edit-button', 'edit');
+            $this->echo_message_authoring_button('message-delete-button', 'delete');
 
             // End of footer
             echo '            </div>' . PHP_EOL;

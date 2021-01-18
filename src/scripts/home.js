@@ -65,9 +65,24 @@
             }
         }
 
+        function getMessageIdFromButton(button) {
+            // Begin with the parent button and start going up from here
+            let messageCard = button.parentElement;
+            while (messageCard !== null && !messageCard.dataset.messageId) {
+                messageCard = messageCard.parentElement;
+            }
+
+            // We couldn't grab the message card, exit
+            if (messageCard === null) return;
+
+            // Store the message ID
+            return messageCard.dataset.messageId;
+        }
+
         // Add a click listener on every reaction button
         const messageReactionButtons = document.getElementsByClassName('message-footer-reaction');
-        const onReactionClick = (event) => {
+
+        function onReactionClick(event) {
             // Grab the button container
             let buttonContainer = event.target;
             while (buttonContainer !== null && !buttonContainer.classList.contains('message-footer-reaction')) {
@@ -83,16 +98,8 @@
             const reactionCount = parseInt(reactionCounterSpan.innerHTML);
 
             // Grab message ID associated with the button
-            let messageCard = buttonContainer.parentElement;
-            while (messageCard !== null && !messageCard.dataset.messageId) {
-                messageCard = messageCard.parentElement;
-            }
-
-            // We couldn't grab the message card, exit
-            if (messageCard === null) return;
-
-            // Store the message ID
-            const messageID = messageCard.dataset.messageId;
+            const messageID = getMessageIdFromButton(buttonContainer);
+            if (!messageID) return;
 
             // TODO: XMLHttpRequest the message reaction endpoint
             if (isButtonSelected) {
@@ -108,10 +115,40 @@
                     reactionCounterSpan.innerHTML = reactionCount + 1;
                 }
             }
-        };
+        }
 
         for (const button of messageReactionButtons) {
             button.addEventListener('click', onReactionClick);
+        }
+
+        // Add a click listener on every message edit button
+        const messageEditButtons = document.getElementsByClassName('message-edit-button');
+
+        function onEditClick(event) {
+            // Grab message ID associated with the button
+            const messageID = getMessageIdFromButton(event.target);
+            if (!messageID) return;
+
+            console.log('Edit: ' + messageID);
+        }
+
+        for (const button of messageEditButtons) {
+            button.addEventListener('click', onEditClick);
+        }
+
+        // Add a click listener on every message delete button
+        const messageDeleteButtons = document.getElementsByClassName('message-delete-button');
+
+        function onDeleteClick(event) {
+            // Grab message ID associated with the button
+            const messageID = getMessageIdFromButton(event.target);
+            if (!messageID) return;
+
+            console.log('Delete: ' + messageID);
+        }
+
+        for (const button of messageDeleteButtons) {
+            button.addEventListener('click', onDeleteClick);
         }
     });
 })();
