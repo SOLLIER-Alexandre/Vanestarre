@@ -1,6 +1,8 @@
 <?php
     namespace Vanestarre\View;
 
+    use Vanestarre\Model\Messages;
+
     /**
      * Class MessagesView
      *
@@ -11,12 +13,12 @@
      */
     class MessagesView implements IView
     {
-    /**
-     * @inheritDoc
-     */
-    public function echo_contents() {
-        $messages = new Messages;
-        $messages_list = $messages->get_n_last_messages(2,0);
+        /**
+         * @inheritDoc
+         */
+        public function echo_contents() {
+            $messages = new Messages;
+            $messages_list = $messages->get_n_last_messages(2, 0);
+        }
     }
-}
 ?>
