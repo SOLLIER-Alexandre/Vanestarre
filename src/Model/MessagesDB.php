@@ -18,7 +18,7 @@
     class MessagesDB
     {
         /**
-         * @var $mysqli A mysqli connection to the database.
+         * @var mysqli $mysqli A mysqli connection to the database.
          */
         private $mysqli;
 
