@@ -2,6 +2,7 @@
     namespace Vanestarre\View;
 
     use Vanestarre\Model\Messages;
+    use Vanestarre\Model\MessagesDB;
 
     /**
      * Class MessagesView
