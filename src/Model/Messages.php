@@ -14,7 +14,7 @@
      * @author DEUDON Eugénie
      * @package Vanestarre\Model
      */
-    class Messages
+    class MessagesDB
     {
         /**
          * Connect to the database

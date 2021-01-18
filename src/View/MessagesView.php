@@ -17,7 +17,7 @@
          * @inheritDoc
          */
         public function echo_contents() {
-            $messages = new Messages;
+            $messages = new MessagesDB;
             $messages_list = $messages->get_n_last_messages(2, 0);
         }
     }
