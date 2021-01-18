@@ -29,13 +29,17 @@
             $algo = PASSWORD_DEFAULT;
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password)<=20) and (strlen($username)<=15)) {
-                password_hash($password, $algo);
-                header('Location: /');
+                $registering = new AuthDB();
+                $registering->add_user($username, $email, password_hash($password, $algo));
+                header('Location: https://www.php.net/manual/fr/function.filter-var.php');
             }
 
             else {
-                header('Location: /login');
+                header('Location: https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400');
             }
+
+            $registering = new \AuthDB();
+            $registering->add_user();
 
         }
 

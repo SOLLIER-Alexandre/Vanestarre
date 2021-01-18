@@ -19,7 +19,7 @@
                     <div class="create-account-box">
                         <h1>Créez un compte</h1>        
                                 
-                        <form action="RegisterController.php" method="post">
+                        <form action="/RegisterController.php" method="post">
                             <p>Identifiant :</p>
                             <input type="text" name="username" class="input-zone" style="color: black"/><br/>
                                                
