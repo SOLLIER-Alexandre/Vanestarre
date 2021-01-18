@@ -38,28 +38,31 @@
             echo <<<"HTML"
                     <div class="card" id="main-card">
                         <h2>Compte Vanéstarre</h2>
-                        <div id="div-username">
+                        <div id="div-username" class="text-line">
                             <h3>Votre Username : </h3>
                             <span>$this->username</span>
                         </div>
-                        <div id="div-email">
+                        <div id="div-email" class="text-line">
                             <h3>Votre adresse e-mail : </h3>
                             <span>$this->email_adress</span>
                         </div>
                         <form id="form-modif-pwd" action="/ModifPwdView.php">
-                            <div id="form-old-pwd">
+                            <div id="div-form-title" class="text-line">
+                                <h3>Changez votre mot de passe : </h3>
+                            </div>
+                            <div id="form-old-pwd" class="div-form">
                                <label for="old-pwd">Ancien mot de passe :</label>
                                <input type="text" id="old-pwd">
                             </div>
-                            <div id="form-new-pwd">
+                            <div id="form-new-pwd" class="div-form">
                                <label for="new-pwd">Nouveau mot de passe :</label>
                                <input type="text" id="new-pwd">
                             </div>
-                            <div id="form-new-pwd-bis">
+                            <div id="form-new-pwd-bis" class="div-form">
                                <label for="new-pwd-bis">Entrez à nouveau votre nouveau mot de passe :</label>
                                <input type="text" id="new-pwd-bis">
                             </div>
-                            <input type="submit" class="button-like" value="Valider" id="submit-pwd-change"> 
+                            <input type="submit" value="Valider" id="submit-pwd-change"> 
                         </form>
                     </div>
                HTML;
