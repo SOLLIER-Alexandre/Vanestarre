@@ -1,4 +1,18 @@
 <?php
+    namespace Vanestarre\Model;
+
+    use Error;
+    use Exception;
+    use mysqli;
+
+    /**
+    * Class Messages
+    *
+    * Access the table MESSAGES from the database
+    *
+    * @author DEUDON Eugénie
+    * @package Vanestarre\Model
+    */
 
 class AuthDB{
         /**
