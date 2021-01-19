@@ -2,6 +2,8 @@
 
     namespace Vanestarre\Model;
 
+    use DateTimeImmutable;
+
     /**
      * Class Message
      *
@@ -23,7 +25,7 @@
         private $message;
 
         /**
-         * @var int $creation_date Timestamp of the creation of the message
+         * @var DateTimeImmutable $creation_date Timestamp of the creation of the message
          */
         private $creation_date;
 
@@ -41,11 +43,11 @@
          * Constructs a new message
          * @param int $id Message ID
          * @param string $message Message contents
-         * @param int $creation_date Timestamp of the creation of the message
+         * @param DateTimeImmutable $creation_date Timestamp of the creation of the message
          * @param MessageReactions $reactions Reactions this message has
          * @param string|null $image URL to an image, if any
          */
-        public function __construct(int $id, string $message, int $creation_date, MessageReactions $reactions, ?string $image = null) {
+        public function __construct(int $id, string $message, DateTimeImmutable $creation_date, MessageReactions $reactions, ?string $image = null) {
             $this->id = $id;
             $this->message = $message;
             $this->creation_date = $creation_date;
@@ -75,16 +77,16 @@
         }
 
         /**
-         * @return int The creation date
+         * @return DateTimeImmutable The creation date
          */
-        public function get_creation_date(): int {
+        public function get_creation_date(): DateTimeImmutable {
             return $this->creation_date;
         }
 
         /**
-         * @param int $creation_date New creation date
+         * @param DateTimeImmutable $creation_date New creation date
          */
-        public function set_creation_date(int $creation_date): void {
+        public function set_creation_date(DateTimeImmutable $creation_date): void {
             $this->creation_date = $creation_date;
         }
 

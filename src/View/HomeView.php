@@ -2,6 +2,7 @@
 
     namespace Vanestarre\View;
 
+    use DateTimeImmutable;
     use Vanestarre\Model\Message;
 
     /**
@@ -96,7 +97,7 @@
             echo '        <article class="card" data-message-id="' . $message->get_id() . '">' . PHP_EOL;
 
             // Output message date and content
-            echo '            <h2 class="post-title">Vanéstarre • Posté le ' . $message->get_creation_date() . '</h2>' . PHP_EOL;
+            echo '            <h2 class="post-title">Vanéstarre • Posté ' . $this->format_message_date($message->get_creation_date()) . '</h2>' . PHP_EOL;
             echo '            <p class="post-message">' . $message_text . '</p>' . PHP_EOL;
 
             // Output the image if there is one
@@ -109,6 +110,37 @@
 
             // End the message card
             echo '        </article>' . PHP_EOL;
+        }
+
+        /**
+         * Formats a date for a message, returning relative date for up to 24h
+         * @param DateTimeImmutable $date The creation date of a message
+         * @return string The formatted date
+         */
+        private function format_message_date(DateTimeImmutable $date): string {
+            // Get timestamps
+            $currentDate = new DateTimeImmutable();
+            $currentTimestamp = $currentDate->getTimestamp();
+            $timestamp = $date->getTimestamp();
+            $timediff = $currentTimestamp - $timestamp;
+
+            // Try to return a relative date
+            if ($timediff > 0) {
+                if ($timediff < 60) {
+                    return 'il y a moins d\'une minute';
+                } else if ($timediff < 120) {
+                    return 'il y a une minute';
+                } else if ($timediff < 3600) {
+                    return 'il y a ' . (int)($timediff / 60) . ' minutes';
+                } else if ($timediff < 7200) {
+                    return 'il y a une heure';
+                } else if ($timediff < 86400) {
+                    return 'il y a ' . (int)($timediff / 3600) . ' heures';
+                }
+            }
+
+            // Return an absolute date by default
+            return 'le ' . $date->format('d/m/Y à H:i');
         }
 
         /**
@@ -295,4 +327,4 @@
         }
     }
 
-?>
+    ?>

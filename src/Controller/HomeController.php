@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Controller;
 
+    use DateTimeImmutable;
     use Vanestarre\Model\Message;
     use Vanestarre\Model\MessageReactions;
     use Vanestarre\View\HomeView;
@@ -55,8 +56,8 @@
             $testReactions->set_style_reacted(true);
             $testReactions->set_swag_reacted(true);
 
-            $this->view->add_message(new Message(1, 'eske vou konéssé βtwitchprim xDDDDDDDD βxptdr', 10, $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
-            $this->view->add_message(new Message(0, 'yo lé besta g lancé le rézo cmt ça va xoxoxo', 0, new MessageReactions()));
+            $this->view->add_message(new Message(1, 'eske vou konéssé βtwitchprim xDDDDDDDD βxptdr', new DateTimeImmutable('2021-01-19 13:37'), $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
+            $this->view->add_message(new Message(0, 'yo lé besta g lancé le rézo cmt ça va xoxoxo', new DateTimeImmutable('2021-01-19 04:20'), new MessageReactions()));
 
             // Output the View contents
             $this->view->echo_contents();
@@ -91,4 +92,4 @@
         }
     }
 
-?>
+    ?>
