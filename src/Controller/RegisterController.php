@@ -1,6 +1,8 @@
 <?php
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Model\AuthDB;
+
     /**
      * Class RegisterController
      *
@@ -29,8 +31,9 @@
             $algo = PASSWORD_DEFAULT;
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password)<=20) and (strlen($username)<=15)) {
+                $hashedpassword = password_hash($password, $algo);
                 $registering = new AuthDB();
-                $registering->add_user($username, $email, password_hash($password, $algo));
+                $registering->add_user($username, $email, $hashedpassword);
                 header('Location: https://www.php.net/manual/fr/function.filter-var.php');
             }
 

@@ -17,17 +17,17 @@
         public function echo_contents() {
             echo <<<'HTML'
                     <div class="create-account-box">
-                        <h1>Créez un compte</h1>        
+                        <h2>Créez un compte</h2>        
                                 
-                        <form action="/RegisterController.php" method="post">
-                            <p>Identifiant :</p>
-                            <input type="text" name="username" class="input-zone" style="color: black"/><br/>
+                        <form action="/register" method="post">
+                            <label>Identifiant :</label>
+                            <input type="text" name="username" class="input-zone" style="color: black" autocomplete="username" maxlength="15" required/><br/>
                                                
-                            <p>Email :</p>
-                            <input type="text" name="email" class="input-zone" style="color: black"/><br/>
+                            <label>Email :</label>
+                            <input type="email" name="email" class="input-zone" style="color: black" autocomplete="email" maxlength="25" required/><br/>
                             
-                            <p>Mot de passe :</p>
-                            <input type="password" name="mdp" class="input-zone" style="color: black"/><br/>
+                            <label>Mot de passe :</label>
+                            <input type="password" name="mdp" class="input-zone" style="color: black" autocomplete="current-password" maxlength="20" required/><br/>
                             
                             <input type="submit" name="envoie" class="submit-button" value="Créer votre compte">
                         </form>
