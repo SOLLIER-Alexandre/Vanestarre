@@ -52,6 +52,10 @@
             $controller = new Controller\PostMessageController();
             break;
 
+        case '/deleteMessage':
+            $controller = new Controller\DeleteMessageController();
+            break;
+
         case '/messages':
             $controller = new Controller\MessagesController();
             break;

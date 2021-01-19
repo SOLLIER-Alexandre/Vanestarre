@@ -1,21 +1,22 @@
 <?php
+
     namespace Vanestarre\Controller;
 
     /**
-     * Class PostMessageController
+     * Class DeleteMessageController
      *
-     * Controller for the message posting
+     * Controller for message deleting
      *
      * @author SOLLIER Alexandre
      * @package Vanestarre\Controller
      */
-    class PostMessageController implements IController
+    class DeleteMessageController implements IController
     {
         /**
          * @inheritDoc
          */
         public function execute() {
-            // TODO: Add/Modify message using the MessagesDB model
+            // TODO: Delete message using the MessagesDB model
             header('Location: /');
         }
 
@@ -23,7 +24,7 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Post message';
+            return 'Delete message';
         }
 
         /**
@@ -48,4 +49,4 @@
         }
     }
 
-?>
+    ?>
