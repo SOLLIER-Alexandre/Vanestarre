@@ -12,6 +12,14 @@ main > .card:not(:last-child) {
     margin-bottom: 16px;
 }
 
+.input-button {
+    align-self: flex-end;
+    padding: 6px 24px;
+    width: max-content;
+    border: none;
+    border-radius: 4px;
+}
+
 .message-form {
     display: flex;
     flex-direction: column;
@@ -26,14 +34,8 @@ main > .card:not(:last-child) {
 }
 
 .message-form input[type="submit"] {
-    align-self: flex-end;
-    padding: 6px 24px;
-    width: max-content;
-    border: none;
-    text-transform: capitalize;
     background-color: #9C4ABD;
     color: #FFFFFFDE;
-    border-radius: 4px;
 }
 
 .message-form-buttons,
@@ -162,7 +164,6 @@ main > .card:not(:last-child) {
 .modal-container {
     padding: 16px;
     width: 512px;
-    height: 256px;
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -181,6 +182,34 @@ main > .card:not(:last-child) {
 
 .dialog-header > h2 {
     margin: 0 auto 0 0;
+}
+
+#modal-edit-message .modal-container {
+    height: 256px;
+}
+
+.modal-delete-message-content {
+    flex-direction: column;
+}
+
+#modal-delete-message-form {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+#modal-delete-message-form > input:not(:last-child) {
+    margin-right: 8px;
+}
+
+#modal-delete-message-form > input[type="button"] {
+    background-color: #6C6C6C;
+    color: #FFFFFFDE;
+}
+
+#modal-delete-message-form > input[type="submit"] {
+    background-color: #E53935;
+    color: #FFFFFFDE;
 }
 
 @media (min-width: 656px) {

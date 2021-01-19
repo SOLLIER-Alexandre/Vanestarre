@@ -56,6 +56,7 @@
             // Echo dialogs
             // TODO: Only output this when user is authorized
             $this->echo_edit_message_dialog();
+            $this->echo_delete_message_dialog();
         }
 
         /**
@@ -72,7 +73,7 @@
                                 </div>
                                 <div>
                                     <span class="message-length-counter" data-for-textarea="send-message-text">50</span>
-                                    <input class="send-message-button" type="submit" value="Post" data-for-textarea="send-message-text">
+                                    <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="send-message-text">
                                 </div>
                             </div>
                         </form>
@@ -216,7 +217,7 @@
                                             </div>
                                             <div>
                                                 <span class="message-length-counter" data-for-textarea="edit-message-text">50</span>
-                                                <input class="send-message-button" type="submit" value="Post" data-for-textarea="edit-message-text">
+                                                <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="edit-message-text">
                                             </div>
                                         </div>
                                     </form>
@@ -226,7 +227,35 @@
                     </div>
 
             HTML;
+        }
 
+        /**
+         * Outputs the dialog for deleting a message
+         */
+        private function echo_delete_message_dialog(): void {
+            echo <<<'HTML'
+                    <div id="modal-delete-message" class="modal" aria-hidden="true">
+                        <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-delete-message-title">
+                                <header class="dialog-header">
+                                    <h2 id="modal-delete-message-title">Supprimer un message</h2>
+                                </header>
+                        
+                                <div class="modal-delete-message-content">
+                                    <p>Êtes-vous sûr de vouloir supprimer ce message ?</p>
+                                    <p>Cette action est irréversible.</p>
+                                </div>
+                                
+                                <form id="modal-delete-message-form" action="/deleteMessage" method="post">
+                                    <input id="delete-message-id" name="messageId" type="hidden">
+                                    <input class="input-button" type="button" value="Annuler" data-micromodal-close>
+                                    <input class="input-button" type="submit" value="Supprimer">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+            HTML;
         }
 
         /**

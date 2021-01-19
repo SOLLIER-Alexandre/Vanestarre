@@ -146,45 +146,57 @@
 
         // Add a click listener on every message edit button
         const editMessageText = document.getElementById('edit-message-text');
-        const editMessageId = document.getElementById('edit-message-id');
 
-        if (editMessageText !== null && editMessageId !== null) {
-            const messageEditButtons = document.getElementsByClassName('message-edit-button');
+        if (editMessageText !== null) {
+            // Add a click listener on every message edit button
+            const editMessageId = document.getElementById('edit-message-id');
 
-            function onEditClick(event) {
-                // Grab message ID associated with the button
-                const messageID = getMessageIdFromButton(event.target);
-                if (!messageID) return;
+            if (editMessageId !== null) {
+                const messageEditButtons = document.getElementsByClassName('message-edit-button');
 
-                // Set dialog values
-                const messageText = document.querySelector('article[data-message-id="' + messageID + '"] > .post-message');
-                if (!messageText) return;
+                function onEditClick(event) {
+                    // Grab message ID associated with the button
+                    const messageID = getMessageIdFromButton(event.target);
+                    if (!messageID) return;
 
-                editMessageText.value = messageText.innerText;
-                editMessageText.dispatchEvent(new InputEvent('input'));
-                editMessageId.value = messageID;
+                    // Set dialog values
+                    const messageText = document.querySelector('article[data-message-id="' + messageID + '"] > .post-message');
+                    if (!messageText) return;
 
-                // Show the message edit modal
-                MicroModal.show('modal-edit-message');
-            }
+                    editMessageText.value = messageText.innerText;
+                    editMessageText.dispatchEvent(new InputEvent('input'));
+                    editMessageId.value = messageID;
 
-            for (const button of messageEditButtons) {
-                button.addEventListener('click', onEditClick);
+                    // Show the message edit modal
+                    MicroModal.show('modal-edit-message');
+                }
+
+                for (const button of messageEditButtons) {
+                    button.addEventListener('click', onEditClick);
+                }
             }
 
             // Add a click listener on every message delete button
-            const messageDeleteButtons = document.getElementsByClassName('message-delete-button');
+            const deleteMessageId = document.getElementById('delete-message-id');
 
-            function onDeleteClick(event) {
-                // Grab message ID associated with the button
-                const messageID = getMessageIdFromButton(event.target);
-                if (!messageID) return;
+            if (deleteMessageId !== null) {
+                const messageDeleteButtons = document.getElementsByClassName('message-delete-button');
 
-                console.log('Delete: ' + messageID);
-            }
+                function onDeleteClick(event) {
+                    // Grab message ID associated with the button
+                    const messageID = getMessageIdFromButton(event.target);
+                    if (!messageID) return;
 
-            for (const button of messageDeleteButtons) {
-                button.addEventListener('click', onDeleteClick);
+                    // Set dialog values
+                    deleteMessageId.value = messageID;
+
+                    // Show the message delete modal
+                    MicroModal.show('modal-delete-message');
+                }
+
+                for (const button of messageDeleteButtons) {
+                    button.addEventListener('click', onDeleteClick);
+                }
             }
         }
     });
