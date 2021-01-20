@@ -1,0 +1,65 @@
+/**
+ * style for the account page
+ *
+ * @author CHATEAUX Adrien
+ */
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+/*div {
+    background-color: #1E88E5;
+}*/
+
+.text-line {
+    margin-bottom: 1rem;
+}
+
+.div-form {
+    margin-bottom: 1rem;
+}
+
+#main-card {
+    display: flex;
+    width: 50rem;
+    margin-top: 1rem;
+    padding: 25px;
+}
+
+#submit-config-change {
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+#submit-config-change:hover {
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    background-color: #dedede;
+}
+
+#form-modif-config input[type="number"] {
+    border: none;
+    background-color: #dedede;
+    color: black;
+    border-radius: 4px;
+    width: 185px;
+}
+
+h2 {
+    margin-top: 0px;
+    color: white;
+}
+
+h3 {
+    display: inline;
+    color: white;
+}
+
+label {
+    display: flex;
+}
