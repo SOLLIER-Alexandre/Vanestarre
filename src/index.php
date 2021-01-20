@@ -60,6 +60,10 @@
             $controller = new Controller\RegisterController();
             break;
 
+        case '/config':
+            $controller = new Controller\VanestarreConfigController();
+            break;
+
         default:
             $controller = new Controller\PNFController();
     }

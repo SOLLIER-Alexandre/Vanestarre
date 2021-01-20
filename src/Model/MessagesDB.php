@@ -47,21 +47,54 @@
          * @return array A list with the last n messages
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $connection = $this->mysqli;
-            $prepared_query = $connection->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ? ORDER BY date');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if ($result == false) {
-                throw new Exception("This query result is empty.");
+                throw new Exception("This query result is empty (function get_n_last_messages()).");
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], $row['date'], new MessageReactions(), $row['image_link']));
+                    $message_reactions = $this->message_reactions($row['message_id']);
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
+        }
 
+        /**
+         * @param $message_id
+         * @return MessageReactions
+         * @throws Exception
+         * Instantiate a MessageReactions object.
+         */
+        private function message_reactions($message_id){
+            $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
+            $prepared_query->bind_param('i', $messages_id);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if ($result == false) {
+                throw new Exception("This query result is empty (function message_reactions()).");
+            } else {
+                $message_reactions = new MessageReactions();
+                while($row = $result->fetch_assoc()){
+                    $message_reactions->set_cute_reaction($row['cute_reactions']);
+                    $message_reactions->set_love_reaction($row['love_reactions']);
+                    $message_reactions->set_style_reaction($row['style_reactions']);
+                    $message_reactions->set_swag_reaction($row['swag_reactions']);
+                }
+                return $message_reactions;
+            }
+        }
+
+        /**
+         * @param $username
+         * @param $message_id
+         * @return bool
+         */
+        public function has_reacted($username, $message_id) : boolean{
+            //todo
         }
 
     }

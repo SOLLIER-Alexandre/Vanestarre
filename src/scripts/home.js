@@ -125,6 +125,7 @@
             if (!messageID) return;
 
             // TODO: XMLHttpRequest the message reaction endpoint
+            // TODO: Show donate dialog if needed
             if (isButtonSelected) {
                 // Unselect the button
                 buttonContainer.classList.remove('selected');
