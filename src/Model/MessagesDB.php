@@ -57,7 +57,7 @@
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = $this->message_reactions($row['message_id']);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], filter_var($row['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
@@ -96,6 +96,20 @@
          */
         public function has_reacted(string $username, Message $message_object): boolean {
             //todo
+        }
+
+        /**
+         * @param $message_id
+         * @param $reaction_type
+         * Add a reaction to the message.
+         */
+        public function add_reaction(int $message_id, string $reaction_type, string $username): void {
+            $prepared_query = $this->mysqli->prepare('INSERT INTO REACTIONS(message_id, reaction_type, username) VALUES(?, ?, ?)');
+            $prepared_query->bind_param('iss', $message_id, $reaction_type, $username);
+            $prepared_query->execute();
+            if($prepared_query == false){
+                throw new Exception("Error when adding the reaction.");
+            }
         }
 
         /**
