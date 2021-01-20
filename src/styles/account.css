@@ -52,10 +52,12 @@ main {
 
 h2 {
     margin-top: 0px;
+    color: white;
 }
 
 h3 {
     display: inline;
+    color: white;
 }
 
 label {
