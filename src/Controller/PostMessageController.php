@@ -17,13 +17,17 @@
          * @inheritDoc
          */
         public function execute() {
-            // TODO: Add possibility to modify message using the MessagesDB model
             // TODO: Check authenticated user
             // TODO: Add image uploading
             if (isset($_POST['message']) && strlen($_POST['message']) > 0 && strlen($_POST['message']) <= 50) {
                 $messageDB = new MessagesDB();
                 $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $messageDB->add_message($filtered_message, null);
+
+                if (is_numeric($_POST['messageId'])) {
+                    $messageDB->edit_message(intval($_POST['messageId']), $filtered_message);
+                } else {
+                    $messageDB->add_message($filtered_message, null);
+                }
             } else {
                 // One of the parameter was malformed
                 // TODO: Show error message
