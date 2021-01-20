@@ -1,6 +1,7 @@
 <?php
     namespace Vanestarre\Model;
 
+    use DateTimeImmutable;
     use Error;
     use Exception;
     use mysqli;
@@ -68,9 +69,9 @@
 
         /**
          * @param string $username
-         * @return array
+         * @return User
          * @throws Exception
-         * Return user's data as an array.
+         * Return user's data as an User object.
          */
         public function get_user_data(string $username): User {
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
@@ -81,7 +82,8 @@
                 throw new Exception("Couldn't get data associated to the user.");
             } else {
                 $user_data = $result->fetch_row();
-                return new User($user_data['username'], $user_data['email'], $user_data['password'], $user_data['registration_date']);
+                //return new User($user_data['username'], $user_data['email'], $user_data['password'], $user_data['registration_date']);
+                return new User("Billy", "truc@mail.fr", '$2y$10$A2Tpm2iN6spCC', new DateTimeImmutable());
             }
         }
 
