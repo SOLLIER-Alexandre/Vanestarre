@@ -47,7 +47,7 @@
          * @return array A list with the last n messages
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
@@ -56,14 +56,19 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    $message_reactions = message_reactions($row['message_id']);
+                    $message_reactions = $this->message_reactions($row['message_id']);
                     array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
-
         }
 
+        /**
+         * @param $message_id
+         * @return MessageReactions
+         * @throws Exception
+         * Instantiate a MessageReactions object.
+         */
         private function message_reactions($message_id){
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
             $prepared_query->bind_param('i', $messages_id);
@@ -83,6 +88,23 @@
             }
         }
 
+        /**
+         * @param $username
+         * @param $message_id
+         * @return bool
+         */
+        public function has_reacted($username, $message_id) : boolean{
+            //todo
+        }
+
+        public function add_message($message_object){
+            $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
+            $prepared_query->bind_param('ss', $message_object->get_message(), $message_object->get_image());
+            $prepared_query->execute();
+            if($prepared_query == false){
+                throw new Exception("Error with the message creation.");
+            }
+        }
     }
 
 ?>
