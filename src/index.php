@@ -56,10 +56,6 @@
             $controller = new Controller\DeleteMessageController();
             break;
 
-        case '/messages':
-            $controller = new Controller\MessagesController();
-            break;
-
         case '/register':
             $controller = new Controller\RegisterController();
             break;
