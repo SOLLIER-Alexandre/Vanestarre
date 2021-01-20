@@ -56,27 +56,29 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], $row['date'], new MessageReactions(), $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), new MessageReactions(), $row['image_link']));
                 }
                 return $messages_list;
             }
 
         }
 
-        /**
-         * @param $message_id
-         * @return \mysqli_result
-         * @throws Exception
-         */
-        private function count_reactions($message_id){
+        private function message_reactions($message_id){
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
             $prepared_query->bind_param('i', $messages_id);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if ($result == false) {
-                throw new Exception("This query result is empty (function count_reactions()).");
+                throw new Exception("This query result is empty (function message_reactions()).");
             } else {
-                return $result;
+                $message_reactions = new MessageReactions();
+                while($row = $result->fetch_assoc()){
+                    $message_reactions->set_cute_reaction($row['cute_reactions']);
+                    $message_reactions->set_love_reaction($row['love_reactions']);
+                    $message_reactions->set_style_reaction($row['style_reactions']);
+                    $message_reactions->set_swag_reaction($row['swag_reactions']);
+                }
+                return $message_reactions;
             }
         }
 
