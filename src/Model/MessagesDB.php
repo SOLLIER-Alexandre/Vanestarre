@@ -56,14 +56,19 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    $message_reactions = message_reactions($row['message_id']);
+                    $message_reactions = $this->message_reactions($row['message_id']);
                     array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
-
         }
 
+        /**
+         * @param $message_id
+         * @return MessageReactions
+         * @throws Exception
+         * Instantiate a MessageReactions object.
+         */
         private function message_reactions($message_id){
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
             $prepared_query->bind_param('i', $messages_id);
@@ -81,6 +86,15 @@
                 }
                 return $message_reactions;
             }
+        }
+
+        /**
+         * @param $username
+         * @param $message_id
+         * @return bool
+         */
+        public function has_reacted($username, $message_id) : boolean{
+            //todo
         }
 
     }
