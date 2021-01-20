@@ -44,12 +44,20 @@
          * Create a new user in the database.
          */
         public function add_user(string $username, string $email, string $password): void {
-            $connection = $this->mysqli;
-            $prepared_query = $connection->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
+            $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
             $prepared_query->bind_param('sss', $email, $password, $username);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the new user insertion.");
+            }
+        }
+
+        public function delete_user(string $username){
+            $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE username = ?');
+            $prepared_query->bind_param('s', $username);
+            $prepared_query->execute();
+            if($prepared_query == false){
+                throw new Exception("Error with the user deletion.");
             }
         }
 
