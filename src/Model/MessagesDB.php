@@ -113,15 +113,14 @@
         }
 
         /**
-         * @param $message_object
+         * @param string $content
+         * @param string $image
          * @throws Exception
-         * Add a new message in the database.
+         * Add a message in the database
          */
-        public function add_message(Message $message_object): void {
+        public function add_message(string $content, ?string $image): void {
             $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
-            $message = $message_object->get_message();
-            $image = $message_object->get_image();
-            $prepared_query->bind_param('ss', $message, $image);
+            $prepared_query->bind_param('ss', $content, $image);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the message creation.");
