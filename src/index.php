@@ -68,6 +68,10 @@
             $controller = new Controller\UserLoginController();
             break;
 
+        case '/modifConfig':
+            $controller = new Controller\ModifConfigController();
+            break;
+
         default:
             $controller = new Controller\PNFController();
     }
