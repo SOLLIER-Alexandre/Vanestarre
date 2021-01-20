@@ -6,7 +6,7 @@
     use Error;
     use Exception;
     use mysqli;
-    
+
 
     /**
      * Class Messages
@@ -166,14 +166,15 @@
             }
         }
 
-        public function count_messages(): int{
+        public function count_messages(): int {
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM MESSAGES');
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if ($result == false) {
                 throw new Exception("This query result is empty (function message_reactions()).");
             } else {
-                return $result['count'];
+                $row = $result->fetch_assoc();
+                return $row['count(*)'];
             }
         }
     }
