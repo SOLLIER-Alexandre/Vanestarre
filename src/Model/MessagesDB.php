@@ -69,7 +69,7 @@
          * @throws Exception
          * Instantiate a MessageReactions object.
          */
-        private function message_reactions($message_id){
+        private function message_reactions(int $message_id): MessageReactions{
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
             $prepared_query->bind_param('i', $messages_id);
             $prepared_query->execute();
@@ -79,10 +79,10 @@
             } else {
                 $message_reactions = new MessageReactions();
                 while($row = $result->fetch_assoc()){
-                    $message_reactions->set_cute_reaction($row['cute_reactions']);
-                    $message_reactions->set_love_reaction($row['love_reactions']);
-                    $message_reactions->set_style_reaction($row['style_reactions']);
-                    $message_reactions->set_swag_reaction($row['swag_reactions']);
+                    $message_reactions->set_cute_reaction($row['cute']);
+                    $message_reactions->set_love_reaction($row['love']);
+                    $message_reactions->set_style_reaction($row['style']);
+                    $message_reactions->set_swag_reaction($row['swag']);
                 }
                 return $message_reactions;
             }
@@ -94,7 +94,7 @@
          * @return bool
          * Check if the user has reacted on the message.
          */
-        public function has_reacted($username, $message_object) : boolean{
+        public function has_reacted(string $username, Message $message_object): boolean{
             //todo
         }
 
@@ -103,9 +103,11 @@
          * @throws Exception
          * Add a new message in the database.
          */
-        public function add_message($message_object){
+        public function add_message(Message $message_object): void{
             $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
-            $prepared_query->bind_param('ss', $message_object->get_message(), $message_object->get_image());
+            $message = $message_object->get_message();
+            $image = $message_object->get_image();
+            $prepared_query->bind_param('ss', $message, $image);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the message creation.");
@@ -117,16 +119,20 @@
          * @throws Exception
          * Edit a message from the database.
          */
-        public function edit_message($message_object){
+        public function edit_message(Message $message_object): void{
             $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
-            $prepared_query->bind_param('si', $message_object->get_message(), $message_object->get_id());
+            $message = $message_object->get_message();
+            $id = $message_object->get_id();
+            $prepared_query->bind_param('si', $message, $id);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the message update.");
             }
         }
 
+        public function delete_message($message_object){
 
+        }
     }
 
 ?>
