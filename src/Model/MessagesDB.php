@@ -157,6 +157,17 @@
                 throw new Exception("Error with the message deletion.");
             }
         }
+
+        public function count_messages(): int{
+            $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM MESSAGES');
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if ($result == false) {
+                throw new Exception("This query result is empty (function message_reactions()).");
+            } else {
+                return $result;
+            }
+        }
     }
 
 ?>
