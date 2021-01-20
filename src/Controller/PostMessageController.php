@@ -18,6 +18,7 @@
          */
         public function execute() {
             // TODO: Add possibility to modify message using the MessagesDB model
+            // TODO: Check authenticated user
             if (isset($_POST['message'])) {
                 $messageDB = new MessagesDB();
                 $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

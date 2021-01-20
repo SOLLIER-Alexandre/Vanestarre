@@ -2,6 +2,8 @@
 
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Model\MessagesDB;
+
     /**
      * Class DeleteMessageController
      *
@@ -16,7 +18,13 @@
          * @inheritDoc
          */
         public function execute() {
-            // TODO: Delete message using the MessagesDB model
+            // Check that we have the message ID in the POSTed parameters
+            // TODO: Check authenticated user
+            if (is_numeric($_POST['messageId'])) {
+                $messagesDB = new MessagesDB();
+                $messagesDB->delete_message(intval($_POST['messageId']));
+            }
+
             header('Location: /');
         }
 
