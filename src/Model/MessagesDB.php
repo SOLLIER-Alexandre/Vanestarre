@@ -56,7 +56,8 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), new MessageReactions(), $row['image_link']));
+                    $message_reactions = message_reactions($row['message_id']);
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
