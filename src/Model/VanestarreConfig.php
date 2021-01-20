@@ -121,10 +121,10 @@
             $configs_json = fread($file, "100");
             fclose($file);
 
-            $configs = json_decode($configs_json);
+            $configs = json_decode($configs_json, true);
 
             $this->set_nbr_messages_par_page($configs['nbr_messages_par_page']);
-            $this->love_lim_inf($configs['love_lim_inf']);
-            $this->love_lim_sup($configs['love_lim_sup']);
+            $this->set_love_lim_inf($configs['love_lim_inf']);
+            $this->set_love_lim_sup($configs['love_lim_sup']);
         }
     }
