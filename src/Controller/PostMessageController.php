@@ -1,6 +1,7 @@
 <?php
     namespace Vanestarre\Controller;
 
+    use Exception;
     use Vanestarre\Model\MessagesDB;
 
     /**
@@ -19,22 +20,32 @@
         public function execute() {
             // TODO: Check authenticated user
             // TODO: Add image uploading
+            $redirect_route = '/';
+
             if (isset($_POST['message']) && strlen($_POST['message']) > 0 && strlen($_POST['message']) <= 50) {
                 $messageDB = new MessagesDB();
-                $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                if (is_numeric($_POST['messageId'])) {
-                    $messageDB->edit_message(intval($_POST['messageId']), $filtered_message);
-                } else {
-                    $messageDB->add_message($filtered_message, null);
+                // Filter the message to prevent XSS
+                $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                try {
+                    if (is_numeric($_POST['messageId'])) {
+                        $messageDB->edit_message(intval($_POST['messageId']), $filtered_message);
+                    } else {
+                        $messageDB->add_message($filtered_message, null);
+                    }
+                } catch (Exception $e) {
+                    // There was an error while trying to add/edit the message
+                    $redirect_route = '/home?err=2';
+                    http_response_code(401);
                 }
             } else {
                 // One of the parameter was malformed
-                // TODO: Show error message
+                $redirect_route = '/home?err=1';
                 http_response_code(401);
             }
 
-            header('Location: /');
+            header('Location: ' . $redirect_route);
         }
 
         /**

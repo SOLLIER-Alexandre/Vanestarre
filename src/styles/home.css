@@ -12,6 +12,15 @@ main > .card:not(:last-child) {
     margin-bottom: 16px;
 }
 
+#error-box-title {
+    display: flex;
+    align-items: center;
+}
+
+#error-box-title > .material-icons {
+    margin-right: 8px;
+}
+
 .input-button {
     align-self: flex-end;
     padding: 6px 24px;

@@ -36,12 +36,19 @@
         private $error_fetching_messages;
 
         /**
+         * @var int|null $error ID of the error that occurred, if there was one
+         */
+        private $error;
+
+        /**
          * HomeView constructor.
          */
         public function __construct() {
             $this->current_page = 1;
             $this->page_count = 1;
             $this->messages = array();
+            $this->error_fetching_messages = false;
+            $this->error = null;
         }
 
         /**
@@ -52,6 +59,11 @@
             if ($this->error_fetching_messages) {
                 $this->echo_error_fetching_message();
                 return;
+            }
+
+            // Echo error box if one occurred
+            if (!is_null($this->error)) {
+                $this->echo_error_box();
             }
 
             // TODO: Only echo this when the connected account is Vanéstarre
@@ -71,6 +83,37 @@
             $this->echo_delete_message_dialog();
 
             $this->echo_donation_dialog();
+        }
+
+        /**
+         * Outputs the error box if one occurred
+         */
+        private function echo_error_box(): void {
+            // Begin error card
+            echo '        <div class="card">' . PHP_EOL;
+            echo '            <h2 id="error-box-title"><span class="material-icons">error</span> Une erreur est survenue</h2>' . PHP_EOL;
+
+            // Check which error is this
+            switch ($this->error) {
+                case 1:
+                case 2:
+                    // Error while posting a message
+                    echo '            <p>Votre message n\'a pas pu être posté</p>' . PHP_EOL;
+                    break;
+
+                case 10:
+                case 11:
+                    // Error while modifying a message
+                    echo '            <p>Le message n\'a pas pu être modifié</p>' . PHP_EOL;
+                    break;
+
+                default:
+                    // Unknown error
+                    echo '            <p>Mais elle est inconnue...</p>' . PHP_EOL;
+            }
+
+            // End error card
+            echo '        </div>' . PHP_EOL;
         }
 
         /**
@@ -395,6 +438,13 @@
          */
         public function set_error_fetching_messages(bool $error_fetching_messages): void {
             $this->error_fetching_messages = $error_fetching_messages;
+        }
+
+        /**
+         * @param int $error New error ID
+         */
+        public function set_error(int $error): void {
+            $this->error = $error;
         }
     }
 

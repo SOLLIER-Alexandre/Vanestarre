@@ -36,12 +36,17 @@
             // TODO: Get the real page count
             $this->view->set_page_count(5);
 
-            if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+            if (is_numeric($_GET['page'])) {
                 // We got a page number in the request, check it and set it if it's good
                 $page = intval($_GET['page']);
                 if ($page >= 1 && $page <= $this->view->get_page_count()) {
                     $this->view->set_current_page($page);
                 }
+            }
+
+            // Set the error to the view if there is one
+            if (is_numeric($_GET['err'])) {
+                $this->view->set_error(intval($_GET['err']));
             }
 
             // Grab the messages from the database
@@ -52,20 +57,6 @@
             } catch (Exception $e) {
                 $this->view->set_error_fetching_messages(true);
             }
-
-//            // Add the messages to the View
-//            $testReactions = new MessageReactions();
-//            $testReactions->set_love_reaction(69);
-//            $testReactions->set_cute_reaction(42);
-//            $testReactions->set_style_reaction(1337);
-//            $testReactions->set_swag_reaction(420);
-//            $testReactions->set_love_reacted(true);
-//            $testReactions->set_cute_reacted(true);
-//            $testReactions->set_style_reacted(true);
-//            $testReactions->set_swag_reacted(true);
-//
-//            $this->view->add_message(new Message(1, 'eske vou konéssé βtwitchprim xDDDDDDDD βxptdr', new DateTimeImmutable('2021-01-19 13:37'), $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
-//            $this->view->add_message(new Message(0, 'yo lé besta g lancé le rézo cmt ça va xoxoxo', new DateTimeImmutable('2021-01-19 04:20'), new MessageReactions()));
 
             // Output the View contents
             $this->view->echo_contents();

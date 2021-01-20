@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Controller;
 
+    use Exception;
     use Vanestarre\Model\MessagesDB;
 
     /**
@@ -20,15 +21,24 @@
         public function execute() {
             // Check that we have the message ID in the POSTed parameters
             // TODO: Check authenticated user
+            $redirect_route = '/';
+
             if (is_numeric($_POST['messageId'])) {
                 $messagesDB = new MessagesDB();
-                $messagesDB->delete_message(intval($_POST['messageId']));
+                try {
+                    $messagesDB->delete_message(intval($_POST['messageId']));
+                } catch (Exception $e) {
+                    // The message couldn't be deleted
+                    $redirect_route = '/home?err=11';
+                    http_response_code(401);
+                }
             } else {
                 // The message ID was null/malformed
+                $redirect_route = '/home?err=10';
                 http_response_code(401);
             }
 
-            header('Location: /');
+            header('Location: ' . $redirect_route);
         }
 
         /**
