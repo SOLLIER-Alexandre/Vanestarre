@@ -1,6 +1,7 @@
 <?php
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Model\VanestarreConfig;
     use Vanestarre\View\VanestarreConfigView;
 
     /**
@@ -11,7 +12,7 @@
     * @author CHATEAUX Adrien
     * @package Vanestarre\Controller
     */
-    class TemplateController implements IController
+    class VanestarreConfigController implements IController
     {
         /**
         * @var VanestarreConfigView View associated with this controller
@@ -23,7 +24,8 @@
         */
         public function __construct()
         {
-            $this->view = new VanestarreConfigView();
+            $config = new VanestarreConfig();
+            $this->view = new VanestarreConfigView($config->get_nbr_messages_par_page(), $config->get_love_lim_inf(), $config->get_love_lim_sup());
         }
 
         /**
@@ -48,7 +50,7 @@
          */
         public function get_stylesheets(): array
         {
-            return [];
+            return ['/styles/vanestarre_config.css'];
         }
 
         /**

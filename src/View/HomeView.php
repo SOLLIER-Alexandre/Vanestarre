@@ -31,6 +31,11 @@
         private $messages;
 
         /**
+         * @var bool $error_fetching_messages True if we have to show an error messages because we couldn't fetch messages
+         */
+        private $error_fetching_messages;
+
+        /**
          * HomeView constructor.
          */
         public function __construct() {
@@ -43,6 +48,12 @@
          * @inheritDoc
          */
         public function echo_contents(): void {
+            // If there was an error, just print it
+            if ($this->error_fetching_messages) {
+                $this->echo_error_fetching_message();
+                return;
+            }
+
             // TODO: Only echo this when the connected account is Vanéstarre
             $this->echo_message_writer();
 
@@ -318,6 +329,18 @@
         }
 
         /**
+         * Outputs the message for when we couldn't fetch messages
+         */
+        private function echo_error_fetching_message(): void {
+            echo <<<'HTML'
+                <h2>Erreur lors de la récupération des messages</h2>
+                <p>Nous ne pouvons pas actuellement récupérer les messages de Vanéstarre.</p>
+                <p>L'incident sera résolu au plus vite, nous sommes désolés pour la gêne occasionnée dans votre consommation de contenu de kalitay.</p>
+
+            HTML;
+        }
+
+        /**
          * @return int The page count
          */
         public function get_page_count(): int {
@@ -351,6 +374,27 @@
          */
         public function add_message(Message $message): void {
             array_push($this->messages, $message);
+        }
+
+        /**
+         * @return array The message set
+         */
+        public function get_messages(): array {
+            return $this->messages;
+        }
+
+        /**
+         * @param array $messages New message set
+         */
+        public function set_messages(array $messages): void {
+            $this->messages = $messages;
+        }
+
+        /**
+         * @param bool $error_fetching_messages New error fetching message state
+         */
+        public function set_error_fetching_messages(bool $error_fetching_messages): void {
+            $this->error_fetching_messages = $error_fetching_messages;
         }
     }
 

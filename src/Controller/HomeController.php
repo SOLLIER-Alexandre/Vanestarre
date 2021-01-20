@@ -2,9 +2,8 @@
 
     namespace Vanestarre\Controller;
 
-    use DateTimeImmutable;
-    use Vanestarre\Model\Message;
-    use Vanestarre\Model\MessageReactions;
+    use Exception;
+    use Vanestarre\Model\MessagesDB;
     use Vanestarre\View\HomeView;
 
     /**
@@ -45,19 +44,28 @@
                 }
             }
 
-            // Add the messages to the View
-            $testReactions = new MessageReactions();
-            $testReactions->set_love_reaction(69);
-            $testReactions->set_cute_reaction(42);
-            $testReactions->set_style_reaction(1337);
-            $testReactions->set_swag_reaction(420);
-            $testReactions->set_love_reacted(true);
-            $testReactions->set_cute_reacted(true);
-            $testReactions->set_style_reacted(true);
-            $testReactions->set_swag_reacted(true);
+            // Grab the messages from the database
+            $messageDB = new MessagesDB();
 
-            $this->view->add_message(new Message(1, 'eske vou konéssé βtwitchprim xDDDDDDDD βxptdr', new DateTimeImmutable('2021-01-19 13:37'), $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
-            $this->view->add_message(new Message(0, 'yo lé besta g lancé le rézo cmt ça va xoxoxo', new DateTimeImmutable('2021-01-19 04:20'), new MessageReactions()));
+            try {
+                $this->view->set_messages($messageDB->get_n_last_messages(2, 0));
+            } catch (Exception $e) {
+                $this->view->set_error_fetching_messages(true);
+            }
+
+//            // Add the messages to the View
+//            $testReactions = new MessageReactions();
+//            $testReactions->set_love_reaction(69);
+//            $testReactions->set_cute_reaction(42);
+//            $testReactions->set_style_reaction(1337);
+//            $testReactions->set_swag_reaction(420);
+//            $testReactions->set_love_reacted(true);
+//            $testReactions->set_cute_reacted(true);
+//            $testReactions->set_style_reacted(true);
+//            $testReactions->set_swag_reacted(true);
+//
+//            $this->view->add_message(new Message(1, 'eske vou konéssé βtwitchprim xDDDDDDDD βxptdr', new DateTimeImmutable('2021-01-19 13:37'), $testReactions, 'https://materializecss.com/images/sample-1.jpg'));
+//            $this->view->add_message(new Message(0, 'yo lé besta g lancé le rézo cmt ça va xoxoxo', new DateTimeImmutable('2021-01-19 04:20'), new MessageReactions()));
 
             // Output the View contents
             $this->view->echo_contents();
