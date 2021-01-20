@@ -165,7 +165,7 @@
             if ($result == false) {
                 throw new Exception("This query result is empty (function message_reactions()).");
             } else {
-                return $result;
+                return $result['count'];
             }
         }
     }
