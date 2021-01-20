@@ -38,6 +38,7 @@
                 try {
                     $registering->add_user($username, $email, $hashedpassword);
                 } catch (Exception $exception) {
+                    header('Location: /login');
                     echo 'Oopsie doopsie, looks like I messed up with your PC #Zut #Cbalo #eeeehSaluatouslézami' . PHP_EOL;
                 }
                 header('Location: /');

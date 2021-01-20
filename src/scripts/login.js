@@ -3,3 +3,7 @@
  *
  * @author RADJA Samy
  */
+
+$("#login-input-trigger").click(function(){
+    $("#login-form").toggle();
+});
