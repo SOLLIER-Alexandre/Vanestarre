@@ -57,14 +57,6 @@
         }
 
         /**
-         * @param string $username
-         */
-        public function set_username(string $username): void
-        {
-            $this->username = $username;
-        }
-
-        /**
          * @return string
          */
         public function get_email(): string
