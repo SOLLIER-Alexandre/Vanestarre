@@ -18,10 +18,11 @@
             echo <<<'HTML'
                     <div class="create-account-box">
                         <h2>Créez un compte</h2>        
+                        <hr>
                                 
                         <form action="/register" method="post">
                             <label>Identifiant :</label>
-                            <input type="text" name="username" class="input-zone" style="color: black" autocomplete="username" maxlength="15" required/><br/>
+                            <input type="" name="username" class="input-zone" style="color: black" autocomplete="username" maxlength="15" required/><br/>
                                                
                             <label>Email :</label>
                             <input type="email" name="email" class="input-zone" style="color: black" autocomplete="email" maxlength="25" required/><br/>

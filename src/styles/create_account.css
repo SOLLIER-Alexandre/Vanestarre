@@ -18,13 +18,9 @@
 
 .input-zone {
     margin-top: 1%;
-    margin-bottom: 5%;
+    margin-bottom: 4%;
     border-radius: 6px;
     opacity: 0.85;
-}
-
-input [type=email] {
-    height: 3px;
 }
 
 .submit-button {
@@ -37,7 +33,11 @@ input [type=email] {
 
 h2 {
    color: #f2f2f2;
-   margin-bottom: 6%;
+   margin-bottom: 2%;
+}
+
+hr {
+    margin-bottom: 5%;
 }
 
 label {
