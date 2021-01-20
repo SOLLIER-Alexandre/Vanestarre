@@ -52,6 +52,11 @@
             }
         }
 
+        /**
+         * @param string $username
+         * @throws Exception
+         * Delete a user in the database.
+         */
         public function delete_user(string $username){
             $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE username = ?');
             $prepared_query->bind_param('s', $username);

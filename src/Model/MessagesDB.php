@@ -47,13 +47,12 @@
          * @return array A list with the last n messages
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $connection = $this->mysqli;
-            $prepared_query = $connection->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if ($result == false) {
-                throw new Exception("This query result is empty.");
+                throw new Exception("This query result is empty (function get_n_last_messages()).");
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
@@ -62,6 +61,23 @@
                 return $messages_list;
             }
 
+        }
+
+        /**
+         * @param $message_id
+         * @return \mysqli_result
+         * @throws Exception
+         */
+        private function count_reactions($message_id){
+            $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
+            $prepared_query->bind_param('i', $messages_id);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if ($result == false) {
+                throw new Exception("This query result is empty (function count_reactions()).");
+            } else {
+                return $result;
+            }
         }
 
     }
