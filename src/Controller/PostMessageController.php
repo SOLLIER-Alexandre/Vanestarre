@@ -37,12 +37,12 @@
                 } catch (Exception $e) {
                     // There was an error while trying to add/edit the message
                     $redirect_route = '/home?err=2';
-                    http_response_code(401);
+                    http_response_code(400);
                 }
             } else {
                 // One of the parameter was malformed
                 $redirect_route = '/home?err=1';
-                http_response_code(401);
+                http_response_code(400);
             }
 
             header('Location: ' . $redirect_route);

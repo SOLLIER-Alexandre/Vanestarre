@@ -33,7 +33,7 @@ class ModifConfigController implements IController
         }
         else
         {
-            http_response_code(401);
+            http_response_code(400);
         }
 
         header('Location: /config');

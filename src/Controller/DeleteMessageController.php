@@ -30,12 +30,12 @@
                 } catch (Exception $e) {
                     // The message couldn't be deleted
                     $redirect_route = '/home?err=11';
-                    http_response_code(401);
+                    http_response_code(400);
                 }
             } else {
                 // The message ID was null/malformed
                 $redirect_route = '/home?err=10';
-                http_response_code(401);
+                http_response_code(400);
             }
 
             header('Location: ' . $redirect_route);
