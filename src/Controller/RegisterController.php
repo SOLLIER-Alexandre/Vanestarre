@@ -1,6 +1,7 @@
 <?php
     namespace Vanestarre\Controller;
 
+    use mysql_xdevapi\Exception;
     use Vanestarre\Model\AuthDB;
 
     /**
@@ -23,6 +24,7 @@
 
         /**
          * @inheritDoc
+         * @throws \Exception
          */
         public function execute() {
             $password = $_POST['mdp'];
@@ -33,16 +35,17 @@
             if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password)<=20) and (strlen($username)<=15)) {
                 $hashedpassword = password_hash($password, $algo);
                 $registering = new AuthDB();
-                $registering->add_user($username, $email, $hashedpassword);
-                header('Location: https://www.php.net/manual/fr/function.filter-var.php');
+                try {
+                    $registering->add_user($username, $email, $hashedpassword);
+                } catch (Exception $exception) {
+                    echo 'Oopsie doopsie, looks like I messed up with your PC #Zut #Cbalo #eeeehSaluatouslézami' . PHP_EOL;
+                }
+                header('Location: /');
             }
 
             else {
                 header('Location: https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400');
             }
-
-            $registering = new \AuthDB();
-            $registering->add_user();
 
         }
 
