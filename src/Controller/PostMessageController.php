@@ -1,6 +1,8 @@
 <?php
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Model\MessagesDB;
+
     /**
      * Class PostMessageController
      *
@@ -15,7 +17,13 @@
          * @inheritDoc
          */
         public function execute() {
-            // TODO: Add/Modify message using the MessagesDB model
+            // TODO: Add possibility to modify message using the MessagesDB model
+            if (isset($_POST['message'])) {
+                $messageDB = new MessagesDB();
+                $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $messageDB->add_message($filtered_message, null);
+            }
+
             header('Location: /');
         }
 
@@ -48,4 +56,4 @@
         }
     }
 
-?>
+    ?>

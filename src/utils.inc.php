@@ -69,10 +69,8 @@
     /**
      * Echoes the start of the standard project layout
      * This contains the page header with the website title, a search box and an account manager
-     *
-     * @param string|null $account_name Name of the account to show. Pass null for the default string.
      */
-    function start_layout($account_name = null) {
+    function start_layout() {
         // Add the standard <header>, and begin a <main> block
         echo <<<'HTML'
             <header id="header">
@@ -87,11 +85,14 @@
                         <span class="material-icons unselectable">account_circle</span>
         HTML;
 
-        if ($account_name === null) {
+        // Start session temporarily to get currently connected username
+        session_start();
+        if (is_null($_SESSION['current_user'])) {
             echo 'Invité';
         } else {
-            echo $account_name;
+            echo $_SESSION['current_user'];
         }
+        session_destroy();
 
         echo <<<'HTML'
         
