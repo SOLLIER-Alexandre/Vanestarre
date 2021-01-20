@@ -95,8 +95,16 @@
          * @return bool
          * Check if the user has reacted on the message.
          */
-        public function has_reacted(string $username, Message $message_object): boolean {
-            $prepared_query = $this->mysqli->prepare('');
+        public function has_reacted(string $username, int $message_id): boolean {
+            $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND username = ?');
+            $prepared_query->bind_param('is', $message_id, $username);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if ($result == false) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         /**

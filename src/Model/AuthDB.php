@@ -81,7 +81,7 @@
                 throw new Exception("Couldn't get data associated to the user.");
             } else {
                 $user_data = $result->fetch_row();
-                return new User($user_data['username'], $result['email'], $result['password'], $result['registration_date']);
+                return new User($user_data['username'], $user_data['email'], $user_data['password'], $user_data['registration_date']);
             }
         }
 
