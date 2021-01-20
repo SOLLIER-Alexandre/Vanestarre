@@ -92,11 +92,17 @@
          * @param $username
          * @param $message_id
          * @return bool
+         * Check if the user has reacted on the message.
          */
-        public function has_reacted($username, $message_id) : boolean{
+        public function has_reacted($username, $message_object) : boolean{
             //todo
         }
 
+        /**
+         * @param $message_object
+         * @throws Exception
+         * Add a new message in the database.
+         */
         public function add_message($message_object){
             $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
             $prepared_query->bind_param('ss', $message_object->get_message(), $message_object->get_image());
@@ -105,6 +111,22 @@
                 throw new Exception("Error with the message creation.");
             }
         }
+
+        /**
+         * @param $message_object
+         * @throws Exception
+         * Edit a message from the database.
+         */
+        public function edit_message($message_object){
+            $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
+            $prepared_query->bind_param('si', $message_object->get_message(), $message_object->get_id());
+            $prepared_query->execute();
+            if($prepared_query == false){
+                throw new Exception("Error with the message update.");
+            }
+        }
+
+
     }
 
 ?>
