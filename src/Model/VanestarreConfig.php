@@ -12,6 +12,8 @@
     */
     class VanestarreConfig
     {
+        private $config_filename;
+
         /**
          * @var int $nbr_messages_par_page The number of messages displayed for each page of the HomeView
          */
@@ -32,17 +34,11 @@
          */
         public function __construct()
         {
-            if(file_exists("VanestarreConfig"))
+            $this->config_filename = $_SERVER["DOCUMENT_ROOT"] . "/VanestarreConfig.json";
+            
+            if(file_exists($this->config_filename))
             {
-                $file = fopen("VanestarreConfig", "r");
-                $configs_json = fread($file, "100");
-                fclose($file);
-
-                $configs = json_decode($configs_json);
-
-                $this->nbr_messages_par_page = $configs['nbr_messages_par_page'];
-                $this->love_lim_inf = $configs['love_lim_inf'];
-                $this->love_lim_sup = $configs['love_lim_sup'];
+                $this->load_config();
             }
             else
             {
@@ -111,8 +107,8 @@
 
             $configs_json = json_encode($configs);
 
-            $file = fopen("VanestarreConfig", "w");
-            echo fwrite($file, $configs_json);
+            $file = fopen($this->config_filename, "w");
+            fwrite($file, $configs_json);
             fclose($file);
         }
 
@@ -121,7 +117,7 @@
          */
         public function load_config(): void
         {
-            $file = fopen("VanestarreConfig", "r");
+            $file = fopen($this->config_filename, "r");
             $configs_json = fread($file, "100");
             fclose($file);
 

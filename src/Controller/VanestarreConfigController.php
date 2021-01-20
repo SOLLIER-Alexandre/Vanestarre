@@ -20,7 +20,7 @@
         private $view;
 
         /**
-        * TemplateController constructor.
+        * VanestarreConfigController constructor.
         */
         public function __construct()
         {

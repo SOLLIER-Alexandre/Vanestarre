@@ -53,15 +53,15 @@
                             </div>
                             <div id="div-form-nbr-messages-par-page" class="div-form">
                                 <label for="nbr-messages-par-page">Nombre de messages affichés par page :</label>
-                                <input type="number" id="nbr-messages-par-page" value=$this->default_nbr_messages_par_page>
+                                <input type="number" id="nbr-messages-par-page" value=$this->default_nbr_messages_par_page name="nbr_messages_par_page">
                             </div>
                             <div id="div-form-nbr-min-react-pour-event" class="div-form">
                                 <label for="nbr-min-react-pour-event">Nombre de reactions "love" minimum pour déclencher l'évènement "donation forcée" :</label>
-                                <input type="number" id="nbr-min-react-pour-event" value=$this->default_nbr_min_react_pour_event>
+                                <input type="number" id="nbr-min-react-pour-event" value=$this->default_nbr_min_react_pour_event name="nbr_min_react_pour_event">
                             </div>
                             <div id="div-form-nbr-max-react-pour-event" class="div-form">
                                 <label for="nbr-max-react-pour-event">Nombre de reactions "love" maximum pour déclencher l'évènement "donation forcée" :</label>
-                                <input type="number" id="nbr-max-react-pour-event" value=$this->default_nbr_max_react_pour_event>
+                                <input type="number" id="nbr-max-react-pour-event" value=$this->default_nbr_max_react_pour_event name="nbr_max_react_pour_event">
                             </div>
                             <input type="submit" value="Valider" id="submit-config-change"> 
                         </form>

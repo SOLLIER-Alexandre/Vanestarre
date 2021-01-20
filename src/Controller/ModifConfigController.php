@@ -1,6 +1,8 @@
 <?php
 namespace Vanestarre\Controller;
 
+use Vanestarre\Model\VanestarreConfig;
+
 /**
  * Class ModifConfigController
  *
@@ -12,23 +14,29 @@ namespace Vanestarre\Controller;
 class ModifConfigController implements IController
 {
     /**
-     * @var ModifConfigController View associated with this controller
-     */
-    private $view;
-
-    /**
-     * ModifConfigController constructor.
-     */
-    public function __construct() {
-        $this->view = new ModifConfigControllerView();
-    }
-
-    /**
      * @inheritDoc
      */
     public function execute() {
-        // Output the view contents
-        $this->view->echo_contents();
+        $nbr_messages_par_page = $_GET['nbr_messages_par_page'];
+        $nbr_min_react_pour_event = $_GET['nbr_min_react_pour_event'];
+        $nbr_max_react_pour_event = $_GET['max_react_pour_event'];
+
+        if(is_numeric($nbr_messages_par_page) && is_numeric($nbr_min_react_pour_event) && is_numeric($nbr_max_react_pour_event))
+        {
+            $config = new VanestarreConfig();
+
+            $config->set_nbr_messages_par_page($nbr_messages_par_page);
+            $config->set_love_lim_inf($nbr_min_react_pour_event);
+            $config->set_love_lim_sup($nbr_max_react_pour_event);
+
+            $config->save_config();
+        }
+        else
+        {
+            http_response_code(401);
+        }
+
+        header('Location: /config');
     }
 
     /**
