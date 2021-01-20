@@ -9,7 +9,7 @@
     * @author CHATEAUX Adrien
     * @package Vanestarre\View
     */
-    class TemplateView implements IView
+    class VanestarreConfigView implements IView
     {
         /**
         * @inheritDoc
