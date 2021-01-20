@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Model;
 
+    use DateTimeImmutable;
     use Error;
     use Exception;
     use mysqli;
@@ -57,7 +58,7 @@
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = $this->message_reactions($row['message_id']);
-                    array_push($messages_list, new Message($row['message_id'], filter_var($row['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), new \DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
