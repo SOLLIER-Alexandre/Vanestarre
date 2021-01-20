@@ -47,7 +47,7 @@
             echo <<<"HTML"
                     <div class="card" id="main-card">
                         <h2>Bonjour Vanéstarre</h2>
-                        <form id="form-modif-config" action="/ModifConfigView.php">
+                        <form id="form-modif-config" action="/modifConfig">
                             <div id="div-form-title" class="text-line">
                                 <p>Vous pouvez changer ci-dessous la configuration de votre site :</p>
                             </div>
