@@ -23,6 +23,9 @@
             if (is_numeric($_POST['messageId'])) {
                 $messagesDB = new MessagesDB();
                 $messagesDB->delete_message(intval($_POST['messageId']));
+            } else {
+                // The message ID was null/malformed
+                http_response_code(401);
             }
 
             header('Location: /');

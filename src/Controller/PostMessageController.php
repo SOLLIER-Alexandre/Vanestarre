@@ -19,10 +19,15 @@
         public function execute() {
             // TODO: Add possibility to modify message using the MessagesDB model
             // TODO: Check authenticated user
-            if (isset($_POST['message'])) {
+            // TODO: Add image uploading
+            if (isset($_POST['message']) && strlen($_POST['message']) > 0 && strlen($_POST['message']) <= 50) {
                 $messageDB = new MessagesDB();
                 $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $messageDB->add_message($filtered_message, null);
+            } else {
+                // One of the parameter was malformed
+                // TODO: Show error message
+                http_response_code(401);
             }
 
             header('Location: /');

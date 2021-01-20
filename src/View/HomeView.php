@@ -138,7 +138,7 @@
             $timediff = $currentTimestamp - $timestamp;
 
             // Try to return a relative date
-            if ($timediff > 0) {
+            if ($timediff >= 0) {
                 if ($timediff < 60) {
                     return 'il y a moins d\'une minute';
                 } else if ($timediff < 120) {
