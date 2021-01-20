@@ -19,7 +19,7 @@ class ModifConfigController implements IController
     public function execute() {
         $nbr_messages_par_page = $_GET['nbr_messages_par_page'];
         $nbr_min_react_pour_event = $_GET['nbr_min_react_pour_event'];
-        $nbr_max_react_pour_event = $_GET['max_react_pour_event'];
+        $nbr_max_react_pour_event = $_GET['nbr_max_react_pour_event'];
 
         if(is_numeric($nbr_messages_par_page) && is_numeric($nbr_min_react_pour_event) && is_numeric($nbr_max_react_pour_event))
         {

@@ -3,7 +3,6 @@ namespace Vanestarre\Controller;
 
 use mysql_xdevapi\Exception;
 use Vanestarre\Model\AuthDB;
-use Vanestarre\Model\User;
 
 /**
  * Class UserLoginController
@@ -33,13 +32,15 @@ class UserLoginController implements IController
 
         if (strlen($currentPassword)<=20 and strlen($username)<=15) {
             $login = new AuthDB();
-            $data = $login->get_user_data($username);
-            $hashedPassword = $data->get_password;
+            $userInfo = $login->get_user_data($username);
+            $hashedPassword = $userInfo->get_password();
             if (password_verify ($currentPassword, $hashedPassword)) {
                 session_start();
                 $_SESSION["current_user"] = $username;
+                header('Location: /');
             }
             else {
+                header('Location: https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400');
             }
 
         }
