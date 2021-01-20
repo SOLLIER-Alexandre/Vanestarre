@@ -11,7 +11,7 @@
     * @author CHATEAUX Adrien
     * @package Vanestarre\Controller
     */
-    class TemplateController implements IController
+    class VanestarreConfigController implements IController
     {
         /**
         * @var VanestarreConfigView View associated with this controller
