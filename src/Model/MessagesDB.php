@@ -47,7 +47,7 @@
          * @return array A list with the last n messages
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES LIMIT ? OFFSET ? ORDER BY date');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES ORDER BY date LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
