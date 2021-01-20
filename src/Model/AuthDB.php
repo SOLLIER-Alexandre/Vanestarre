@@ -81,8 +81,7 @@
                 throw new Exception("Couldn't get data associated to the user.");
             } else {
                 $user_data = $result->fetch_row();
-                //mettre dans une classe comme pour les messages
-                return $user_data;
+                return new User($user_data['username'], $result['email'], $result['password'], $result['registration_date']);
             }
         }
 
