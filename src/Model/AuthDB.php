@@ -38,38 +38,37 @@
         }
 
         /**
-         * @param string $pseudo
+         * @param string $username
          * @param string $email
-         * @param string $mot_de_passe
+         * @param string $password
          * Create a new user in the database.
          */
-        public function add_user(string $pseudo, string $email, string $mot_de_passe): void {
+        public function add_user(string $username, string $email, string $password): void {
             $connection = $this->mysqli;
-            $prepared_query = $connection->prepare('INSERT INTO UTILISATEURS(date_inscription, email, mot_de_passe, pseudo) VALUES (NOW(),?,?,?)');
-            $prepared_query->bind_param('sss', $email, $mot_de_passe, $pseudo);
+            $prepared_query = $connection->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
+            $prepared_query->bind_param('sss', $email, $password, $username);
             $prepared_query->execute();
-            $result = $prepared_query->get_result();
-            if ($result == false) {
-                throw new Exception("The user couldn't be inserted in the table.");
+            if($prepared_query == false){
+                throw new Exception("Error with the new user insertion.");
             }
         }
 
         /**
-         * @param string $pseudo
+         * @param string $username
          * @return array
          * @throws Exception
          * Return user's data as an array.
          */
-        public function get_user_data(string $pseudo): array {
-            $connection = $this->mysqli;
-            $prepared_query = $connection->prepare('SELECT * FROM UTILISATEURS WHERE pseudo = ?');
-            $prepared_query->bind_param('s', $pseudo);
+        public function get_user_data(string $username): array {
+            $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
+            $prepared_query->bind_param('s', $username);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if ($result == false) {
                 throw new Exception("Couldn't get data associated to the user.");
             } else {
                 $user_data = $result->fetch_row();
+                //mettre dans une classe comme pour les messages
                 return $user_data;
             }
         }
