@@ -58,6 +58,8 @@
             // TODO: Only output this when user is authorized
             $this->echo_edit_message_dialog();
             $this->echo_delete_message_dialog();
+
+            $this->echo_donation_dialog();
         }
 
         /**
@@ -283,6 +285,31 @@
                                     <input class="input-button" type="button" value="Annuler" data-micromodal-close>
                                     <input class="input-button" type="submit" value="Supprimer">
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+
+            HTML;
+        }
+
+        /**
+         * Outputs the dialog for getting a maximum amount of money from the user
+         */
+        private function echo_donation_dialog(): void {
+            echo <<<'HTML'
+                    <div id="modal-donate" class="modal" aria-hidden="true">
+                        <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-donate-title">
+                                <header class="dialog-header">
+                                    <h2 id="modal-donate-title">WOW INCREDIBLE 🥳🥳🎉🍻</h2>
+                                </header>
+                                
+                                <p>Félicitation, vous êtes l'heureux gagnant du grand jeu concours de Vanéstarre !!!</p>
+                                <p>Vous avez été tiré au sort car vous avez été la personne n°<span id="modal-donate-number">0</span> à réagir a ce fabuleux message.</p>
+                                <p>Le grand prix que vous avez gagné est le suivant : Donner 10 bitcoins (BTC) a Vanéstarre.</p>
+                                <p>Vous pouvez claim votre super prix en cliquant <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">sur ce lien</a> !</p>
+                                
+                                <input class="input-button" type="button" value="Yay" data-micromodal-close>
                             </div>
                         </div>
                     </div>

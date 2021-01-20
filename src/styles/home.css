@@ -173,6 +173,10 @@ main > .card:not(:last-child) {
     flex: 1;
 }
 
+.modal-container p {
+    color: #FFFFFFDE;
+}
+
 .dialog-header {
     background-color: initial;
     border: none;
@@ -209,6 +213,16 @@ main > .card:not(:last-child) {
 
 #modal-delete-message-form > input[type="submit"] {
     background-color: #E53935;
+    color: #FFFFFFDE;
+}
+
+#modal-donate p {
+    text-align: justify;
+}
+
+#modal-donate input[type="button"] {
+    margin-top: 16px;
+    background-color: #9C4ABD;
     color: #FFFFFFDE;
 }
 
