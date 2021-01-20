@@ -96,7 +96,7 @@
          * Check if the user has reacted on the message.
          */
         public function has_reacted(string $username, Message $message_object): boolean {
-            //todo
+            $prepared_query = $this->mysqli->prepare('');
         }
 
         /**
@@ -128,16 +128,16 @@
             }
         }
 
+
         /**
-         * @param $message_object
+         * @param int $message_id
+         * @param string $new_content
          * @throws Exception
-         * Edit a message from the database.
+         * Update the content of a message.
          */
-        public function edit_message(Message $message_object): void {
+        public function edit_message(int $message_id, string $new_content): void {
             $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
-            $message = $message_object->get_message();
-            $id = $message_object->get_id();
-            $prepared_query->bind_param('si', $message, $id);
+            $prepared_query->bind_param('si', $new_content, $message_id);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the message update.");
@@ -145,17 +145,27 @@
         }
 
         /**
-         * @param $message_object
+         * @param int $message_id
          * @throws Exception
-         * Delete a message in the database.
+         * Delete a message from the database.
          */
-        public function delete_message($message_object): void {
+        public function delete_message(int $message_id): void {
             $prepared_query = $this->mysqli->prepare('DELETE FROM MESSAGES WHERE message_id = ?');
-            $id = $message_object->get_id();
-            $prepared_query->bind_param('i', $id);
+            $prepared_query->bind_param('i', $message_id);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the message deletion.");
+            }
+        }
+
+        public function count_messages(): int{
+            $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM MESSAGES');
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if ($result == false) {
+                throw new Exception("This query result is empty (function message_reactions()).");
+            } else {
+                return $result['count'];
             }
         }
     }
