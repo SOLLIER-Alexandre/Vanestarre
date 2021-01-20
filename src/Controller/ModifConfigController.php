@@ -9,7 +9,7 @@ namespace Vanestarre\Controller;
  * @author CHATEAUX Adrien
  * @package Vanestarre\Controller
  */
-class TemplateController implements IController
+class ModifConfigController implements IController
 {
     /**
      * @var ModifConfigController View associated with this controller
