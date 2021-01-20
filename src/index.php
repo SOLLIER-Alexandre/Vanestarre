@@ -64,6 +64,10 @@
             $controller = new Controller\VanestarreConfigController();
             break;
 
+        case '/userLogin':
+            $controller = new Controller\UserLoginController();
+            break;
+
         default:
             $controller = new Controller\PNFController();
     }
