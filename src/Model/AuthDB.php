@@ -72,7 +72,7 @@
          * @throws Exception
          * Return user's data as an array.
          */
-        public function get_user_data(string $username): array {
+        public function get_user_data(string $username): User {
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
             $prepared_query->bind_param('s', $username);
             $prepared_query->execute();
