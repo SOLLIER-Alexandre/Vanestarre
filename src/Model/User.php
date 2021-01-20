@@ -42,10 +42,10 @@
          * @param DateTimeImmutable $creation_date Timestamp of the creation of the user
          */
          public function __construct(string $username, string $email, string $password, DateTimeImmutable $creation_date) {
-             $this-> username = $username;
-             $this-> email = $email;
-             $this-> password = $password;
-             $this-> creation_date = $creation_date;
+             $this->username = $username;
+             $this->email = $email;
+             $this->password = $password;
+             $this->creation_date = $creation_date;
          }
 
         /**
