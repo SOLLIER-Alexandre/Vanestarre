@@ -96,7 +96,7 @@
          * Check if the user has reacted on the message.
          */
         public function has_reacted(string $username, Message $message_object): boolean {
-            //todo
+            $prepared_query = $this->mysqli->prepare('');
         }
 
         /**
@@ -145,14 +145,13 @@
         }
 
         /**
-         * @param $message_object
+         * @param int $message_id
          * @throws Exception
-         * Delete a message in the database.
+         * Delete a message from the database.
          */
-        public function delete_message($message_object): void {
+        public function delete_message(int $message_id): void {
             $prepared_query = $this->mysqli->prepare('DELETE FROM MESSAGES WHERE message_id = ?');
-            $id = $message_object->get_id();
-            $prepared_query->bind_param('i', $id);
+            $prepared_query->bind_param('i', $message_id);
             $prepared_query->execute();
             if($prepared_query == false){
                 throw new Exception("Error with the message deletion.");
