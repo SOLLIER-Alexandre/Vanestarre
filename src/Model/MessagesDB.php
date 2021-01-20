@@ -47,7 +47,7 @@
          * @return array A list with the last n messages
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES ORDER BY date LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
@@ -97,6 +97,14 @@
             //todo
         }
 
+        public function add_message($message_object){
+            $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
+            $prepared_query->bind_param('ss', $message_object->get_message(), $message_object->get_image());
+            $prepared_query->execute();
+            if($prepared_query == false){
+                throw new Exception("Error with the message creation.");
+            }
+        }
     }
 
 ?>
