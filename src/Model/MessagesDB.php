@@ -57,7 +57,8 @@
             } else {
                 $messages_list = array();
                 while ($row = $result->fetch_assoc()) {
-                    $message_reactions = $this->message_reactions($row['message_id']);
+                    $message_reactions = new MessageReactions();
+                    $this->get_message_reaction_count($row['message_id'], $message_reactions);
                     array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
@@ -67,25 +68,36 @@
         /**
          * Gets the count of reactions from a message.
          * @param int $message_id ID of the message to check reactions from
-         * @return MessageReactions The reaction counts
+         * @param MessageReactions $reactions The reaction counts
          * @throws Exception
          */
-        private function message_reactions(int $message_id): MessageReactions {
-            $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM REACTIONS WHERE message_id=? GROUP BY reaction_type');
-            $prepared_query->bind_param('i', $messages_id);
+        private function get_message_reaction_count(int $message_id, MessageReactions $reactions): void {
+            $prepared_query = $this->mysqli->prepare('SELECT reaction_type, COUNT(reaction_type) FROM REACTIONS WHERE message_id = ? GROUP BY reaction_type;');
+            $prepared_query->bind_param('i', $message_id);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if ($result == false) {
                 throw new Exception("This query result is empty (function message_reactions()).");
             } else {
-                $message_reactions = new MessageReactions();
-                while($row = $result->fetch_assoc()){
-                    $message_reactions->set_cute_reaction($row['cute']);
-                    $message_reactions->set_love_reaction($row['love']);
-                    $message_reactions->set_style_reaction($row['style']);
-                    $message_reactions->set_swag_reaction($row['swag']);
+                while ($row = $result->fetch_assoc()) {
+                    switch ($row['reaction_type']) {
+                        case 'cute':
+                            $reactions->set_cute_reaction($row['COUNT(reaction_type)']);
+                            break;
+
+                        case 'love':
+                            $reactions->set_love_reaction($row['COUNT(reaction_type)']);
+                            break;
+
+                        case 'style':
+                            $reactions->set_style_reaction($row['COUNT(reaction_type)']);
+                            break;
+
+                        case 'swag':
+                            $reactions->set_swag_reaction($row['COUNT(reaction_type)']);
+                            break;
+                    }
                 }
-                return $message_reactions;
             }
         }
 
