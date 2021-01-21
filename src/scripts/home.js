@@ -107,38 +107,55 @@
 
         function onReactionClick(event) {
             // Grab the button container
-            let buttonContainer = event.target;
-            while (buttonContainer !== null && !buttonContainer.classList.contains('message-footer-reaction')) {
-                buttonContainer = buttonContainer.parentElement;
+            let clickedReactionContainer = event.target;
+            while (clickedReactionContainer !== null && !clickedReactionContainer.classList.contains('message-footer-reaction')) {
+                clickedReactionContainer = clickedReactionContainer.parentElement;
             }
 
             // We couldn't grab the container, exit
-            if (buttonContainer === null) return;
+            if (clickedReactionContainer === null) return;
 
-            // Check if the button is selected (user has reacted to this message)
-            const isButtonSelected = buttonContainer.classList.contains('selected');
-            const reactionCounterSpan = buttonContainer.children[buttonContainer.children.length - 1];
-            const reactionCount = parseInt(reactionCounterSpan.innerHTML);
+            // Grab data associated with the button
+            const messageID = getMessageIdFromButton(clickedReactionContainer);
+            const reactionType = clickedReactionContainer.dataset.reactionType;
 
-            // Grab message ID associated with the button
-            const messageID = getMessageIdFromButton(buttonContainer);
-            if (!messageID) return;
+            // We couldn't grab the required data, exit
+            if (!messageID || !reactionType) return;
+
+            function setReactionContainerSelected(container, state) {
+                // Get reaction count
+                const reactionCounterSpan = container.children[container.children.length - 1];
+                const reactionCount = parseInt(reactionCounterSpan.innerHTML);
+
+                if (state) {
+                    // Select the container
+                    container.classList.add('selected');
+                    if (!isNaN(reactionCount)) {
+                        reactionCounterSpan.innerHTML = reactionCount + 1;
+                    }
+                } else {
+                    // Unselect the container
+                    container.classList.remove('selected');
+                    if (!isNaN(reactionCount)) {
+                        reactionCounterSpan.innerHTML = reactionCount - 1;
+                    }
+                }
+            }
 
             // TODO: XMLHttpRequest the message reaction endpoint
             // TODO: Show donate dialog if needed
-            if (isButtonSelected) {
-                // Unselect the button
-                buttonContainer.classList.remove('selected');
-                if (!isNaN(reactionCount)) {
-                    reactionCounterSpan.innerHTML = reactionCount - 1;
-                }
-            } else {
-                // Select the button
-                buttonContainer.classList.add('selected');
-                if (!isNaN(reactionCount)) {
-                    reactionCounterSpan.innerHTML = reactionCount + 1;
-                }
+            // Unselect the currently selected reaction
+            const selectedReactionContainer = document.querySelector('article[data-message-id="' + messageID + '"] .message-footer-reaction.selected');
+            if (selectedReactionContainer) {
+                setReactionContainerSelected(selectedReactionContainer, false);
             }
+
+            // Select the clicked reaction, if it wasn't the one already selected
+            if (selectedReactionContainer !== clickedReactionContainer) {
+                setReactionContainerSelected(clickedReactionContainer, true);
+            }
+
+            console.log('Message #' + messageID + ' reacted with ' + reactionType);
         }
 
         for (const button of messageReactionButtons) {
