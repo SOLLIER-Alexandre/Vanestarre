@@ -122,27 +122,50 @@
         }
 
         /**
+         * Outputs the form for message posting
+         * @param string $textarea_id ID of the textarea to output
+         * @param bool $is_edition_form Is this form for editing a message?
+         */
+        private function echo_message_post_form(string $textarea_id, bool $is_edition_form) {
+            // Compute the base indentation for the generated code
+            $base_indent = str_repeat(' ', $is_edition_form ? 24 : 12);
+
+            echo $base_indent . '<form class="message-form" action="/postMessage" method="post" enctype="multipart/form-data">' . PHP_EOL;
+
+            // Output the hidden input containing the edited message ID if it's an edition form
+            if ($is_edition_form) {
+                echo $base_indent . '   <input id="edit-message-id" name="messageId" type="hidden">' . PHP_EOL;
+            }
+
+            // Yeah that looks horrible but generated code needed to be indented so...
+            echo <<<HTML
+            $base_indent   <textarea id="$textarea_id" placeholder="Postez un message" name="message"></textarea>
+            $base_indent   <div class="message-form-buttons">
+            $base_indent       <div>
+            $base_indent           <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="$textarea_id">β</span>
+            $base_indent           <input type="file" name="image" accept="image/*">
+            $base_indent       </div>
+            $base_indent       <div>
+            $base_indent           <span class="message-length-counter" data-for-textarea="$textarea_id">50</span>
+            $base_indent           <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="$textarea_id">
+            $base_indent       </div>
+            $base_indent   </div>
+            $base_indent</form>
+
+            HTML;
+        }
+
+        /**
          * Outputs the form for writing a message
          */
         private function echo_message_writer(): void {
-            echo <<<'HTML'
-                    <div class="card">
-                        <form class="message-form" action="/postMessage" method="post" enctype="multipart/form-data">
-                            <textarea id="send-message-text" placeholder="Postez un message" name="message"></textarea>
-                            <div class="message-form-buttons">
-                                <div>
-                                    <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="send-message-text">β</span>
-                                    <input type="file" name="image" accept="image/png, image/jpeg">
-                                </div>
-                                <div>
-                                    <span class="message-length-counter" data-for-textarea="send-message-text">50</span>
-                                    <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="send-message-text">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+            echo '        <!-- Form for writing a new message -->' . PHP_EOL;
+            echo '        <div class="card">' . PHP_EOL;
 
-            HTML;
+            // Output the message post form
+            $this->echo_message_post_form('send-message-text', false);
+
+            echo '        </div>' . PHP_EOL;
         }
 
         /**
@@ -293,6 +316,7 @@
          */
         private function echo_edit_message_dialog(): void {
             echo <<<'HTML'
+                    <!-- Modal for editing a message -->
                     <div id="modal-edit-message" class="modal" aria-hidden="true">
                         <div class="modal-overlay" tabindex="-1" data-micromodal-close>
                             <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-edit-message-title">
@@ -302,19 +326,13 @@
                                 </header>
                         
                                 <div>
-                                    <form class="message-form" action="/postMessage" method="post">
-                                        <input id="edit-message-id" name="messageId" type="hidden">
-                                        <textarea id="edit-message-text" placeholder="Message" name="message"></textarea>
-                                        <div class="message-form-buttons">
-                                            <div>
-                                                <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="edit-message-text">β</span>
-                                            </div>
-                                            <div>
-                                                <span class="message-length-counter" data-for-textarea="edit-message-text">50</span>
-                                                <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="edit-message-text">
-                                            </div>
-                                        </div>
-                                    </form>
+
+            HTML;
+
+            // Output the message edition form
+            $this->echo_message_post_form('edit-message-text', true);
+
+            echo <<<'HTML'
                                 </div>
                             </div>
                         </div>
