@@ -157,14 +157,26 @@
          * Updates the content of a message.
          * @param int $message_id ID of the message to update
          * @param string $new_content New content
+         * @param string|null $new_image New image link, pass null to not update this column
          * @throws Exception
          */
-        public function edit_message(int $message_id, string $new_content, ?string $image): void {
-            $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
-            $prepared_query->bind_param('si', $new_content, $message_id);
+        public function edit_message(int $message_id, string $new_content, ?string $new_image): void {
+            if (isset($new_image)) {
+                // Modify message contents and set a new image
+                $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ?, image_link = ? WHERE message_id = ?');
+                $prepared_query->bind_param('ssi', $new_content, $new_image, $message_id);
 
-            if (!$prepared_query->execute()) {
-                throw new Exception("Error with the message update.");
+                if (!$prepared_query->execute()) {
+                    throw new Exception("Error with the message update.");
+                }
+            } else {
+                // Only modify message contents
+                $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
+                $prepared_query->bind_param('si', $new_content, $message_id);
+
+                if (!$prepared_query->execute()) {
+                    throw new Exception("Error with the message update.");
+                }
             }
         }
 

@@ -125,7 +125,7 @@
             if (isset($message_id)) {
                 // We've got a message ID, we have to edit an existing message
                 try {
-                    $messageDB->edit_message(intval($_POST['messageId']), $message);
+                    $messageDB->edit_message(intval($_POST['messageId']), $message, $image_link);
                 } catch (Exception $e) {
                     // There was an error while trying to edit the message
                     throw new MessageEditionException();
