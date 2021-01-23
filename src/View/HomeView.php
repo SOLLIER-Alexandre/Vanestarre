@@ -325,6 +325,7 @@
          */
         private function echo_pager(): void {
             // Begin the pager
+            echo '        <!-- Page selector -->' . PHP_EOL;
             echo '        <div id="pager">' . PHP_EOL;
 
             // Output every page number
@@ -385,6 +386,7 @@
          */
         private function echo_delete_message_dialog(): void {
             echo <<<'HTML'
+                    <!-- Modal for deleting a message -->
                     <div id="modal-delete-message" class="modal" aria-hidden="true">
                         <div class="modal-overlay" tabindex="-1" data-micromodal-close>
                             <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-delete-message-title">
@@ -414,6 +416,7 @@
          */
         private function echo_delete_message_image_dialog(): void {
             echo <<<'HTML'
+                    <!-- Modal for removing an image from a message -->
                     <div id="modal-remove-image-message" class="modal" aria-hidden="true">
                         <div class="modal-overlay" tabindex="-1" data-micromodal-close>
                             <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-remove-message-image-title">
@@ -443,6 +446,7 @@
          */
         private function echo_donation_dialog(): void {
             echo <<<'HTML'
+                    <!-- Modal for the donation "feature" -->
                     <div id="modal-donate" class="modal" aria-hidden="true">
                         <div class="modal-overlay" tabindex="-1" data-micromodal-close>
                             <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-donate-title">

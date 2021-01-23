@@ -29,9 +29,13 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="Description" content="Page d'accueil du blog de Vanéstarre">
             <title>$title</title>
+            
+            <!-- Common stylesheets and script -->
             <link rel="stylesheet" href="/styles/common.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
             <script src="/scripts/common.js" async></script>
+            
+            <!-- Controller-specific stylesheets and scripts -->
 
         HTML;
 
@@ -75,6 +79,7 @@
     function start_layout() {
         // Add the standard <header>, and begin a <main> block
         echo <<<'HTML'
+            <!-- Common page header -->
             <header id="header">
                 <h1><a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a></h1>
                 <div class="header-right-content">
