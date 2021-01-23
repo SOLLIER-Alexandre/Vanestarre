@@ -90,7 +90,7 @@
         session_start();
         $auth_db = new AuthDB();
         $logged_in_user = $auth_db->get_logged_in_user();
-        session_abort();
+        session_write_close();
 
         if (isset($logged_in_user)) {
             $logged_in_username = $logged_in_user->get_username();

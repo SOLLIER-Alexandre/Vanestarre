@@ -1,7 +1,7 @@
 <?php
     namespace Vanestarre\Controller\User;
 
-    use mysql_xdevapi\Exception;
+    use Exception;
     use Vanestarre\Controller\IController;
     use Vanestarre\Model\AuthDB;
 
@@ -25,21 +25,27 @@
 
         /**
          * @inheritDoc
-         * @throws \Exception
+         * @throws Exception
          */
         public function execute() {
+            session_start();
+            if (isset($_SESSION['current_user'])) {
+                // User is already logged in
+                http_response_code(401);
+                header('Location: /account');
+                return;
+            }
+
             $password = $_POST['mdp'];
             $email = $_POST['email'];
             $username = $_POST['username'];
             $algo = PASSWORD_DEFAULT;
 
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password)<=20) and (strlen($username)<=15)) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password) <= 20) and (strlen($username) <= 15)) {
                 $hashed_password = password_hash($password, $algo);
                 $registering = new AuthDB();
                 try {
                     $user_id = $registering->add_user($username, $email, $hashed_password);
-
-                    session_start();
                     $_SESSION["current_user"] = $user_id;
                 } catch (Exception $exception) {
                     header('Location: /login');

@@ -22,6 +22,14 @@
          * @throws Exception
          */
         public function execute(): void {
+            session_start();
+            if (isset($_SESSION['current_user'])) {
+                // User is already logged in
+                http_response_code(401);
+                header('Location: /account');
+                return;
+            }
+
             $redirect_route = '/';
 
             // Grab posted username and password
@@ -66,7 +74,6 @@
             $hashed_password = $user_info->get_password();
             if (password_verify($password, $hashed_password)) {
                 // The password is correct, user is authenticated
-                session_start();
                 $_SESSION["current_user"] = $user_info->get_id();
             } else {
                 // Incorrect password

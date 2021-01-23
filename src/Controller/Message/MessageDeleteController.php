@@ -20,8 +20,15 @@
          * @inheritDoc
          */
         public function execute() {
+            session_start();
+            if ($_SESSION['current_user'] !== 0) {
+                // User is not authorized
+                http_response_code(401);
+                header('Location: /unauthorized');
+                return;
+            }
+
             // Check that we have the message ID in the POSTed parameters
-            // TODO: Check authenticated user
             $redirect_route = '/';
 
             if (is_numeric($_POST['messageId'])) {

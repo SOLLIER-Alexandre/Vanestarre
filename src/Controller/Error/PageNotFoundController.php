@@ -1,21 +1,22 @@
 <?php
 
-    namespace Vanestarre\Controller;
+    namespace Vanestarre\Controller\Error;
 
-    use Vanestarre\View\PNFView;
+    use Vanestarre\Controller\IController;
+    use Vanestarre\View\PageNotFoundView;
 
     /**
-     * Class PNFController
+     * Class PageNotFoundController
      *
      * Controller for the HTTP 404 error page
      *
      * @author SOLLIER Alexandre
-     * @package Vanestarre\Controller
+     * @package Vanestarre\Controller\Error
      */
-    class PNFController implements IController
+    class PageNotFoundController implements IController
     {
         /**
-         * @var PNFView View associated with this Controller
+         * @var PageNotFoundView View associated with this Controller
          */
         private $view;
 
@@ -23,7 +24,7 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new PNFView();
+            $this->view = new PageNotFoundView();
         }
 
         /**

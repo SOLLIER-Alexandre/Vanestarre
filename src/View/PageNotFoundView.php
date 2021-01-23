@@ -9,7 +9,7 @@
      * @author SOLLIER Alexandre
      * @package Vanestarre\View
      */
-    class PNFView implements IView
+    class PageNotFoundView implements IView
     {
         /**
          * @inheritDoc

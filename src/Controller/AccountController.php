@@ -30,6 +30,13 @@
          * @inheritDoc
          */
         public function execute() {
+            if (!isset($_SESSION['current_user'])) {
+                // User is not logged in
+                http_response_code(401);
+                header('Location: /login');
+                return;
+            }
+
             // Output the View contents
             $this->view->echo_contents();
         }
@@ -59,7 +66,8 @@
          * @inheritDoc
          */
         public function needs_standard_layout(): bool {
-            return true;
+            session_start();
+            return isset($_SESSION['current_user']);
         }
     }
 ?>

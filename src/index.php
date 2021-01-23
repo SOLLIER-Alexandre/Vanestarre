@@ -80,8 +80,12 @@
             $controller = new Controller\VanestarreConfigController();
             break;
 
+        case '/unauthorized':
+            $controller = new Controller\Error\UnauthorizedController();
+            break;
+
         default:
-            $controller = new Controller\PNFController();
+            $controller = new Controller\Error\PageNotFoundController();
     }
 
     if (!is_null($controller)) {
