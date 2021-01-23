@@ -52,6 +52,10 @@
             $controller = new Controller\User\UserLoginController();
             break;
 
+        case '/user/logout':
+            $controller = new Controller\User\UserLogoutController();
+            break;
+
         case '/config/update':
             $controller = new Controller\ModifConfigController();
             break;

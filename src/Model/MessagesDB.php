@@ -113,7 +113,7 @@
          */
         public function has_reacted(string $username, int $message_id): bool {
             // TODO: Fix this
-            $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND username = ?');
+            $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND user_id = ?');
             $prepared_query->bind_param('is', $message_id, $username);
 
             $prepared_query->execute();
@@ -129,7 +129,7 @@
          * @throws Exception
          */
         public function add_reaction(int $message_id, string $reaction_type, string $username): void {
-            $prepared_query = $this->mysqli->prepare('INSERT INTO REACTIONS(message_id, reaction_type, username) VALUES(?, ?, ?)');
+            $prepared_query = $this->mysqli->prepare('INSERT INTO REACTIONS(message_id, reaction_type, user_id) VALUES(?, ?, ?)');
             $prepared_query->bind_param('iss', $message_id, $reaction_type, $username);
 
             if (!$prepared_query->execute()) {
