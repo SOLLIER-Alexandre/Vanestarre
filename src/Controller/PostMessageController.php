@@ -114,7 +114,7 @@
          * @throws MessageInsertionException
          */
         private function post_message(string $message, ?string $image_path, ?int $message_id): void {
-            $messageDB = new MessagesDB();
+            $message_db = new MessagesDB();
 
             // Check if there is an image, and upload it to Imgur if so
             $image_link = null;
@@ -125,7 +125,7 @@
             if (isset($message_id)) {
                 // We've got a message ID, we have to edit an existing message
                 try {
-                    $messageDB->edit_message(intval($_POST['messageId']), $message, $image_link);
+                    $message_db->edit_message(intval($_POST['messageId']), $message, $image_link);
                 } catch (Exception $e) {
                     // There was an error while trying to edit the message
                     throw new MessageEditionException();
@@ -133,7 +133,7 @@
             } else {
                 // Add a new message
                 try {
-                    $messageDB->add_message($message, $image_link);
+                    $message_db->add_message($message, $image_link);
                 } catch (Exception $e) {
                     // There was an error while trying to add the message
                     throw new MessageInsertionException();

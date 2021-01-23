@@ -195,6 +195,20 @@
         }
 
         /**
+         * Removes an image from a message
+         * @param int $message_id ID of the message to delete an image for
+         * @throws Exception
+         */
+        public function remove_message_image(int $message_id): void {
+            $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET image_link = null WHERE message_id = ?');
+            $prepared_query->bind_param('i', $message_id);
+
+            if (!$prepared_query->execute()) {
+                throw new Exception("Error with the message deletion.");
+            }
+        }
+
+        /**
          * Counts the number of messages in the database.
          * @return int The number of messages
          * @throws Exception

@@ -109,8 +109,14 @@
                     break;
 
                 case 20:
-                    // Error while modifying a message
+                    // Error while uploading an image
                     echo '            <p>L\'image n\'a pas pu être uploadé</p>' . PHP_EOL;
+                    break;
+
+                case 21:
+                case 22:
+                    // Error while removing an image
+                    echo '            <p>L\'image n\'a pas pu être supprimée</p>' . PHP_EOL;
                     break;
 
                 default:

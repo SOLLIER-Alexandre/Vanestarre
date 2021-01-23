@@ -72,6 +72,10 @@
             $controller = new Controller\ModifConfigController();
             break;
 
+        case '/removeImage':
+            $controller = new Controller\RemoveImageController();
+            break;
+
         default:
             $controller = new Controller\PNFController();
     }
