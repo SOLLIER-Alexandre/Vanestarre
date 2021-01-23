@@ -1,6 +1,8 @@
 <?php
 
-    namespace Vanestarre\View;
+    namespace Vanestarre\View\Error;
+
+    use Vanestarre\View\IView;
 
     /**
      * Class UnauthorizedView
@@ -8,7 +10,7 @@
      * View for the HTTP 401 error page
      *
      * @author SOLLIER Alexandre
-     * @package Vanestarre\View
+     * @package Vanestarre\View\Error
      */
     class UnauthorizedView implements IView
     {

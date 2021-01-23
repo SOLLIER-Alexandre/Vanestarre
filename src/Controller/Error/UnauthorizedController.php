@@ -3,7 +3,7 @@
     namespace Vanestarre\Controller\Error;
 
     use Vanestarre\Controller\IController;
-    use Vanestarre\View\UnauthorizedView;
+    use Vanestarre\View\Error\UnauthorizedView;
 
     /**
      * Class UnauthorizedController

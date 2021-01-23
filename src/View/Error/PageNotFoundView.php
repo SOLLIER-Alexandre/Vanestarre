@@ -1,5 +1,8 @@
 <?php
-    namespace Vanestarre\View;
+
+    namespace Vanestarre\View\Error;
+
+    use Vanestarre\View\IView;
 
     /**
      * Class PNFView
@@ -7,7 +10,7 @@
      * View for the HTTP 404 error page
      *
      * @author SOLLIER Alexandre
-     * @package Vanestarre\View
+     * @package Vanestarre\View\Error
      */
     class PageNotFoundView implements IView
     {

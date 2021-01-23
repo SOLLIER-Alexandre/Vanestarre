@@ -3,7 +3,7 @@
     namespace Vanestarre\Controller\Error;
 
     use Vanestarre\Controller\IController;
-    use Vanestarre\View\PageNotFoundView;
+    use Vanestarre\View\Error\PageNotFoundView;
 
     /**
      * Class PageNotFoundController
