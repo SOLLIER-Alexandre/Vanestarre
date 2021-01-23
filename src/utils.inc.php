@@ -81,7 +81,7 @@
                     </form>
                     
                     <span id="search-btn" class="material-icons unselectable button-like hidden-on-search">search</span>
-                    <a href="/account" id="account-link" class="button-like hidden-on-search">
+                    <a href="/login" id="account-link" class="button-like hidden-on-search">
                         <span class="material-icons unselectable">account_circle</span>
         HTML;
 
@@ -92,7 +92,7 @@
         } else {
             echo $_SESSION['current_user'];
         }
-        session_destroy();
+        session_abort();
 
         echo <<<'HTML'
         

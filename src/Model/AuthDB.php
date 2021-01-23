@@ -39,54 +39,54 @@
         }
 
         /**
-         * @param string $username
-         * @param string $email
-         * @param string $password
          * Create a new user in the database.
+         * @param string $username Username of the new user
+         * @param string $email Email of the new user
+         * @param string $password Hashed password of the new user
+         * @throws Exception
          */
         public function add_user(string $username, string $email, string $password): void {
             $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
             $prepared_query->bind_param('sss', $email, $password, $username);
-            $prepared_query->execute();
-            if($prepared_query == false){
+
+            if (!$prepared_query->execute()) {
                 throw new Exception("Error with the new user insertion.");
             }
         }
 
         /**
-         * @param string $username
-         * @throws Exception
          * Delete a user in the database.
+         * @param string $username Username of the user to delete
+         * @throws Exception
          */
         public function delete_user(string $username): void {
             $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE username = ?');
             $prepared_query->bind_param('s', $username);
-            $prepared_query->execute();
-            if($prepared_query == false){
+
+            if (!$prepared_query->execute()) {
                 throw new Exception("Error with the user deletion.");
             }
         }
 
         /**
-         * @param string $username
-         * @return User
-         * @throws Exception
          * Return user's data as an User object.
+         * @param string $username Username of the user to fetch
+         * @return User Data about the user
+         * @throws Exception
          */
         public function get_user_data(string $username): User {
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
             $prepared_query->bind_param('s', $username);
+
             $prepared_query->execute();
             $result = $prepared_query->get_result();
-            if ($result == false) {
+
+            if (!$result) {
                 throw new Exception("Couldn't get data associated to the user.");
             } else {
-                $user_data = $result->fetch_row();
-                return new User($user_data['username'], $user_data['email'], $user_data['password'], $user_data['registration_date']);
-                return new User("Billy", "truc@mail.fr", '$2y$10$A2Tpm2iN6spCC', new DateTimeImmutable());
+                $user_data = $result->fetch_assoc();
+                return new User($user_data['username'], $user_data['email'], $user_data['password'], new DateTimeImmutable($user_data['registration_date']));
             }
         }
-
     }
-
 ?>

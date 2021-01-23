@@ -5,15 +5,15 @@
     use Exception;
 
     /**
-     * Class MessageEditionException
+     * Class IncorrectPasswordException
      *
-     * Exception thrown when a message couldn't be edited in the database
+     * Exception thrown when an incorrect password was received
      *
      * @author SOLLIER Alexandre
      * @package Vanestarre\Exception
      */
-    class MessageEditionException extends Exception
+    class IncorrectPasswordException extends Exception
     {
     }
 
-?>
+    ?>

@@ -5,15 +5,15 @@
     use Exception;
 
     /**
-     * Class MessageEditionException
+     * Class UnknownUsernameException
      *
-     * Exception thrown when a message couldn't be edited in the database
+     * Exception thrown when a username is not known in the database
      *
      * @author SOLLIER Alexandre
      * @package Vanestarre\Exception
      */
-    class MessageEditionException extends Exception
+    class UnknownUsernameException extends Exception
     {
     }
 
-?>
+    ?>
