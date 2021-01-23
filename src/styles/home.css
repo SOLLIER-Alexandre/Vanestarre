@@ -94,7 +94,10 @@ main > .card:not(:last-child) {
 }
 
 .message-image-container {
+    display: flex;
+    justify-content: center;
     position: relative;
+    margin-top: 6px;
 }
 
 .message-remove-image-button {

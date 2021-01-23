@@ -21,13 +21,13 @@
                         <p>Connectez vous, ou créez un compte !</p>
                         
                         <button class="login-button" id="login-input-trigger">Login</button><br/>
-                        <form action="/userLogin" method="post" id="login-form">
+                        <form action="/user/login" method="post" id="login-form">
                             <input type="" name = "username" style="color: black" maxlength="15" required>
                             <input type="password" name="mdp" style="color: black" maxlength="20" required>
                             <input type="submit" name="connexion" value="Se connecter">
                         </form>
                         
-                        <a href="/createAccount" class="create-account-button">Create an account</a><br/>
+                        <a href="/register" class="create-account-button">Create an account</a><br/>
                     </div>
             
             HTML;

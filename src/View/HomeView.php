@@ -137,7 +137,7 @@
             // Compute the base indentation for the generated code
             $base_indent = str_repeat(' ', $is_edition_form ? 24 : 12);
 
-            echo $base_indent . '<form class="message-form" action="/postMessage" method="post" enctype="multipart/form-data">' . PHP_EOL;
+            echo $base_indent . '<form class="message-form" action="/message/post" method="post" enctype="multipart/form-data">' . PHP_EOL;
 
             // Output the hidden input containing the edited message ID if it's an edition form
             if ($is_edition_form) {
@@ -370,7 +370,7 @@
                                     <p>Cette action est irréversible.</p>
                                 </div>
                                 
-                                <form class="modal-confirm-form" action="/deleteMessage" method="post">
+                                <form class="modal-confirm-form" action="/message/delete" method="post">
                                     <input id="delete-message-id" name="messageId" type="hidden">
                                     <input class="input-button" type="button" value="Annuler" data-micromodal-close>
                                     <input class="input-button" type="submit" value="Supprimer">
@@ -399,7 +399,7 @@
                                     <p>Cette action est irréversible.</p>
                                 </div>
                                 
-                                <form class="modal-confirm-form" action="/removeImage" method="post">
+                                <form class="modal-confirm-form" action="/message/removeImage" method="post">
                                     <input id="remove-message-image-id" name="messageId" type="hidden">
                                     <input class="input-button" type="button" value="Annuler" data-micromodal-close>
                                     <input class="input-button" type="submit" value="Supprimer">

@@ -32,48 +32,48 @@
             $controller = new Controller\HomeController();
             break;
 
-        case '/account':
-            $controller = new Controller\AccountController();
+        case '/message/post':
+            $controller = new Controller\PostMessageController();
+            break;
+
+        case '/message/delete':
+            $controller = new Controller\DeleteMessageController();
+            break;
+
+        case '/message/removeImage':
+            $controller = new Controller\RemoveImageController();
+            break;
+
+        case '/user/register':
+            $controller = new Controller\RegisterController();
+            break;
+
+        case '/user/login':
+            $controller = new Controller\UserLoginController();
+            break;
+
+        case '/config/update':
+            $controller = new Controller\ModifConfigController();
             break;
 
         case '/search':
             $controller = new Controller\SearchController();
             break;
 
+        case '/register':
+            $controller = new Controller\CreateAccountController();
+            break;
+
         case '/login':
             $controller = new Controller\LoginController();
             break;
 
-        case '/createAccount':
-            $controller = new Controller\CreateAccountController();
-            break;
-
-        case '/postMessage':
-            $controller = new Controller\PostMessageController();
-            break;
-
-        case '/deleteMessage':
-            $controller = new Controller\DeleteMessageController();
-            break;
-
-        case '/register':
-            $controller = new Controller\RegisterController();
+        case '/account':
+            $controller = new Controller\AccountController();
             break;
 
         case '/config':
             $controller = new Controller\VanestarreConfigController();
-            break;
-
-        case '/userLogin':
-            $controller = new Controller\UserLoginController();
-            break;
-
-        case '/modifConfig':
-            $controller = new Controller\ModifConfigController();
-            break;
-
-        case '/removeImage':
-            $controller = new Controller\RemoveImageController();
             break;
 
         default:

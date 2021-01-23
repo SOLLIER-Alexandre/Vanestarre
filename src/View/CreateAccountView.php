@@ -20,7 +20,7 @@
                         <h2>Créez un compte</h2>        
                         <hr>
                                 
-                        <form action="/register" method="post">
+                        <form action="/user/register" method="post">
                             <label>Identifiant :</label>
                             <input type="" name="username" class="input-zone" style="color: black" autocomplete="username" maxlength="15" required/><br/>
                                                
