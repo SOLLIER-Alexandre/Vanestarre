@@ -35,7 +35,7 @@ p {
     margin-top: 5%;
     padding: 20px;
     font-size: 16px;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     border-radius: 50px;
     text-align: center;
     text-decoration: none;
@@ -52,7 +52,7 @@ p {
     margin-top: 5%;
     padding: 20px;
     font-size: 16px;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     border-radius: 50px;
     text-align: center;
     text-decoration: none;
@@ -69,6 +69,11 @@ p {
 #login-form {
     margin-top: 5%;
     display: grid;
+}
+
+#login-form > input[type="text"],
+#login-form > input[type="password"] {
+    background-color: #313131;
 }
 
 @media (max-width: 656px), (max-height: 500px) {

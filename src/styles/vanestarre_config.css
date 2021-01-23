@@ -9,10 +9,6 @@ main {
     justify-content: center;
 }
 
-/*div {
-    background-color: #1E88E5;
-}*/
-
 .text-line {
     margin-bottom: 1rem;
 }
@@ -43,15 +39,12 @@ main {
 }
 
 #form-modif-config input[type="number"] {
-    border: none;
-    background-color: #dedede;
-    color: black;
-    border-radius: 4px;
+    background-color: #313131;
     width: 185px;
 }
 
 h2 {
-    margin-top: 0px;
+    margin-top: 0;
     color: white;
 }
 

@@ -22,8 +22,8 @@
                         
                         <button class="login-button" id="login-input-trigger">Login</button><br/>
                         <form action="/user/login" method="post" id="login-form">
-                            <input type="" name = "username" style="color: black" maxlength="64" required>
-                            <input type="password" name="mdp" style="color: black" maxlength="128" required>
+                            <input type="text" name="username" maxlength="64" required>
+                            <input type="password" name="mdp" maxlength="128" required>
                             <input type="submit" name="connexion" value="Se connecter">
                         </form>
                         
