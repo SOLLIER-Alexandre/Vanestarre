@@ -66,7 +66,7 @@
                 $this->echo_error_box();
             }
 
-            // TODO: Only echo this when the connected account is Vanéstarre
+            // TODO: Only output this when the connected account is Vanéstarre
             $this->echo_message_writer();
 
             // Echo every message
@@ -78,10 +78,11 @@
             $this->echo_pager();
 
             // Echo dialogs
-            // TODO: Only output this when user is authorized
+            // TODO: Only output this when the connected account is Vanéstarre
             $this->echo_edit_message_dialog();
             $this->echo_delete_message_dialog();
 
+            // TODO: Only output this when there is a connected user
             $this->echo_donation_dialog();
         }
 
@@ -102,9 +103,13 @@
                     break;
 
                 case 10:
-                case 11:
                     // Error while modifying a message
                     echo '            <p>Le message n\'a pas pu être modifié</p>' . PHP_EOL;
+                    break;
+
+                case 20:
+                    // Error while modifying a message
+                    echo '            <p>L\'image n\'a pas pu être uploadé</p>' . PHP_EOL;
                     break;
 
                 default:
@@ -122,11 +127,12 @@
         private function echo_message_writer(): void {
             echo <<<'HTML'
                     <div class="card">
-                        <form class="message-form" action="/postMessage" method="post">
+                        <form class="message-form" action="/postMessage" method="post" enctype="multipart/form-data">
                             <textarea id="send-message-text" placeholder="Postez un message" name="message"></textarea>
                             <div class="message-form-buttons">
                                 <div>
                                     <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="send-message-text">β</span>
+                                    <input type="file" name="image" accept="image/png, image/jpeg">
                                 </div>
                                 <div>
                                     <span class="message-length-counter" data-for-textarea="send-message-text">50</span>

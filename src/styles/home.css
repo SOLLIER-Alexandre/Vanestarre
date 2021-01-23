@@ -48,7 +48,7 @@ main > .card:not(:last-child) {
 }
 
 .message-form-buttons,
-.message-form-buttons > * {
+.message-form-buttons > div {
     display: flex;
     align-items: center;
 }
@@ -57,7 +57,7 @@ main > .card:not(:last-child) {
     flex: 1;
 }
 
-.message-length-counter {
+.message-form-buttons > div > *:not(:last-child) {
     margin-right: 8px;
 }
 

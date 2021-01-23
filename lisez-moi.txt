@@ -30,10 +30,16 @@ Choix techniques :
       sans que cela n'ait d'impact sur les liens vers les différentes pages.
     - Nous utilisons l'architecture MVC afin de séparer les différentes
       responsabilitées de notre programme.
+    - Pour la fonctionnalité d'upload d'image, nous utilisons l'API d'Imgur
+      afin d'uploader des images chez eux afin d'avoir des performances plus
+      élevées que si nous les stockions chez nous. Cela évite aussi d'utiliser
+      notre espace disque limité. Nous laissons faire Imgur quand a la vérification
+      de la validité de l'image côté serveur, si l'upload échoue, alors
+      l'opération est simplement annulée et un message d'erreur est présenté.
 
 Configuration logicielle minimale (Pré-requis) :
     - Apache2
-    - PHP 7.3
+    - PHP 7.3 avec cURL
     - MariaDB 10.5
 
 Configuration logicielle conseillée :

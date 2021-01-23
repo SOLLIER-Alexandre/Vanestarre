@@ -57,7 +57,7 @@
                     }
 
                     // Update button state
-                    button.disabled = (charsLeft === MAX_MESSAGE_LENGTH);
+                    button.disabled = (charsLeft === MAX_MESSAGE_LENGTH || charsLeft < 0);
                 };
 
                 // Update the button state on each input in their textarea
