@@ -1,19 +1,20 @@
 <?php
-    namespace Vanestarre\Controller;
+    namespace Vanestarre\Controller\User;
 
     use mysql_xdevapi\Exception;
+    use Vanestarre\Controller\IController;
     use Vanestarre\Model\AuthDB;
 
     /**
-     * Class RegisterController
+     * Class UserRegisterController
      *
      * Controller for the treatment of user data
      *
      * @author RADJA Samy
-     * @package Vanestarre\Controller
+     * @package Vanestarre\Controller\User
      */
 
-    class RegisterController implements IController
+    class UserRegisterController implements IController
     {
 
         /**

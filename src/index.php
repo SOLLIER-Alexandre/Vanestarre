@@ -45,11 +45,11 @@
             break;
 
         case '/user/register':
-            $controller = new Controller\RegisterController();
+            $controller = new Controller\User\UserRegisterController();
             break;
 
         case '/user/login':
-            $controller = new Controller\UserLoginController();
+            $controller = new Controller\User\UserLoginController();
             break;
 
         case '/config/update':
