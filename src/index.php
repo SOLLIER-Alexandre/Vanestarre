@@ -33,15 +33,15 @@
             break;
 
         case '/message/post':
-            $controller = new Controller\PostMessageController();
+            $controller = new Controller\Message\MessagePostController();
             break;
 
         case '/message/delete':
-            $controller = new Controller\DeleteMessageController();
+            $controller = new Controller\Message\MessageDeleteController();
             break;
 
         case '/message/removeImage':
-            $controller = new Controller\RemoveImageController();
+            $controller = new Controller\Message\MessageRemoveImageController();
             break;
 
         case '/user/register':

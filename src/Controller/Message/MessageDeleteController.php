@@ -1,40 +1,41 @@
 <?php
 
-    namespace Vanestarre\Controller;
+    namespace Vanestarre\Controller\Message;
 
     use Exception;
+    use Vanestarre\Controller\IController;
     use Vanestarre\Model\MessagesDB;
 
     /**
-     * Class RemoveImageController
+     * Class DeleteMessageController
      *
-     * Controller for removing a message image
+     * Controller for message deleting
      *
      * @author SOLLIER Alexandre
-     * @package Vanestarre\Controller
+     * @package Vanestarre\Controller\Message
      */
-    class RemoveImageController implements IController
+    class MessageDeleteController implements IController
     {
         /**
          * @inheritDoc
          */
         public function execute() {
+            // Check that we have the message ID in the POSTed parameters
             // TODO: Check authenticated user
             $redirect_route = '/';
 
             if (is_numeric($_POST['messageId'])) {
-                $message_db = new MessagesDB();
-
+                $messages_db = new MessagesDB();
                 try {
-                    $message_db->remove_message_image(intval($_POST['messageId']));
+                    $messages_db->delete_message(intval($_POST['messageId']));
                 } catch (Exception $e) {
-                    // Couldn't remove the image from this message
-                    $redirect_route = '/home?err=21';
+                    // The message couldn't be deleted
+                    $redirect_route = '/home?err=11';
                     http_response_code(400);
                 }
             } else {
-                // The parameter was malformed
-                $redirect_route = '/home?err=21';
+                // The message ID was null/malformed
+                $redirect_route = '/home?err=10';
                 http_response_code(400);
             }
 
@@ -45,7 +46,7 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Remove image';
+            return 'Delete message';
         }
 
         /**

@@ -1,8 +1,9 @@
 <?php
-    namespace Vanestarre\Controller;
+    namespace Vanestarre\Controller\Message;
 
     use CURLFile;
     use Exception;
+    use Vanestarre\Controller\IController;
     use Vanestarre\Exception\ImageUploadException;
     use Vanestarre\Exception\MessageEditionException;
     use Vanestarre\Exception\MessageInsertionException;
@@ -14,9 +15,9 @@
      * Controller for the message posting
      *
      * @author SOLLIER Alexandre
-     * @package Vanestarre\Controller
+     * @package Vanestarre\Controller\Message
      */
-    class PostMessageController implements IController
+    class MessagePostController implements IController
     {
         /**
          * @inheritDoc
