@@ -70,24 +70,10 @@
         }
 
         /**
-         * @param string $message New message contents
-         */
-        public function set_message(string $message): void {
-            $this->message = $message;
-        }
-
-        /**
          * @return DateTimeImmutable The creation date
          */
         public function get_creation_date(): DateTimeImmutable {
             return $this->creation_date;
-        }
-
-        /**
-         * @param DateTimeImmutable $creation_date New creation date
-         */
-        public function set_creation_date(DateTimeImmutable $creation_date): void {
-            $this->creation_date = $creation_date;
         }
 
         /**
@@ -98,24 +84,10 @@
         }
 
         /**
-         * @param MessageReactions $reactions New reactions
-         */
-        public function set_reactions(MessageReactions $reactions): void {
-            $this->reactions = $reactions;
-        }
-
-        /**
          * @return string|null The image URL
          */
         public function get_image(): ?string {
             return $this->image;
-        }
-
-        /**
-         * @param string|null $image New image URL
-         */
-        public function set_image(?string $image): void {
-            $this->image = $image;
         }
     }
 

@@ -43,15 +43,18 @@
          * @param string $username Username of the new user
          * @param string $email Email of the new user
          * @param string $password Hashed password of the new user
+         * @return int New user ID
          * @throws Exception
          */
-        public function add_user(string $username, string $email, string $password): void {
+        public function add_user(string $username, string $email, string $password): int {
             $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
             $prepared_query->bind_param('sss', $email, $password, $username);
 
             if (!$prepared_query->execute()) {
                 throw new Exception("Error with the new user insertion.");
             }
+
+            return $prepared_query->insert_id;
         }
 
         /**
@@ -81,12 +84,14 @@
             $prepared_query->execute();
             $result = $prepared_query->get_result();
 
-            if (!$result) {
-                throw new Exception("Couldn't get data associated to the user.");
-            } else {
+            if ($result) {
                 $user_data = $result->fetch_assoc();
-                return new User($user_data['username'], $user_data['email'], $user_data['password'], new DateTimeImmutable($user_data['registration_date']));
+                if (isset($user_data)) {
+                    return new User($user_data['user_id'], $user_data['username'], $user_data['email'], $user_data['password'], new DateTimeImmutable($user_data['registration_date']));
+                }
             }
+
+            throw new Exception("Couldn't get data associated to the user.");
         }
     }
 ?>

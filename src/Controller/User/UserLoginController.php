@@ -67,7 +67,7 @@
             if (password_verify($password, $hashed_password)) {
                 // The password is correct, user is authenticated
                 session_start();
-                $_SESSION["current_user"] = $username;
+                $_SESSION["current_user"] = $user_info->get_id();
             } else {
                 // Incorrect password
                 throw new IncorrectPasswordException();

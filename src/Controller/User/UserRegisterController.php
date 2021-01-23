@@ -34,12 +34,13 @@
             $algo = PASSWORD_DEFAULT;
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password)<=20) and (strlen($username)<=15)) {
-                $hashedpassword = password_hash($password, $algo);
+                $hashed_password = password_hash($password, $algo);
                 $registering = new AuthDB();
                 try {
-                    $registering->add_user($username, $email, $hashedpassword);
+                    $user_id = $registering->add_user($username, $email, $hashed_password);
+
                     session_start();
-                    $_SESSION["current_user"] = $username;
+                    $_SESSION["current_user"] = $user_id;
                 } catch (Exception $exception) {
                     header('Location: /login');
                     echo 'Oopsie doopsie, looks like I messed up with your PC #Zut #Cbalo #eeeehSaluatouslézami' . PHP_EOL;

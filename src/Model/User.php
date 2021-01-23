@@ -15,6 +15,11 @@
     class User
     {
         /**
+         * @var int $id User's ID
+         */
+        private $id;
+
+        /**
          * @var string $username User's name
          */
         private $username;
@@ -30,34 +35,42 @@
         private $password;
 
         /**
-         * @var DateTimeImmutable $creation_date Timestamp of the creation of the user
+         * @var DateTimeImmutable $creation_date Time of the creation of the user
          */
         private $creation_date;
 
         /**
          * Constructs a new user
+         * @param int $id User's ID
          * @param string $username User's name
          * @param string $email User's email
          * @param string $password User's password
-         * @param DateTimeImmutable $creation_date Timestamp of the creation of the user
+         * @param DateTimeImmutable $creation_date Time of the creation of the user
          */
-         public function __construct(string $username, string $email, string $password, DateTimeImmutable $creation_date) {
-             $this->username = $username;
-             $this->email = $email;
-             $this->password = $password;
-             $this->creation_date = $creation_date;
-         }
+        public function __construct(int $id, string $username, string $email, string $password, DateTimeImmutable $creation_date) {
+            $this->id = $id;
+            $this->username = $username;
+            $this->email = $email;
+            $this->password = $password;
+            $this->creation_date = $creation_date;
+        }
 
         /**
-         * @return string
+         * @return int The user's ID
          */
-        public function get_username(): string
-        {
+        public function get_id(): int {
+            return $this->id;
+        }
+
+        /**
+         * @return string The user's username
+         */
+        public function get_username(): string {
             return $this->username;
         }
 
         /**
-         * @return string
+         * @return string The user's email
          */
         public function get_email(): string
         {
@@ -65,15 +78,7 @@
         }
 
         /**
-         * @param string $email
-         */
-        public function set_email(string $email): void
-        {
-            $this->email = $email;
-        }
-
-        /**
-         * @return string
+         * @return string The user's hashed password
          */
         public function get_password(): string
         {
@@ -81,29 +86,11 @@
         }
 
         /**
-         * @param string $password
-         */
-        public function set_password(string $password): void
-        {
-            $this->password = $password;
-        }
-
-        /**
-         * @return DateTimeImmutable
+         * @return DateTimeImmutable The time of the creation of the user
          */
         public function get_creation_date(): DateTimeImmutable
         {
             return $this->creation_date;
         }
-
-        /**
-         * @param DateTimeImmutable $creation_date
-         */
-        public function set_creation_date(DateTimeImmutable $creation_date): void
-        {
-            $this->creation_date = $creation_date;
-        }
-
     }
-
 ?>
