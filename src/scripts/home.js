@@ -216,6 +216,29 @@
                     button.addEventListener('click', onDeleteClick);
                 }
             }
+
+            // Add a click listener on every message image remove button
+            const removeMessageImageId = document.getElementById('remove-message-image-id');
+
+            if (removeMessageImageId !== null) {
+                const messageRemoveImageButtons = document.getElementsByClassName('message-remove-image-button');
+
+                function onRemoveImageClick(event) {
+                    // Grab message ID associated with the button
+                    const messageID = getMessageIdFromButton(event.target);
+                    if (!messageID) return;
+
+                    // Set dialog values
+                    removeMessageImageId.value = messageID;
+
+                    // Show the message delete modal
+                    MicroModal.show('modal-remove-image-message');
+                }
+
+                for (const button of messageRemoveImageButtons) {
+                    button.addEventListener('click', onRemoveImageClick);
+                }
+            }
         }
     });
 })();

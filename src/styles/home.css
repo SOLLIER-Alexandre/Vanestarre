@@ -89,8 +89,25 @@ main > .card:not(:last-child) {
     color: #9C4ABD;
 }
 
-.card > img {
+.card img {
     max-width: 100%;
+}
+
+.message-image-container {
+    position: relative;
+}
+
+.message-remove-image-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
+    text-shadow: #000000 0 0 16px;
+    color: #FFFFFFDE;
+}
+
+.message-remove-image-button:hover {
+    color: #FFFFFF;
 }
 
 .message-footer {
@@ -201,26 +218,26 @@ main > .card:not(:last-child) {
     height: 256px;
 }
 
-.modal-delete-message-content {
+.modal-confirm-content {
     flex-direction: column;
 }
 
-#modal-delete-message-form {
+.modal-confirm-form {
     display: flex;
     justify-content: flex-end;
     margin-top: 8px;
 }
 
-#modal-delete-message-form > input:not(:last-child) {
+.modal-confirm-form > input:not(:last-child) {
     margin-right: 8px;
 }
 
-#modal-delete-message-form > input[type="button"] {
+.modal-confirm-form > input[type="button"] {
     background-color: #6C6C6C;
     color: #FFFFFFDE;
 }
 
-#modal-delete-message-form > input[type="submit"] {
+.modal-confirm-form > input[type="submit"] {
     background-color: #E53935;
     color: #FFFFFFDE;
 }

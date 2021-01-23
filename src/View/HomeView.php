@@ -81,6 +81,7 @@
             // TODO: Only output this when the connected account is Vanéstarre
             $this->echo_edit_message_dialog();
             $this->echo_delete_message_dialog();
+            $this->echo_delete_message_image_dialog();
 
             // TODO: Only output this when there is a connected user
             $this->echo_donation_dialog();
@@ -179,6 +180,7 @@
             }, $message->get_message());
 
             // Begin the message card
+            echo '        <!-- Card for message #' . $message->get_id() . ' -->' . PHP_EOL;
             echo '        <article class="card" data-message-id="' . $message->get_id() . '">' . PHP_EOL;
 
             // Output message date and content
@@ -187,7 +189,11 @@
 
             // Output the image if there is one
             if (!is_null($message->get_image())) {
-                echo '            <img src="' . $message->get_image() . '" alt="Image du post de Vanéstarre">' . PHP_EOL;
+                // TODO: Only echo remove button when connected user is Vanéstarre
+                echo '            <div class="message-image-container">' . PHP_EOL;
+                echo '                <img src="' . $message->get_image() . '" alt="Image du post de Vanéstarre">' . PHP_EOL;
+                echo '                <span class="material-icons unselectable button-like message-remove-image-button">cancel</span>' . PHP_EOL;
+                echo '            </div>' . PHP_EOL;
             }
 
             // Output message footer
@@ -353,13 +359,42 @@
                                     <h2 id="modal-delete-message-title">Supprimer un message</h2>
                                 </header>
                         
-                                <div class="modal-delete-message-content">
+                                <div class="modal-confirm-content">
                                     <p>Êtes-vous sûr de vouloir supprimer ce message ?</p>
                                     <p>Cette action est irréversible.</p>
                                 </div>
                                 
-                                <form id="modal-delete-message-form" action="/deleteMessage" method="post">
+                                <form class="modal-confirm-form" action="/deleteMessage" method="post">
                                     <input id="delete-message-id" name="messageId" type="hidden">
+                                    <input class="input-button" type="button" value="Annuler" data-micromodal-close>
+                                    <input class="input-button" type="submit" value="Supprimer">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+            HTML;
+        }
+
+        /**
+         * Outputs the dialog for deleting a message image
+         */
+        private function echo_delete_message_image_dialog(): void {
+            echo <<<'HTML'
+                    <div id="modal-remove-image-message" class="modal" aria-hidden="true">
+                        <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-remove-message-image-title">
+                                <header class="dialog-header">
+                                    <h2 id="modal-remove-message-image-title">Supprimer une image d'un message</h2>
+                                </header>
+                        
+                                <div class="modal-confirm-content">
+                                    <p>Êtes-vous sûr de vouloir supprimer cette image ?</p>
+                                    <p>Cette action est irréversible.</p>
+                                </div>
+                                
+                                <form class="modal-confirm-form" action="/removeImage" method="post">
+                                    <input id="remove-message-image-id" name="messageId" type="hidden">
                                     <input class="input-button" type="button" value="Annuler" data-micromodal-close>
                                     <input class="input-button" type="submit" value="Supprimer">
                                 </form>
