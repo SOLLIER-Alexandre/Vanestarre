@@ -50,9 +50,11 @@
         public function get_n_last_messages(int $n, int $offset): array {
             $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
+
             $prepared_query->execute();
             $result = $prepared_query->get_result();
-            if ($result == false) {
+
+            if (!$result) {
                 throw new Exception("This query result is empty (function get_n_last_messages()).");
             } else {
                 $messages_list = array();
@@ -74,9 +76,11 @@
         private function get_message_reaction_count(int $message_id, MessageReactions $reactions): void {
             $prepared_query = $this->mysqli->prepare('SELECT reaction_type, COUNT(reaction_type) FROM REACTIONS WHERE message_id = ? GROUP BY reaction_type;');
             $prepared_query->bind_param('i', $message_id);
+
             $prepared_query->execute();
             $result = $prepared_query->get_result();
-            if ($result == false) {
+
+            if (!$result) {
                 throw new Exception("This query result is empty (function message_reactions()).");
             } else {
                 while ($row = $result->fetch_assoc()) {
@@ -105,18 +109,16 @@
          * Check if the user has reacted on the message.
          * @param string $username Username of the user to check reactions from
          * @param int $message_id ID of the message to check reactions from
-         * @return bool
+         * @return bool True if the user reacted, false otherwise
          */
-        public function has_reacted(string $username, int $message_id): boolean {
+        public function has_reacted(string $username, int $message_id): bool {
+            // TODO: Fix this
             $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND username = ?');
             $prepared_query->bind_param('is', $message_id, $username);
+
             $prepared_query->execute();
             $result = $prepared_query->get_result();
-            if ($result == false) {
-                return false;
-            } else {
-                return true;
-            }
+            return false;
         }
 
         /**
@@ -129,8 +131,8 @@
         public function add_reaction(int $message_id, string $reaction_type, string $username): void {
             $prepared_query = $this->mysqli->prepare('INSERT INTO REACTIONS(message_id, reaction_type, username) VALUES(?, ?, ?)');
             $prepared_query->bind_param('iss', $message_id, $reaction_type, $username);
-            $prepared_query->execute();
-            if ($prepared_query == false) {
+
+            if (!$prepared_query->execute()) {
                 throw new Exception("Error when adding the reaction.");
             }
         }
@@ -144,8 +146,8 @@
         public function add_message(string $content, ?string $image): void {
             $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
             $prepared_query->bind_param('ss', $content, $image);
-            $prepared_query->execute();
-            if ($prepared_query == false) {
+
+            if (!$prepared_query->execute()) {
                 throw new Exception("Error with the message creation.");
             }
         }
@@ -157,11 +159,11 @@
          * @param string $new_content New content
          * @throws Exception
          */
-        public function edit_message(int $message_id, string $new_content): void {
+        public function edit_message(int $message_id, string $new_content, ?string $image): void {
             $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
             $prepared_query->bind_param('si', $new_content, $message_id);
-            $prepared_query->execute();
-            if($prepared_query == false){
+
+            if (!$prepared_query->execute()) {
                 throw new Exception("Error with the message update.");
             }
         }
@@ -174,8 +176,8 @@
         public function delete_message(int $message_id): void {
             $prepared_query = $this->mysqli->prepare('DELETE FROM MESSAGES WHERE message_id = ?');
             $prepared_query->bind_param('i', $message_id);
-            $prepared_query->execute();
-            if ($prepared_query == false) {
+
+            if (!$prepared_query->execute()) {
                 throw new Exception("Error with the message deletion.");
             }
         }
@@ -189,7 +191,8 @@
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM MESSAGES');
             $prepared_query->execute();
             $result = $prepared_query->get_result();
-            if ($result == false) {
+
+            if (!$result) {
                 throw new Exception("This query result is empty (function message_reactions()).");
             } else {
                 $row = $result->fetch_assoc();
