@@ -38,30 +38,37 @@
             echo <<<"HTML"
                     <div class="card" id="main-card">
                         <h2>Compte Vanéstarre</h2>
+                        
                         <div id="div-username" class="text-line">
                             <h3>Votre Username : </h3>
                             <span>$this->username</span>
                         </div>
+                        
                         <div id="div-email" class="text-line">
                             <h3>Votre adresse e-mail : </h3>
                             <span>$this->email_adress</span>
                         </div>
-                        <form id="form-modif-pwd" action="/ModifPwdView.php">
+                        
+                        <form id="form-modif-pwd" action="/user/passwordChange" method="post">
                             <div id="div-form-title" class="text-line">
                                 <h3>Changez votre mot de passe : </h3>
                             </div>
+                            
                             <div id="form-old-pwd" class="div-form">
                                <label for="old-pwd">Ancien mot de passe :</label>
-                               <input type="text" id="old-pwd">
+                               <input type="password" id="old-pwd" autocomplete="current-password" maxlength="128" required>
                             </div>
+                            
                             <div id="form-new-pwd" class="div-form">
                                <label for="new-pwd">Nouveau mot de passe :</label>
-                               <input type="text" id="new-pwd">
+                               <input type="password" id="new-pwd" autocomplete="new-password" maxlength="128" required>
                             </div>
+                            
                             <div id="form-new-pwd-bis" class="div-form">
                                <label for="new-pwd-bis">Entrez à nouveau votre nouveau mot de passe :</label>
-                               <input type="text" id="new-pwd-bis">
+                               <input type="password" id="new-pwd-bis" autocomplete="new-password" maxlength="128" required>
                             </div>
+                            
                             <input type="submit" value="Valider" id="submit-pwd-change"> 
                         </form>
                     </div>

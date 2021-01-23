@@ -38,7 +38,7 @@ main {
     background-color: #dedede;
 }
 
-#form-modif-pwd input[type="text"] {
+#form-modif-pwd input[type="password"] {
     background-color: #313131;
     width: 185px;
 }

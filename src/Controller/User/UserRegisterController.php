@@ -45,7 +45,9 @@
             $email = $_POST['email'];
 
             // Check posted values
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($username) <= 64 && strlen($password) <= 128 && strlen($email) <= 64) {
+            if (isset($username) && isset($password) && isset($email) &&
+                filter_var($email, FILTER_VALIDATE_EMAIL) &&
+                strlen($username) <= 64 && strlen($password) <= 128 && strlen($email) <= 64) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $auth_db = new AuthDB();
 

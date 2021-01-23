@@ -98,7 +98,7 @@
         session_write_close();
 
         if (isset($logged_in_user)) {
-            $logged_in_username = $logged_in_user->get_username();
+            $logged_in_username = filter_var($logged_in_user->get_username(), FILTER_SANITIZE_SPECIAL_CHARS);
             echo <<<HTML
                         <a href="/account" id="account-link" class="button-like hidden-on-search" role="button">
                             <span class="material-icons unselectable">account_circle</span> $logged_in_username

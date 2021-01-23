@@ -17,10 +17,9 @@
 }
 
 .input-zone {
-    margin-top: 1%;
-    margin-bottom: 4%;
-    border-radius: 6px;
-    opacity: 0.85;
+    background-color: #313131;
+    width: 185px;
+    margin-bottom: 12px;
 }
 
 .submit-button {
