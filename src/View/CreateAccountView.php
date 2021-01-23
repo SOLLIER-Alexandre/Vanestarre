@@ -22,13 +22,13 @@
                                 
                         <form action="/user/register" method="post">
                             <label>Identifiant :</label>
-                            <input type="" name="username" class="input-zone" style="color: black" autocomplete="username" maxlength="15" required/><br/>
+                            <input type="" name="username" class="input-zone" style="color: black" autocomplete="username" maxlength="64" required/><br/>
                                                
                             <label>Email :</label>
-                            <input type="email" name="email" class="input-zone" style="color: black" autocomplete="email" maxlength="25" required/><br/>
+                            <input type="email" name="email" class="input-zone" style="color: black" autocomplete="email" maxlength="64" required/><br/>
                             
                             <label>Mot de passe :</label>
-                            <input type="password" name="mdp" class="input-zone" style="color: black" autocomplete="current-password" maxlength="20" required/><br/>
+                            <input type="password" name="mdp" class="input-zone" style="color: black" autocomplete="current-password" maxlength="128" required/><br/>
                             
                             <input type="submit" name="envoie" class="submit-button" value="Créer votre compte">
                         </form>

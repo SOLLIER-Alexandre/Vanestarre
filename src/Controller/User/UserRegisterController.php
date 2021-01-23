@@ -36,28 +36,33 @@
                 return;
             }
 
+            $redirect_route = '/';
+
+            // Grab posted values
+            $username = $_POST['username'];
             $password = $_POST['mdp'];
             $email = $_POST['email'];
-            $username = $_POST['username'];
-            $algo = PASSWORD_DEFAULT;
 
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) and (strlen($password) <= 20) and (strlen($username) <= 15)) {
-                $hashed_password = password_hash($password, $algo);
-                $registering = new AuthDB();
+            // Check posted values
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($username) <= 64 && strlen($password) <= 128 && strlen($email) <= 64) {
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $auth_db = new AuthDB();
+
                 try {
-                    $user_id = $registering->add_user($username, $email, $hashed_password);
+                    $user_id = $auth_db->add_user($username, $email, $hashed_password);
                     $_SESSION["current_user"] = $user_id;
                 } catch (Exception $exception) {
-                    header('Location: /login');
-                    echo 'Oopsie doopsie, looks like I messed up with your PC #Zut #Cbalo #eeeehSaluatouslézami' . PHP_EOL;
+                    // Couldn't register the user
+                    $redirect_route = '/register?err=2';
+                    http_response_code(400);
                 }
-                header('Location: /');
+            } else {
+                // One of the parameter was malformed
+                $redirect_route = '/register?err=1';
+                http_response_code(400);
             }
 
-            else {
-                header('Location: https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400');
-            }
-
+            header('Location: ' . $redirect_route);
         }
 
         /**
