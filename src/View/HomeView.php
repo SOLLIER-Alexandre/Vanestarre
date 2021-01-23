@@ -31,6 +31,16 @@
         private $messages;
 
         /**
+         * @var bool $is_connected True if we can show stuff for connected users
+         */
+        private $is_connected;
+
+        /**
+         * @var bool $has_authoring_tools True if we can show authoring tools to the user
+         */
+        private $has_authoring_tools;
+
+        /**
          * @var bool $error_fetching_messages True if we have to show an error messages because we couldn't fetch messages
          */
         private $error_fetching_messages;
@@ -47,6 +57,7 @@
             $this->current_page = 1;
             $this->page_count = 1;
             $this->messages = array();
+            $this->has_authoring_tools = false;
             $this->error_fetching_messages = false;
             $this->error = null;
         }
@@ -55,36 +66,42 @@
          * @inheritDoc
          */
         public function echo_contents(): void {
-            // If there was an error, just print it
+            // If there was an error, just output it
             if ($this->error_fetching_messages) {
                 $this->echo_error_fetching_message();
                 return;
             }
 
-            // Echo error box if one occurred
+            // Output error box if one occurred
             if (!is_null($this->error)) {
                 $this->echo_error_box();
             }
 
-            // TODO: Only output this when the connected account is Vanéstarre
-            $this->echo_message_writer();
+            if ($this->has_authoring_tools) {
+                // Output message writer if connected user is an author
+                $this->echo_message_writer();
+            }
 
-            // Echo every message
+            // Output every message
             foreach ($this->messages as $message) {
                 $this->echo_message($message);
             }
 
-            // Echo page selector
+            // Output page selector
             $this->echo_pager();
 
-            // Echo dialogs
-            // TODO: Only output this when the connected account is Vanéstarre
-            $this->echo_edit_message_dialog();
-            $this->echo_delete_message_dialog();
-            $this->echo_delete_message_image_dialog();
+            // Output dialogs
+            if ($this->has_authoring_tools) {
+                // Output message editing dialogs if the connected user is an author
+                $this->echo_edit_message_dialog();
+                $this->echo_delete_message_dialog();
+                $this->echo_delete_message_image_dialog();
+            }
 
-            // TODO: Only output this when there is a connected user
-            $this->echo_donation_dialog();
+            if ($this->is_connected) {
+                // Output donation dialog for connected users
+                $this->echo_donation_dialog();
+            }
         }
 
         /**
@@ -195,10 +212,14 @@
 
             // Output the image if there is one
             if (!is_null($message->get_image())) {
-                // TODO: Only echo remove button when connected user is Vanéstarre
                 echo '            <div class="message-image-container">' . PHP_EOL;
                 echo '                <img src="' . $message->get_image() . '" alt="Image du post de Vanéstarre">' . PHP_EOL;
-                echo '                <span class="material-icons unselectable button-like message-remove-image-button">cancel</span>' . PHP_EOL;
+
+                if ($this->has_authoring_tools) {
+                    // Output button for removing an image if the connected user is an author
+                    echo '                <span class="material-icons unselectable button-like message-remove-image-button">cancel</span>' . PHP_EOL;
+                }
+
                 echo '            </div>' . PHP_EOL;
             }
 
@@ -285,9 +306,11 @@
             $this->echo_message_reaction_button($messageReactions->get_style_reaction(), $messageReactions->is_style_reacted(), 'star', 'style');
             $this->echo_message_reaction_button($messageReactions->get_swag_reaction(), $messageReactions->is_swag_reacted(), 'mood', 'swag');
 
-            // TODO: Only output this when user is authorized
-            $this->echo_message_authoring_button('message-edit-button', 'edit');
-            $this->echo_message_authoring_button('message-delete-button', 'delete');
+            if ($this->has_authoring_tools) {
+                // Output message editing buttons if the connected user is an author
+                $this->echo_message_authoring_button('message-edit-button', 'edit');
+                $this->echo_message_authoring_button('message-delete-button', 'delete');
+            }
 
             // End of footer
             echo '            </div>' . PHP_EOL;
@@ -496,6 +519,20 @@
          */
         public function set_messages(array $messages): void {
             $this->messages = $messages;
+        }
+
+        /**
+         * @param bool $is_connected New connected state
+         */
+        public function set_is_connected(bool $is_connected): void {
+            $this->is_connected = $is_connected;
+        }
+
+        /**
+         * @param bool $has_authoring_tools New authoring tools state
+         */
+        public function set_has_authoring_tools(bool $has_authoring_tools): void {
+            $this->has_authoring_tools = $has_authoring_tools;
         }
 
         /**

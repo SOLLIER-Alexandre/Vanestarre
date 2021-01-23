@@ -33,6 +33,11 @@
          * @inheritDoc
          */
         public function execute() {
+            // Check if the user is an author
+            session_start();
+            $this->view->set_is_connected(isset($_SESSION['current_user']));
+            $this->view->set_has_authoring_tools($_SESSION['current_user'] === 0);
+
             // Grab the messages from the database
             $messageDB = new MessagesDB();
 
