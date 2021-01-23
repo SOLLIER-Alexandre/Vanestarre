@@ -58,7 +58,7 @@
 
             // Grab user hashed password
             try {
-                $user_info = $login->get_user_data($username);
+                $user_info = $login->get_user_data_by_username($username);
             } catch (Exception $e) {
                 throw new UnknownUsernameException();
             }

@@ -151,6 +151,10 @@ h1 {
     margin-right: 4px;
 }
 
+#logout-button {
+    margin-left: 12px;
+}
+
 .card {
     display: flex;
     flex-direction: column;

@@ -8,6 +8,8 @@
 
     namespace Vanestarre;
 
+    use Vanestarre\Model\AuthDB;
+
     /**
      * Echoes the start of a regular HTML document
      *
@@ -81,22 +83,34 @@
                     </form>
                     
                     <span id="search-btn" class="material-icons unselectable button-like hidden-on-search">search</span>
-                    <a href="/login" id="account-link" class="button-like hidden-on-search">
-                        <span class="material-icons unselectable">account_circle</span>
+
         HTML;
 
         // Start session temporarily to get currently connected username
         session_start();
-        if (is_null($_SESSION['current_user'])) {
-            echo 'Invité';
-        } else {
-            echo $_SESSION['current_user'];
-        }
+        $auth_db = new AuthDB();
+        $logged_in_user = $auth_db->get_logged_in_user();
         session_abort();
 
+        if (isset($logged_in_user)) {
+            $logged_in_username = $logged_in_user->get_username();
+            echo <<<HTML
+                        <a href="/account" id="account-link" class="button-like hidden-on-search" role="button">
+                            <span class="material-icons unselectable">account_circle</span> $logged_in_username
+                        </a>
+                        <a id="logout-button" class="material-icons unselectable button-like hidden-on-search" href="/user/logout">logout</a>
+
+            HTML;
+        } else {
+            echo <<<HTML
+                        <a href="/login" id="account-link" class="button-like hidden-on-search" role="button">
+                            <span class="material-icons unselectable">account_circle</span> Invité
+                        </a>
+
+            HTML;
+        }
+
         echo <<<'HTML'
-        
-                    </a>
                 </div>
             </header>
             

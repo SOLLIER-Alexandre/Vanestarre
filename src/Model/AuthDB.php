@@ -5,6 +5,7 @@
     use Error;
     use Exception;
     use mysqli;
+    use mysqli_stmt;
 
     /**
      * Class Messages
@@ -72,15 +73,12 @@
         }
 
         /**
-         * Return user's data as an User object.
-         * @param string $username Username of the user to fetch
+         * Gets user data from a prepared query.
+         * @param mysqli_stmt $prepared_query The prepared query
          * @return User Data about the user
          * @throws Exception
          */
-        public function get_user_data(string $username): User {
-            $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
-            $prepared_query->bind_param('s', $username);
-
+        private function get_user_data(mysqli_stmt $prepared_query): User {
             $prepared_query->execute();
             $result = $prepared_query->get_result();
 
@@ -92,6 +90,54 @@
             }
 
             throw new Exception("Couldn't get data associated to the user.");
+        }
+
+        /**
+         * Return user's data as an User object.
+         * @param string $username Username of the user to fetch
+         * @return User Data about the user
+         * @throws Exception
+         */
+        public function get_user_data_by_username(string $username): User {
+            $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
+            $prepared_query->bind_param('s', $username);
+
+            return $this->get_user_data($prepared_query);
+        }
+
+        /**
+         * Return user's data as an User object.
+         * @param int $user_id ID of the user to fetch
+         * @return User Data about the user
+         * @throws Exception
+         */
+        public function get_user_data_by_id(int $user_id): User {
+            $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE user_id = ?');
+            $prepared_query->bind_param('i', $user_id);
+
+            return $this->get_user_data($prepared_query);
+        }
+
+        /**
+         * Gets the currently logged in user
+         * Warning: Session must be started before calling this function
+         *
+         * @return User|null Currently logged in user
+         */
+        public function get_logged_in_user(): ?User {
+            if (!is_int($_SESSION['current_user'])) {
+                // No one's logged in
+                return null;
+            }
+
+            try {
+                // Return the logged in user data
+                return $this->get_user_data_by_id($_SESSION['current_user']);
+            } catch (Exception $e) {
+                // Stored logged in user is invalid, fix this
+                unset($_SESSION['current_user']);
+                return null;
+            }
         }
     }
 ?>
