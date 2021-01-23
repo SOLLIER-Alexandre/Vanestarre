@@ -147,10 +147,10 @@
 
         /**
          * Outputs the form for message posting
-         * @param string $textarea_id ID of the textarea to output
+         * @param string $form_id ID of the form to output
          * @param bool $is_edition_form Is this form for editing a message?
          */
-        private function echo_message_post_form(string $textarea_id, bool $is_edition_form) {
+        private function echo_message_post_form(string $form_id, bool $is_edition_form) {
             // Compute the base indentation for the generated code
             $base_indent = str_repeat(' ', $is_edition_form ? 24 : 12);
 
@@ -163,15 +163,19 @@
 
             // Yeah that looks horrible but generated code needed to be indented so...
             echo <<<HTML
-            $base_indent   <textarea id="$textarea_id" placeholder="Postez un message" name="message"></textarea>
+            $base_indent   <textarea id="$form_id-text" placeholder="Postez un message" name="message"></textarea>
             $base_indent   <div class="message-form-buttons">
             $base_indent       <div>
-            $base_indent           <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="$textarea_id">β</span>
-            $base_indent           <input type="file" name="image" accept="image/*">
+            $base_indent           <span class="button-like unselectable beta-insert-button" role="button" data-for-textarea="$form_id-text">β</span>
+            
+            $base_indent           <input id="$form_id-file" class="message-form-file" type="file" name="image" accept="image/*">
+            $base_indent           <label for="$form_id-file" class="material-icons unselectable button-like message-form-file-label">add_photo_alternate</label>
+            $base_indent           <span class="material-icons unselectable button-like message-form-file-remove disabled" role="button" aria-disabled="true" data-for-input="$form_id-file">remove</span>
             $base_indent       </div>
+            
             $base_indent       <div>
-            $base_indent           <span class="message-length-counter" data-for-textarea="$textarea_id">50</span>
-            $base_indent           <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="$textarea_id">
+            $base_indent           <span class="message-length-counter" data-for-textarea="$form_id-text">50</span>
+            $base_indent           <input class="send-message-button input-button" type="submit" value="Post" data-for-textarea="$form_id-text" disabled>
             $base_indent       </div>
             $base_indent   </div>
             $base_indent</form>
@@ -187,7 +191,7 @@
             echo '        <div class="card">' . PHP_EOL;
 
             // Output the message post form
-            $this->echo_message_post_form('send-message-text', false);
+            $this->echo_message_post_form('send-message', false);
 
             echo '        </div>' . PHP_EOL;
         }
@@ -365,7 +369,7 @@
             HTML;
 
             // Output the message edition form
-            $this->echo_message_post_form('edit-message-text', true);
+            $this->echo_message_post_form('edit-message', true);
 
             echo <<<'HTML'
                                 </div>

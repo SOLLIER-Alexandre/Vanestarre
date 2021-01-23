@@ -57,7 +57,27 @@ main > .card:not(:last-child) {
     flex: 1;
 }
 
-.message-form-buttons > div > *:not(:last-child) {
+.message-form-file-label {
+    margin-right: 8px;
+}
+
+.message-form-file-remove.disabled,
+.message-form-file-remove.disabled:hover {
+    color: #FFFFFF60;
+    cursor: default;
+}
+
+.beta-insert-button {
+    margin-right: 16px;
+}
+
+.message-form-file {
+    position: absolute;
+    opacity: 0;
+    z-index: -1000;
+}
+
+.message-length-counter {
     margin-right: 8px;
 }
 

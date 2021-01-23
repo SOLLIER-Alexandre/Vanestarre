@@ -185,6 +185,13 @@
                     editMessageText.dispatchEvent(new InputEvent('input'));
                     editMessageId.value = messageID;
 
+                    const editMessageFile = document.getElementById('edit-message-file');
+                    if (editMessageFile !== null) {
+                        // Reset the file input of the dialog
+                        editMessageFile.value = '';
+                        editMessageFile.dispatchEvent(new Event('change'));
+                    }
+
                     // Show the message edit modal
                     MicroModal.show('modal-edit-message');
                 }
@@ -237,6 +244,49 @@
 
                 for (const button of messageRemoveImageButtons) {
                     button.addEventListener('click', onRemoveImageClick);
+                }
+            }
+
+            // Add a change listener on every message form file input
+            const messageFormFileInputs = document.getElementsByClassName('message-form-file');
+
+            for (const input of messageFormFileInputs) {
+                const inputLabel = input.parentElement.querySelector('label[for="' + input.id + '"]');
+                const inputRemoveButton = input.parentElement.querySelector('.message-form-file-remove[data-for-input="' + input.id + '"]');
+
+                if (inputLabel !== null && inputRemoveButton !== null) {
+                    input.addEventListener('change', (event) => {
+                        if (event.currentTarget.files.length > 0) {
+                            // Set the icon of the label to an image icon, and enable the button for removing the image
+                            inputLabel.innerHTML = 'image';
+
+                            inputRemoveButton.classList.remove('disabled');
+                            inputRemoveButton.setAttribute('aria-disabled', 'false');
+                        } else {
+                            // Set the icon of the label to an icon of an image with a plus, and disable the button for removing the image
+                            inputLabel.innerHTML = 'add_photo_alternate';
+
+                            inputRemoveButton.classList.add('disabled');
+                            inputRemoveButton.setAttribute('aria-disabled', 'true');
+                        }
+                    });
+                }
+            }
+
+            // Add a click listener on every message form image remove button
+            const messageFormFileRemoveButtons = document.getElementsByClassName('message-form-file-remove');
+
+            for (const button of messageFormFileRemoveButtons) {
+                const input = document.getElementById(button.dataset.forInput);
+
+                if (input !== null) {
+                    button.addEventListener('click', () => {
+                        if (button.classList.contains('disabled')) return;
+
+                        // Clear the input files
+                        input.value = '';
+                        input.dispatchEvent(new Event('change'));
+                    });
                 }
             }
         }
