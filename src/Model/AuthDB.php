@@ -3,9 +3,11 @@
 
     use DateTimeImmutable;
     use Error;
-    use Exception;
     use mysqli;
     use mysqli_stmt;
+    use Vanestarre\Exception\DatabaseDeleteException;
+    use Vanestarre\Exception\DatabaseInsertException;
+    use Vanestarre\Exception\DatabaseSelectException;
 
     /**
      * Class Messages
@@ -45,14 +47,14 @@
          * @param string $email Email of the new user
          * @param string $password Hashed password of the new user
          * @return int New user ID
-         * @throws Exception
+         * @throws DatabaseInsertException
          */
         public function add_user(string $username, string $email, string $password): int {
             $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
             $prepared_query->bind_param('sss', $email, $password, $username);
 
             if (!$prepared_query->execute()) {
-                throw new Exception("Error with the new user insertion.");
+                throw new DatabaseInsertException();
             }
 
             return $prepared_query->insert_id;
@@ -61,14 +63,14 @@
         /**
          * Delete a user in the database.
          * @param string $username Username of the user to delete
-         * @throws Exception
+         * @throws DatabaseDeleteException
          */
         public function delete_user(string $username): void {
             $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE username = ?');
             $prepared_query->bind_param('s', $username);
 
             if (!$prepared_query->execute()) {
-                throw new Exception("Error with the user deletion.");
+                throw new DatabaseDeleteException();
             }
         }
 
@@ -76,7 +78,7 @@
          * Gets user data from a prepared query.
          * @param mysqli_stmt $prepared_query The prepared query
          * @return User Data about the user
-         * @throws Exception
+         * @throws DatabaseSelectException
          */
         private function get_user_data(mysqli_stmt $prepared_query): User {
             $prepared_query->execute();
@@ -89,14 +91,14 @@
                 }
             }
 
-            throw new Exception("Couldn't get data associated to the user.");
+            throw new DatabaseSelectException();
         }
 
         /**
          * Return user's data as an User object.
          * @param string $username Username of the user to fetch
          * @return User Data about the user
-         * @throws Exception
+         * @throws DatabaseSelectException
          */
         public function get_user_data_by_username(string $username): User {
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
@@ -109,7 +111,7 @@
          * Return user's data as an User object.
          * @param int $user_id ID of the user to fetch
          * @return User Data about the user
-         * @throws Exception
+         * @throws DatabaseSelectException
          */
         public function get_user_data_by_id(int $user_id): User {
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE user_id = ?');
@@ -133,7 +135,7 @@
             try {
                 // Return the logged in user data
                 return $this->get_user_data_by_id($_SESSION['current_user']);
-            } catch (Exception $e) {
+            } catch (DatabaseSelectException $e) {
                 // Stored logged in user is invalid, fix this
                 unset($_SESSION['current_user']);
                 return null;

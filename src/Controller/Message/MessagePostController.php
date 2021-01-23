@@ -2,8 +2,9 @@
     namespace Vanestarre\Controller\Message;
 
     use CURLFile;
-    use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseInsertException;
+    use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Exception\ImageUploadException;
     use Vanestarre\Exception\MessageEditionException;
     use Vanestarre\Exception\MessageInsertionException;
@@ -134,7 +135,7 @@
                 // We've got a message ID, we have to edit an existing message
                 try {
                     $message_db->edit_message(intval($_POST['messageId']), $message, $image_link);
-                } catch (Exception $e) {
+                } catch (DatabaseUpdateException $e) {
                     // There was an error while trying to edit the message
                     throw new MessageEditionException();
                 }
@@ -142,7 +143,7 @@
                 // Add a new message
                 try {
                     $message_db->add_message($message, $image_link);
-                } catch (Exception $e) {
+                } catch (DatabaseInsertException $e) {
                     // There was an error while trying to add the message
                     throw new MessageInsertionException();
                 }

@@ -2,7 +2,7 @@
 
     namespace Vanestarre\Controller;
 
-    use Exception;
+    use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Model\MessagesDB;
     use Vanestarre\Model\VanestarreConfig;
     use Vanestarre\View\HomeView;
@@ -49,7 +49,7 @@
             // Set page data
             try {
                 $message_count = $messageDB->count_messages();
-            } catch (Exception $e) {
+            } catch (DatabaseSelectException $e) {
                 // Don't do anything, let the message count at 0
             }
             $this->view->set_page_count(intval(ceil($message_count / $msg_per_page)));
@@ -71,7 +71,7 @@
             try {
                 $message_offset = $msg_per_page * ($this->view->get_current_page() - 1);
                 $this->view->set_messages($messageDB->get_n_last_messages($msg_per_page, $message_offset));
-            } catch (Exception $e) {
+            } catch (DatabaseSelectException $e) {
                 // If there was an error, we'll show it to the user
                 $this->view->set_error_fetching_messages(true);
             }

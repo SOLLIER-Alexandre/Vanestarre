@@ -3,6 +3,7 @@
 
     use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\IncorrectPasswordException;
     use Vanestarre\Exception\UnknownUsernameException;
     use Vanestarre\Model\AuthDB;
@@ -67,7 +68,7 @@
             // Grab user hashed password
             try {
                 $user_info = $login->get_user_data_by_username($username);
-            } catch (Exception $e) {
+            } catch (DatabaseSelectException $e) {
                 throw new UnknownUsernameException();
             }
 

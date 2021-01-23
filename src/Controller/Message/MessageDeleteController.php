@@ -2,8 +2,8 @@
 
     namespace Vanestarre\Controller\Message;
 
-    use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseDeleteException;
     use Vanestarre\Model\MessagesDB;
 
     /**
@@ -35,7 +35,7 @@
                 $messages_db = new MessagesDB();
                 try {
                     $messages_db->delete_message(intval($_POST['messageId']));
-                } catch (Exception $e) {
+                } catch (DatabaseDeleteException $e) {
                     // The message couldn't be deleted
                     $redirect_route = '/home?err=11';
                     http_response_code(400);

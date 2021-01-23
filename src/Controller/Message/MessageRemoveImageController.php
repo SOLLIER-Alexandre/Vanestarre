@@ -2,8 +2,8 @@
 
     namespace Vanestarre\Controller\Message;
 
-    use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Model\MessagesDB;
 
     /**
@@ -35,7 +35,7 @@
 
                 try {
                     $message_db->remove_message_image(intval($_POST['messageId']));
-                } catch (Exception $e) {
+                } catch (DatabaseUpdateException $e) {
                     // Couldn't remove the image from this message
                     $redirect_route = '/home?err=21';
                     http_response_code(400);

@@ -3,6 +3,7 @@
 
     use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Model\AuthDB;
 
     /**
@@ -51,7 +52,7 @@
                 try {
                     $user_id = $auth_db->add_user($username, $email, $hashed_password);
                     $_SESSION["current_user"] = $user_id;
-                } catch (Exception $exception) {
+                } catch (DatabaseInsertException $exception) {
                     // Couldn't register the user
                     $redirect_route = '/register?err=2';
                     http_response_code(400);
