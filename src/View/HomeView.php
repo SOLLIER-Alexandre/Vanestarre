@@ -87,8 +87,10 @@
                 $this->echo_message($message);
             }
 
-            // Output page selector
-            $this->echo_pager();
+            // Output page selector if there are more than one page
+            if ($this->page_count > 1) {
+                $this->echo_pager();
+            }
 
             // Output dialogs
             if ($this->has_authoring_tools) {
