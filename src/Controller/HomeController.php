@@ -109,7 +109,7 @@
 
             // Set page data
             try {
-                $message_count = $messageDB->count_messages();
+                $message_count = $searchDB->count_messages_with_tag($_GET['query']);
             } catch (DatabaseSelectException $e) {
                 // Don't do anything, let the message count at 0
             }
