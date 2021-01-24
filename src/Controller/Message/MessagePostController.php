@@ -41,7 +41,7 @@
             }
 
             // Check that all values are correct
-            if (isset($_POST['message']) && strlen($_POST['message']) > 0 && strlen($_POST['message']) <= 50) {
+            if (isset($_POST['message']) && mb_strlen($_POST['message']) > 0 && mb_strlen($_POST['message']) <= 50) {
                 // Filter the message to prevent XSS
                 $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
 

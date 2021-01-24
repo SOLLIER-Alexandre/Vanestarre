@@ -35,7 +35,7 @@
             $redirect_route = '/account?confirm=';
 
             if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
-                strlen($_POST['oldPassword']) <= 128 && strlen($_POST['newPassword']) <= 128) {
+                mb_strlen($_POST['oldPassword']) <= 128 && mb_strlen($_POST['newPassword']) <= 128) {
                 if ($_POST['newPassword'] === $_POST['newPasswordConfirmation']) {
                     if (password_verify($_POST['oldPassword'], $connected_user->get_password())) {
                         // Hash the new password and set it
