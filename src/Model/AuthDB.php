@@ -8,6 +8,7 @@
     use Vanestarre\Exception\DatabaseDeleteException;
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Exception\DatabaseSelectException;
+    use Vanestarre\Exception\DatabaseUpdateException;
 
     /**
      * Class Messages
@@ -139,6 +140,21 @@
                 // Stored logged in user is invalid, fix this
                 unset($_SESSION['current_user']);
                 return null;
+            }
+        }
+
+        /**
+         * Change the password of the user from an user_id
+         * @param int $user_id ID of the user
+         * @param string $new_password New password for the user
+         * @throws DatabaseUpdateException
+         */
+        public function change_password(int $user_id, string $new_password): void {
+            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET password = ? WHERE user_id = ?');
+            $prepared_query->bind_param('si', $new_password, $user_id);
+
+            if (!$prepared_query->execute()) {
+                throw new DatabaseUpdateException();
             }
         }
     }
