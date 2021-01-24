@@ -16,9 +16,8 @@
          */
         public function echo_contents() {
             echo <<<'HTML'
-                    <div class="create-account-box">
-                        <h2>Créez un compte</h2>        
-                        <hr>
+                    <div class="card">
+                        <h2>Créez un compte</h2> 
                                 
                         <form action="/user/register" method="post">
                             <label>Identifiant :</label>

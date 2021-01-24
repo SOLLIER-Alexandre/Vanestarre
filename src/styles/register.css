@@ -4,16 +4,26 @@
  * @author RADJA Samy
  */
 
-.create-account-box {
-    justify-content: flex-start;
-    width: 1000px;
-    background-color: #414141;
-    padding: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    border-radius: 6px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    color: #FFFFFFDE;
+}
+
+label {
+    display: flex;
+}
+
+.card {
+    display: flex;
+    width: 100%;
+    max-width: 768px;
+    box-sizing: border-box;
+    padding: 0 16px 16px;
 }
 
 .input-zone {
@@ -28,18 +38,5 @@
     color: #FFFFFFDE;
     padding: 6px 24px;
     border-radius: 4px;
-
-}
-
-h2 {
-   color: #f2f2f2;
-   margin-bottom: 2%;
-}
-
-hr {
-    margin-bottom: 5%;
-}
-
-label {
-    display: flex;
+    margin-top: 12px;
 }
