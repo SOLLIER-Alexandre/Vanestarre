@@ -72,10 +72,6 @@
             $controller = new Controller\ModifConfigController();
             break;
 
-        case '/search':
-            $controller = new Controller\SearchController();
-            break;
-
         case '/register':
             $controller = new Controller\CreateAccountController();
             break;
