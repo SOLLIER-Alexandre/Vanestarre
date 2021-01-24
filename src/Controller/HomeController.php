@@ -30,9 +30,28 @@
         }
 
         /**
+         * @inheritDoc
+         */
+        public function execute() {
+            // Check if the user is an author
+            session_start();
+            $this->view->set_is_connected(isset($_SESSION['current_user']));
+            $this->view->set_has_authoring_tools($_SESSION['current_user'] === 0);
+
+            if (isset($_GET['query'])) {
+                $this->show_search_results();
+            } else {
+                $this->show_last_messages();
+            }
+
+            // Output the View contents
+            $this->view->echo_contents();
+        }
+
+        /**
          * Shows last messages according to the number given by the user
          */
-        public function show_last_messages(){
+        private function show_last_messages() {
             // Grab the messages from the database
             $messageDB = new MessagesDB();
 
@@ -72,27 +91,11 @@
             }
         }
 
-        public function show_search_results(){
-            //todo
-        }
-
         /**
-         * @inheritDoc
+         * Shows the results of a search query
          */
-        public function execute() {
-            // Check if the user is an author
-            session_start();
-            $this->view->set_is_connected(isset($_SESSION['current_user']));
-            $this->view->set_has_authoring_tools($_SESSION['current_user'] === 0);
-
-            if (isset($_GET['query'])) {
-                $this->show_search_results();
-            } else {
-                $this->show_last_messages();
-            }
-
-            // Output the View contents
-            $this->view->echo_contents();
+        private function show_search_results() {
+            // TODO: Do this
         }
 
         /**
