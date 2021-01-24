@@ -40,8 +40,10 @@
             $this->view->set_has_authoring_tools($_SESSION['current_user'] === 0);
 
             if (isset($_GET['query'])) {
+                // User is searching for something
                 $this->show_search_results();
             } else {
+                // Show the feed
                 $this->show_last_messages();
             }
 
@@ -50,23 +52,11 @@
         }
 
         /**
-         * Shows last messages according to the number given by the user
+         * Sets the page count and current page number (from $_GET['page']) to the view
+         * @param int $message_count Total of messages
+         * @param int $msg_per_page Number of messages per page
          */
-        private function show_last_messages() {
-            // Grab the messages from the database
-            $messageDB = new MessagesDB();
-
-            // Grab the number of messages per page
-            $config = new VanestarreConfig();
-            $msg_per_page = $config->get_nbr_messages_par_page();
-            $message_count = 0;
-
-            // Set page data
-            try {
-                $message_count = $messageDB->count_messages();
-            } catch (DatabaseSelectException $e) {
-                // Don't do anything, let the message count at 0
-            }
+        private function set_page_to_view(int $message_count, int $msg_per_page): void {
             $this->view->set_page_count(intval(ceil($message_count / $msg_per_page)));
 
             if (is_numeric($_GET['page'])) {
@@ -76,16 +66,45 @@
                     $this->view->set_current_page($page);
                 }
             }
+        }
 
-            // Set the error to the view if there is one
+        /**
+         * Sets the error ID (from $_GET['err']) to the view
+         */
+        private function set_error_to_view(): void {
             if (is_numeric($_GET['err'])) {
                 $this->view->set_error(intval($_GET['err']));
             }
+        }
+
+        /**
+         * Shows last messages according to the number given by the user
+         */
+        private function show_last_messages() {
+            // Grab the messages from the database
+            $message_db = new MessagesDB();
+
+            // Grab the number of messages per page
+            $config = new VanestarreConfig();
+            $msg_per_page = $config->get_nbr_messages_par_page();
+            $message_count = 0;
+
+            // Set page data
+            try {
+                $message_count = $message_db->count_messages();
+            } catch (DatabaseSelectException $e) {
+                // Don't do anything, let the message count at 0
+            }
+
+            $this->set_page_to_view($message_count, $msg_per_page);
+
+            // Set the error to the view if there is one
+            $this->set_error_to_view();
 
             // Try to set the messages to the view
             try {
                 $message_offset = $msg_per_page * ($this->view->get_current_page() - 1);
-                $this->view->set_messages($messageDB->get_n_last_messages($msg_per_page, $message_offset));
+                $this->view->set_messages($message_db->get_n_last_messages($msg_per_page, $message_offset));
             } catch (DatabaseSelectException $e) {
                 // If there was an error, we'll show it to the user
                 $this->view->set_error_fetching_messages(true);
@@ -96,10 +115,10 @@
          * Shows the results of a search query
          */
         private function show_search_results() {
-            // Grab the messages from the database
-            $searchDB = new SearchDB();
-            $messageDB = new MessagesDB();
+            // Grab the search results from the database
+            $search_db = new SearchDB();
 
+            // Set the search query to the view
             $this->view->set_search_query($_GET['query']);
 
             // Grab the number of messages per page
@@ -109,29 +128,20 @@
 
             // Set page data
             try {
-                $message_count = $searchDB->count_messages_with_tag($_GET['query']);
+                $message_count = $search_db->count_messages_with_tag($_GET['query']);
             } catch (DatabaseSelectException $e) {
                 // Don't do anything, let the message count at 0
             }
-            $this->view->set_page_count(intval(ceil($message_count / $msg_per_page)));
 
-            if (is_numeric($_GET['page'])) {
-                // We got a page number in the request, check it and set it if it's good
-                $page = intval($_GET['page']);
-                if ($page >= 1 && $page <= $this->view->get_page_count()) {
-                    $this->view->set_current_page($page);
-                }
-            }
+            $this->set_page_to_view($message_count, $msg_per_page);
 
             // Set the error to the view if there is one
-            if (is_numeric($_GET['err'])) {
-                $this->view->set_error(intval($_GET['err']));
-            }
+            $this->set_error_to_view();
 
             // Try to set the messages to the view
             try {
                 $message_offset = $msg_per_page * ($this->view->get_current_page() - 1);
-                $this->view->set_messages($searchDB->get_messages_from_search($_GET['query'], $msg_per_page, $message_offset));
+                $this->view->set_messages($search_db->get_messages_from_search($_GET['query'], $msg_per_page, $message_offset));
             } catch (DatabaseSelectException $e) {
                 // If there was an error, we'll show it to the user
                 $this->view->set_error_fetching_messages(true);

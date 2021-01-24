@@ -353,13 +353,17 @@
         private function echo_pager_element(int $page_number, bool $is_selected): void {
             $classList = 'button-like';
             if ($is_selected) {
+                // This is the current page
                 $classList .= ' selected';
             }
-            $href = '" href="/home?page=' . $page_number;
-            if(isset($this->search_query)){
+
+            $href = '/home?page=' . $page_number;
+            if (isset($this->search_query)) {
+                // There's a search query going on, put the query in the href
                 $href .= "&query=" . urlencode($this->search_query);
             }
-            echo '            <a class="' . $classList . $href . '">' . $page_number . '</a>' . PHP_EOL;
+
+            echo '            <a class="' . $classList . '" href="' . $href . '">' . $page_number . '</a>' . PHP_EOL;
         }
 
         /**
