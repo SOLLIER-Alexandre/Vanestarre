@@ -100,6 +100,8 @@
             $searchDB = new SearchDB();
             $messageDB = new MessagesDB();
 
+            $this->view->set_search_query($_GET['query']);
+
             // Grab the number of messages per page
             $config = new VanestarreConfig();
             $msg_per_page = $config->get_nbr_messages_par_page();

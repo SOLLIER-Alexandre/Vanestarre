@@ -83,7 +83,7 @@
             <header id="header">
                 <h1><a href="/" id="page-title" class="hidden-on-search">Vanéstarre</a></h1>
                 <div class="header-right-content">
-                    <form id="search-form" method="get" action="/search">
+                    <form id="search-form" method="get" action="/home">
                         <input id="search-box" name="query" type="search" placeholder="Recherche...">
                     </form>
                     

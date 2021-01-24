@@ -31,6 +31,11 @@
         private $messages;
 
         /**
+         * @var string Contains the query if the search bar has been used
+         */
+        private $search_query;
+
+        /**
          * @var bool $is_connected True if we can show stuff for connected users
          */
         private $is_connected;
@@ -57,6 +62,7 @@
             $this->current_page = 1;
             $this->page_count = 1;
             $this->messages = array();
+            $this->search_query = null;
             $this->has_authoring_tools = false;
             $this->error_fetching_messages = false;
             $this->error = null;
@@ -529,6 +535,13 @@
          */
         public function set_messages(array $messages): void {
             $this->messages = $messages;
+        }
+
+        /**
+         * @param string $query Query of the search bar
+         */
+        public function set_search_query(string $query): void {
+            $this->search_query = $query;
         }
 
         /**
