@@ -4,6 +4,20 @@
  * @author CHATEAUX Adrien
  */
 
+h2 {
+    margin-top: 0;
+    color: white;
+}
+
+h3 {
+    display: inline;
+    color: white;
+}
+
+label {
+    display: flex;
+}
+
 main {
     display: flex;
     justify-content: center;
@@ -17,7 +31,7 @@ main {
     margin-bottom: 1rem;
 }
 
-#main-card {
+.card {
     display: flex;
     width: 50rem;
     margin-top: 1rem;
@@ -41,18 +55,4 @@ main {
 #form-modif-config input[type="number"] {
     background-color: #313131;
     width: 185px;
-}
-
-h2 {
-    margin-top: 0;
-    color: white;
-}
-
-h3 {
-    display: inline;
-    color: white;
-}
-
-label {
-    display: flex;
 }

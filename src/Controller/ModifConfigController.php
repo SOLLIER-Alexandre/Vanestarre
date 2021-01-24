@@ -25,11 +25,33 @@
                 return;
             }
 
+            $redirect_route = '/config';
+
+            // Grab posted values
             $nbr_messages_par_page = $_GET['nbr_messages_par_page'];
             $nbr_min_react_pour_event = $_GET['nbr_min_react_pour_event'];
             $nbr_max_react_pour_event = $_GET['nbr_max_react_pour_event'];
 
+            // Check posted values
             if (is_numeric($nbr_messages_par_page) && is_numeric($nbr_min_react_pour_event) && is_numeric($nbr_max_react_pour_event)) {
+                // Convert values to int
+                $nbr_messages_par_page = intval($nbr_messages_par_page);
+                $nbr_min_react_pour_event = intval($nbr_min_react_pour_event);
+                $nbr_max_react_pour_event = intval($nbr_max_react_pour_event);
+
+                // Check posted values bounds
+                $nbr_messages_par_page = max($nbr_messages_par_page, 1);
+                $nbr_min_react_pour_event = max($nbr_min_react_pour_event, 1);
+                $nbr_max_react_pour_event = max($nbr_max_react_pour_event, 1);
+
+                if ($nbr_min_react_pour_event > $nbr_max_react_pour_event) {
+                    // Min is greater than max, swap those two
+                    $temp = $nbr_min_react_pour_event;
+                    $nbr_min_react_pour_event = $nbr_max_react_pour_event;
+                    $nbr_max_react_pour_event = $temp;
+                }
+
+                // Save the new config
                 $config = new VanestarreConfig();
 
                 $config->set_nbr_messages_par_page($nbr_messages_par_page);
@@ -38,10 +60,12 @@
 
                 $config->save_config();
             } else {
+                // One of the parameter was malformed
+                $redirect_route = '/config?err=1';
                 http_response_code(400);
             }
 
-            header('Location: /config');
+            header('Location: ' . $redirect_route);
         }
 
         /**
