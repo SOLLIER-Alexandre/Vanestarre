@@ -31,6 +31,11 @@
         private $messages;
 
         /**
+         * @var array $user_reactions Array of reactions from the user
+         */
+        private $user_reactions;
+
+        /**
          * @var string Contains the query if the search bar has been used
          */
         private $search_query;
@@ -312,11 +317,12 @@
             echo '            <div class="message-footer">' . PHP_EOL;
 
             // Output all reaction buttons
-            $messageReactions = $message->get_reactions();
-            $this->echo_message_reaction_button($messageReactions->get_love_reaction(), $messageReactions->is_love_reacted(), 'favorite', 'love');
-            $this->echo_message_reaction_button($messageReactions->get_cute_reaction(), $messageReactions->is_cute_reacted(), 'pets', 'cute');
-            $this->echo_message_reaction_button($messageReactions->get_style_reaction(), $messageReactions->is_style_reacted(), 'star', 'style');
-            $this->echo_message_reaction_button($messageReactions->get_swag_reaction(), $messageReactions->is_swag_reacted(), 'mood', 'swag');
+            $user_reaction = $this->user_reactions[$message->get_id()];
+            $message_reactions = $message->get_reactions();
+            $this->echo_message_reaction_button($message_reactions->get_love_reaction(), $user_reaction === 'love', 'favorite', 'love');
+            $this->echo_message_reaction_button($message_reactions->get_cute_reaction(), $user_reaction === 'cute', 'pets', 'cute');
+            $this->echo_message_reaction_button($message_reactions->get_style_reaction(), $user_reaction === 'style', 'star', 'style');
+            $this->echo_message_reaction_button($message_reactions->get_swag_reaction(), $user_reaction === 'swag', 'mood', 'swag');
 
             if ($this->has_authoring_tools) {
                 // Output message editing buttons if the connected user is an author
@@ -542,6 +548,13 @@
          */
         public function set_messages(array $messages): void {
             $this->messages = $messages;
+        }
+
+        /**
+         * @param array $user_reactions
+         */
+        public function set_user_reactions(array $user_reactions): void {
+            $this->user_reactions = $user_reactions;
         }
 
         /**
