@@ -269,17 +269,17 @@
          * Outputs a single reaction button
          * @param int $count Count of this reaction
          * @param bool $selected Has this reaction been reacted to by the user?
-         * @param string $iconName Name of the materialicon to use
-         * @param string $reactionType Type of the reaction of this button
+         * @param string $icon_name Name of the materialicon to use
+         * @param string $reaction_type Type of the reaction of this button
          */
-        private function echo_message_reaction_button(int $count, bool $selected, string $iconName, string $reactionType): void {
+        private function echo_message_reaction_button(int $count, bool $selected, string $icon_name, string $reaction_type): void {
             $classList = 'button-like message-footer-reaction unselectable ';
             if ($selected) {
                 $classList .= ' selected';
             }
 
-            echo '                <div class="' . $classList . '" role="button" data-reaction-type="' . $reactionType . '">' . PHP_EOL;
-            echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
+            echo '                <div class="' . $classList . '" role="button" data-reaction-type="' . $reaction_type . '">' . PHP_EOL;
+            echo '                    <span class="material-icons">' . $icon_name . '</span>' . PHP_EOL;
             echo '                    <span>' . $count . '</span>' . PHP_EOL;
             echo '                </div>' . PHP_EOL;
         }
@@ -287,11 +287,11 @@
         /**
          * Outputs a single authoring button
          * @param string $buttonType Type of authoring button
-         * @param string $iconName Name of the materialicon to use
+         * @param string $icon_name Name of the materialicon to use
          */
-        private function echo_message_authoring_button(string $buttonType, string $iconName): void {
+        private function echo_message_authoring_button(string $buttonType, string $icon_name): void {
             echo '                <div class="button-like unselectable ' . $buttonType . '" role="button">' . PHP_EOL;
-            echo '                    <span class="material-icons">' . $iconName . '</span>' . PHP_EOL;
+            echo '                    <span class="material-icons">' . $icon_name . '</span>' . PHP_EOL;
             echo '                </div>' . PHP_EOL;
         }
 
