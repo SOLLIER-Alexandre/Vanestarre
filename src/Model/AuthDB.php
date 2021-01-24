@@ -62,12 +62,12 @@
 
         /**
          * Delete a user in the database.
-         * @param string $username Username of the user to delete
+         * @param int $id ID of the user to delete
          * @throws DatabaseDeleteException
          */
-        public function delete_user(string $username): void {
-            $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE username = ?');
-            $prepared_query->bind_param('s', $username);
+        public function delete_user(int $id): void {
+            $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE user_id = ?');
+            $prepared_query->bind_param('i', $id);
 
             if (!$prepared_query->execute()) {
                 throw new DatabaseDeleteException();
