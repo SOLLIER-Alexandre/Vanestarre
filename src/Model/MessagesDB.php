@@ -51,7 +51,7 @@
          * @throws DatabaseSelectException
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link, reactions_for_donations FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
 
             $prepared_query->execute();
@@ -64,7 +64,7 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $this->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $message_reactions, $row['image_link'], $row['reactions_for_donations']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $row['reactions_for_donations'], $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
