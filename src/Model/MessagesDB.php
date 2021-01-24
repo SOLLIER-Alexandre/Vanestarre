@@ -109,34 +109,57 @@
         }
 
         /**
-         * Check if the user has reacted on the message.
-         * @param string $username Username of the user to check reactions from
+         * Return reactions from a user on a message.
+         * @param int $user_id ID of the user to check reactions from
          * @param int $message_id ID of the message to check reactions from
-         * @return bool True if the user reacted, false otherwise
+         * @return string Types of reactions. NULL if the user has not reacted.
+         * @throws DatabaseSelectException
          */
-        public function has_reacted(string $username, int $message_id): bool {
-            // TODO: Fix this
+        public function get_reactions(int $user_id, int $message_id): ?string {
             $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND user_id = ?');
-            $prepared_query->bind_param('is', $message_id, $username);
+            $prepared_query->bind_param('ii', $message_id, $user_id);
 
-            $prepared_query->execute();
+            if (!$prepared_query->execute()) {
+                throw new DatabaseSelectException();
+            }
+            
             $result = $prepared_query->get_result();
-            return false;
+            $row = $result->fetch_assoc();
+            if(!isset($row['reaction_type'])){
+                return NULL;
+            }else{
+                return $row['reaction_type'];
+            }
         }
 
         /**
          * Adds a reaction to the message.
          * @param int $message_id ID of the message to react to
          * @param string $reaction_type Type of the reaction
-         * @param string $username Username of the user that reacted
+         * @param int $user_id ID of the user that reacted
          * @throws DatabaseInsertException
          */
-        public function add_reaction(int $message_id, string $reaction_type, string $username): void {
+        public function add_reaction(int $message_id, string $reaction_type, int $user_id): void {
             $prepared_query = $this->mysqli->prepare('INSERT INTO REACTIONS(message_id, reaction_type, user_id) VALUES(?, ?, ?)');
-            $prepared_query->bind_param('iss', $message_id, $reaction_type, $username);
+            $prepared_query->bind_param('isi', $message_id, $reaction_type, $user_id);
 
             if (!$prepared_query->execute()) {
                 throw new DatabaseInsertException();
+            }
+        }
+
+        /**
+         * Delete a reaction from a user on a message.
+         * @param int $message_id ID of the message to delete the reaction from
+         * @param int $user_id ID of the user
+         * @throws DatabaseDeleteException
+         */
+        public function delete_reaction(int $message_id, int $user_id): void {
+            $prepared_query = $this->mysqli->prepare('DELETE FROM REACTIONS WHERE message_id = ? AND user_id = ?');
+            $prepared_query->bind_param('ii', $message_id, $user_id);
+
+            if (!$prepared_query->execute()) {
+                throw new DatabaseDeleteException();
             }
         }
 
