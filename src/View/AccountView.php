@@ -100,12 +100,12 @@
                         
                         <div class="text-line">
                             <h3>Votre nom d'utilisateur : </h3>
-                            <span>$this->username</span>
+                            <p>$this->username</p>
                         </div>
                         
                         <div class="text-line">
                             <h3>Votre adresse e-mail : </h3>
-                            <span>$this->email</span>
+                            <p>$this->email</p>
                         </div>
                         
                         <!-- Form for changing password -->

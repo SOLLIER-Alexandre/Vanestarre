@@ -27,8 +27,6 @@ label {
 }
 
 .card {
-    display: flex;
-    width: 50rem;
     margin: 1rem auto 0;
     padding: 25px;
 }
@@ -73,4 +71,14 @@ label {
 #config-link-container > a {
     text-decoration-style: dotted;
     color: #9C4ABD;
+}
+
+@media (min-width: 762px) {
+    .card {
+        width: 768px;
+    }
+
+    .text-line > p {
+        display: inline;
+    }
 }

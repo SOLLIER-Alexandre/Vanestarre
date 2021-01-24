@@ -33,7 +33,7 @@ main {
 
 .card {
     display: flex;
-    width: 50rem;
+    width: 768px;
     margin-top: 1rem;
     padding: 25px;
 }
