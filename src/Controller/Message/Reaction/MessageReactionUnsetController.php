@@ -23,6 +23,7 @@
         public function execute() {
             // Prepare the response
             $response = ['success' => false];
+            header('Content-type: application/json');
 
             // Grab the currently connected user
             session_start();
