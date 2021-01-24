@@ -40,8 +40,15 @@
          */
         public function echo_contents(): void {
             $this->echo_account_card();
+
+            if ($this->show_config_link) {
+                $this->echo_config_link();
+            }
         }
 
+        /**
+         * Outputs the account details card, with a form for changing password
+         */
         private function echo_account_card(): void {
             echo <<<HTML
                     <!-- Account card -->
@@ -81,6 +88,24 @@
                             
                             <input type="submit" value="Valider" id="submit-pwd-change"> 
                         </form>
+                    </div>
+
+               HTML;
+        }
+
+        /**
+         * Outputs a link to the config page
+         */
+        private function echo_config_link(): void {
+            echo <<<HTML
+                    <!-- Config card -->
+                    <div class="card">
+                        <h2>Configuration du site</h2>
+                        
+                        <div id="config-link-container">
+                            <span class="material-icons unselectable">arrow_forward</span>
+                            <a href="/config">Cliquez ici pour configurer votre site internet</a>
+                        </div>
                     </div>
 
                HTML;
