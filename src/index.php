@@ -44,6 +44,14 @@
             $controller = new Controller\Message\MessageRemoveImageController();
             break;
 
+        case '/message/reaction/set':
+            $controller = new Controller\Message\Reaction\MessageReactionSetController();
+            break;
+
+        case '/message/reaction/unset':
+            $controller = new Controller\Message\Reaction\MessageReactionUnsetController();
+            break;
+
         case '/user/register':
             $controller = new Controller\User\UserRegisterController();
             break;
