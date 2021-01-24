@@ -1,28 +1,30 @@
 <?php
+
     namespace Vanestarre\Controller;
 
-    use Vanestarre\View\UserPasswordForgottenView;
+    use Vanestarre\Controller\IController;
+    use Vanestarre\View\PasswordForgottenView;
 
     /**
-     * Class UserPasswordForgottenController
+     * Class PasswordForgottenController
      *
-     * Controller for the confirmation of the password sent to reset the previous forgotten one
+     * Controller for getting a new password via mail when the previous one is forgotten
      *
      * @author RADJA Samy
-     * @package Vanestarre\Controller
+     * @package Vanestarre\Controller\User
      */
-    class UserPasswordForgottenController implements IController
+    class PasswordForgottenController implements IController
     {
         /**
-         * @var UserPasswordForgottenView View associated with this controller
+         * @var PasswordForgottenView View associated with this controller
          */
         private $view;
 
         /**
-         * UserPasswordForgottenController constructor.
+         * TemplateController constructor.
          */
         public function __construct() {
-            $this->view = new UserPasswordForgottenView();
+            $this->view = new PasswordForgottenView();
         }
 
         /**
@@ -37,7 +39,7 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Mail sent!';
+            return 'password forgotten';
         }
 
         /**
