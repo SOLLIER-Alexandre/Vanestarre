@@ -25,6 +25,16 @@
         require __DIR__ . '/' . str_replace('\\', '/', $classWithoutVendor) . '.php';
     });
 
+    // Set the session cookie params to more secure values
+    session_set_cookie_params([
+        'lifetime' => 1296000,
+        'path' => '/',
+        'domain' => $_SERVER['HTTP_HOST'],
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
     // Route the request
     switch ($request_path) {
         case '/':
