@@ -61,6 +61,7 @@
                 $config->save_config();
             } else {
                 // One of the parameter was malformed
+                // TODO: Show this error in the view
                 $redirect_route = '/config?err=1';
                 http_response_code(400);
             }
