@@ -9,6 +9,7 @@
     use Vanestarre\Exception\MessageEditionException;
     use Vanestarre\Exception\MessageInsertionException;
     use Vanestarre\Model\MessagesDB;
+    use Vanestarre\Model\VanestarreConfig;
 
     /**
      * Class PostMessageController
@@ -140,9 +141,13 @@
                     throw new MessageEditionException();
                 }
             } else {
+                // Draw a random number for the donation """feature"""
+                $config = new VanestarreConfig();
+                $reaction_count = rand($config->get_love_lim_inf(), $config->get_love_lim_sup());
+
                 // Add a new message
                 try {
-                    $message_db->add_message($message, $image_link);
+                    $message_db->add_message($message, $image_link, $reaction_count);
                 } catch (DatabaseInsertException $e) {
                     // There was an error while trying to add the message
                     throw new MessageInsertionException();
