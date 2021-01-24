@@ -36,6 +36,7 @@ main > .card:not(:last-child) {
 }
 
 .message-form > textarea {
+    flex: 1;
     resize: none;
     background-color: #313131;
     margin-bottom: 8px;
@@ -109,12 +110,12 @@ main > .card:not(:last-child) {
 }
 
 .card img {
+    display: block;
+    margin: 0 auto;
     max-width: 100%;
 }
 
 .message-image-container {
-    display: flex;
-    justify-content: center;
     position: relative;
     margin-top: 6px;
 }
