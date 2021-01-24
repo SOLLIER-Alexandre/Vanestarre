@@ -26,7 +26,7 @@
                             <input type="password" name="mdp" autocomplete="current-password" maxlength="128" required>
                             <input type="submit" name="connexion" value="Se connecter">
                         </form>
-                        <a href="/user/passwordForgotten" class="forgotten-password">mot de passe oublié ?</a> 
+                        <a href="/passwordForgotten" class="forgotten-password">mot de passe oublié ?</a> 
                         
                         <a href="/register" class="create-account-button">Create an account</a><br/>
                     </div>

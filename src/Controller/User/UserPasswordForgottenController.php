@@ -1,6 +1,7 @@
 <?php
-    namespace Vanestarre\Controller;
+    namespace Vanestarre\Controller\User;
 
+    use Vanestarre\Controller\IController;
     use Vanestarre\View\UserPasswordForgottenView;
 
     /**
@@ -30,6 +31,12 @@
          */
         public function execute() {
             // Output the view contents
+            $email = $_POST['mail'];
+            $temporary_password = $this->create_password();
+            mail($email,
+                "Password forgotten",
+                "Heeeeey dude ! Looks like you messed up with that tiny memory of yours huh ? Here you go, a new password : $temporary_password",
+                "Reset your password");
             $this->view->echo_contents();
         }
 
@@ -59,6 +66,33 @@
          */
         public function needs_standard_layout(): bool {
             return true;
+        }
+
+        public function create_password(): string {
+            static $baseAlphaMaj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            static $baseAlphaMin = "abcdefghijklmnopqrstuvwxyz";
+            static $baseNumber = "0123456789";
+            static $baseSpecial = "%#:$*";
+
+            $password = "";
+            for ($i = 0; $i < rand(8,12); $i++) {
+                switch (rand(1, 4)) {
+                    case 1 :
+                        $password .= $baseAlphaMaj[rand(0, strlen($baseAlphaMaj))];
+                        break;
+                    case 2 :
+                        $password .= $baseAlphaMin[rand(0, strlen($baseAlphaMin))];
+                        break;
+                    case 3 :
+                        $password .= $baseNumber[rand(0, strlen($baseNumber))];
+                        break;
+                    case 4 :
+                        $password .= $baseSpecial[rand(0, strlen($baseSpecial))];
+                        break;
+                }
+            }
+            return $password;
+
         }
     }
 ?>
