@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller\User;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Model\AuthDB;
 
     /**
@@ -41,7 +42,13 @@
                         // Hash the new password and set it
                         $hashed_password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
 
-                        // TODO: Set the new password to the DB
+                        try {
+                            $auth_db->change_password($connected_user->get_id(), $hashed_password);
+                        } catch (DatabaseUpdateException $e) {
+                            // The password couldn't be changed
+                            $redirect_route = '/account?err=4';
+                            http_response_code(400);
+                        }
                     } else {
                         // The actual password verification failed
                         $redirect_route = '/account?err=3';

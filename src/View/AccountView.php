@@ -81,7 +81,6 @@
                     echo '            <p>Le mot de passe actuel est incorrect</p>' . PHP_EOL;
                     break;
 
-                case 1:
                 default:
                     echo '            <p>Une erreur inconnue s\'est produite</p>' . PHP_EOL;
             }
