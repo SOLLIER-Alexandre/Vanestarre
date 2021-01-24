@@ -3,7 +3,9 @@
     namespace Vanestarre\Controller\Message\Reaction;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Model\AuthDB;
+    use Vanestarre\Model\MessagesDB;
 
     /**
      * Class MessageReactionSetController
@@ -19,6 +21,9 @@
          * @inheritDoc
          */
         public function execute() {
+            // Prepare the response
+            $response = ['success' => false, 'donate' => false];
+
             // Grab the currently connected user
             session_start();
             $auth_db = new AuthDB();
@@ -28,15 +33,39 @@
             if (!isset($connected_user)) {
                 // User is not logged in
                 http_response_code(401);
+                echo json_encode($response);
                 return;
             }
+
+            // Check posted values
+            if (is_numeric($_POST['messageId']) && isset($_POST['reaction'])) {
+                // Add the reaction to the database
+                // TODO: Check if user must donate
+                $message_db = new MessagesDB();
+
+                try {
+                    $message_db->add_reaction(intval($_POST['messageId']), $_POST['reaction'], $connected_user->get_id());
+                    $response['success'] = true;
+                } catch (DatabaseInsertException $e) {
+                    // Reaction insertion failed
+                    http_response_code(400);
+                    $response['error_code'] = 2;
+                }
+            } else {
+                // One of the parameter was malformed
+                http_response_code(400);
+                $response['error_code'] = 1;
+            }
+
+            // Echo the response
+            echo json_encode($response);
         }
 
         /**
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Remove a reaction';
+            return 'Add a reaction';
         }
 
         /**

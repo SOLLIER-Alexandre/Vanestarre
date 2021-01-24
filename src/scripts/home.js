@@ -142,20 +142,47 @@
                 }
             }
 
-            // TODO: XMLHttpRequest the message reaction endpoint
             // TODO: Show donate dialog if needed
-            // Unselect the currently selected reaction
+            // Get the currently selected reaction
             const selectedReactionContainer = document.querySelector('article[data-message-id="' + messageID + '"] .message-footer-reaction.selected');
-            if (selectedReactionContainer) {
-                setReactionContainerSelected(selectedReactionContainer, false);
+            const isUnreacting = selectedReactionContainer === clickedReactionContainer;
+
+            // Setup XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+
+            // Set the ready state change listener
+            xhr.addEventListener('readystatechange', () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Unselect the currently selected reaction
+                    if (selectedReactionContainer) {
+                        setReactionContainerSelected(selectedReactionContainer, false);
+                    }
+
+                    // Select the clicked reaction, if it wasn't the one already selected
+                    if (!isUnreacting) {
+                        setReactionContainerSelected(clickedReactionContainer, true);
+                    }
+                }
+            });
+
+            // Set the URL and body
+            let xhrUrl = null;
+            let xhrBody = null;
+
+            if (isUnreacting) {
+                // Un-react endpoint
+                xhrUrl = '/message/reaction/unset';
+                xhrBody = 'messageId=' + encodeURIComponent(messageID);
+            } else {
+                // React endpoint
+                xhrUrl = '/message/reaction/set';
+                xhrBody = 'messageId=' + encodeURIComponent(messageID) + '&reaction=' + encodeURIComponent(reactionType);
             }
 
-            // Select the clicked reaction, if it wasn't the one already selected
-            if (selectedReactionContainer !== clickedReactionContainer) {
-                setReactionContainerSelected(clickedReactionContainer, true);
-            }
-
-            console.log('Message #' + messageID + ' reacted with ' + reactionType);
+            // Send the request
+            xhr.open('POST', xhrUrl);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send(xhrBody);
         }
 
         for (const button of messageReactionButtons) {
