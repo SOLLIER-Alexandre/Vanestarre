@@ -113,6 +113,7 @@
          * @param int $user_id ID of the user to check reactions from
          * @param int $message_id ID of the message to check reactions from
          * @return string Types of reactions. NULL if the user has not reacted.
+         * @throws DatabaseSelectException
          */
         public function get_reactions(int $user_id, int $message_id): ?string {
             $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND user_id = ?');
@@ -144,6 +145,21 @@
 
             if (!$prepared_query->execute()) {
                 throw new DatabaseInsertException();
+            }
+        }
+
+        /**
+         * Delete a reaction from a user on a message.
+         * @param int $message_id ID of the message to delete the reaction from
+         * @param int $user_id ID of the user
+         * @throws DatabaseDeleteException
+         */
+        public function delete_reaction(int $message_id, int $user_id): void {
+            $prepared_query = $this->mysqli->prepare('DELETE FROM REACTIONS WHERE message_id = ? AND user_id = ?');
+            $prepared_query->bind_param('ii', $message_id, $user_id);
+
+            if (!$prepared_query->execute()) {
+                throw new DatabaseDeleteException();
             }
         }
 
