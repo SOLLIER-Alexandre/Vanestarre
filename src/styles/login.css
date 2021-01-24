@@ -4,28 +4,24 @@
  * @author RADJA Samy
  */
 
-.login-box {
-    display: grid;
+main {
+    display: flex;
     justify-content: center;
-    align-items: flex-start;
-    width: 400px;
-    background-color: #414141;
-    padding: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    border-radius: 6px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    align-items: center;
 }
 
 p {
     text-align: center;
 }
 
+.login-box {
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+}
+
 .login-image {
-    justify-self: center;
-    width: 30vh;
-    height: 30vh;
+    width: 237px;
 }
 
 .login-button {

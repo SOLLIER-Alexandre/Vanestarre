@@ -24,10 +24,11 @@
 
 .submit-button {
     border: none;
-    border-radius: 12px;
-    height: 25px;
-    color: #f2f2f2;
-    background-color: #8f23bb;
+    background-color: #9C4ABD;
+    color: #FFFFFFDE;
+    padding: 6px 24px;
+    border-radius: 4px;
+
 }
 
 h2 {
