@@ -66,6 +66,7 @@
                     $this->get_message_reaction_count($row['message_id'], $message_reactions);
                     array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $row['reactions_for_donations'], $message_reactions, $row['image_link']));
                 }
+
                 return $messages_list;
             }
         }
@@ -109,27 +110,37 @@
         }
 
         /**
-         * Return reactions from a user on a message.
+         * Return reactions from a user on multiple messages.
          * @param int $user_id ID of the user to check reactions from
-         * @param int $message_id ID of the message to check reactions from
-         * @return string Types of reactions. NULL if the user has not reacted.
+         * @param array $message_ids IDs of the messages to check reactions from
+         * @return array Array associating message IDs with their reaction
          * @throws DatabaseSelectException
          */
-        public function get_reactions(int $user_id, int $message_id): ?string {
-            $prepared_query = $this->mysqli->prepare('SELECT reaction_type FROM REACTIONS WHERE message_id = ? AND user_id = ?');
-            $prepared_query->bind_param('ii', $message_id, $user_id);
+        public function get_reactions(int $user_id, array $message_ids): array {
+            // Check the ID count
+            if (count($message_ids) === 0) {
+                return [];
+            }
 
-            if (!$prepared_query->execute()) {
+            $reactions = [];
+
+            // Prepare the query
+            $ids_param = str_repeat('?, ', count($message_ids) - 1) . '?';
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
+            $prepared_query->bind_param('i' . str_repeat('i', count($message_ids)), $user_id, ...$message_ids);
+            $prepared_query->execute();
+
+            $result = $prepared_query->get_result();
+            if (!$result) {
                 throw new DatabaseSelectException();
             }
-            
-            $result = $prepared_query->get_result();
-            $row = $result->fetch_assoc();
-            if(!isset($row['reaction_type'])){
-                return NULL;
-            }else{
-                return $row['reaction_type'];
+
+            // Store reactions in the array
+            while ($row = $result->fetch_assoc()) {
+                $reactions[$row['message_id']] = $row['reaction_type'];
             }
+
+            return $reactions;
         }
 
         /**
