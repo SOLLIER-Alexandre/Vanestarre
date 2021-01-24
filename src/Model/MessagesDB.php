@@ -175,6 +175,31 @@
         }
 
         /**
+         * Checks if the number of "love" reactions is equal to the number of "love" reaction required to donate for a message
+         * @param int $message_id ID of the message to check
+         * @return bool True if the number of "love" reactions is equal to the number of "love" reaction required to donate, false otherwise
+         * @throws DatabaseSelectException
+         */
+        public function has_message_reached_reactions(int $message_id): bool {
+            $prepared_query = $this->mysqli->prepare('SELECT COUNT(*), reactions_for_donations FROM REACTIONS JOIN MESSAGES M ON REACTIONS.message_id = M.message_id WHERE REACTIONS.message_id = ? AND reaction_type = \'love\'');
+            $prepared_query->bind_param('i', $message_id);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+
+            if (!$result) {
+                throw new DatabaseSelectException();
+            } else {
+                $row = $result->fetch_assoc();
+
+                if (isset($row)) {
+                    return $row['COUNT(*)'] === $row['reactions_for_donations'];
+                } else {
+                    throw new DatabaseSelectException();
+                }
+            }
+        }
+
+        /**
          * Adds a message in the database
          * @param string $content Content of the message to add
          * @param string|null $image URL of the image to join to the message, pass null for no image

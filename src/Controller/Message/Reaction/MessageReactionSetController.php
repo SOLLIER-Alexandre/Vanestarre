@@ -4,6 +4,7 @@
 
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseInsertException;
+    use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\MessagesDB;
 
@@ -40,16 +41,24 @@
             // Check posted values
             if (is_numeric($_POST['messageId']) && isset($_POST['reaction'])) {
                 // Add the reaction to the database
-                // TODO: Check if user must donate
                 $message_db = new MessagesDB();
 
                 try {
                     $message_db->add_reaction(intval($_POST['messageId']), $_POST['reaction'], $connected_user->get_id());
                     $response['success'] = true;
+
+                    if ($_POST['reaction'] === 'love') {
+                        // Check if the user must donate
+                        $response['donate'] = $message_db->has_message_reached_reactions(intval($_POST['messageId']));
+                    }
                 } catch (DatabaseInsertException $e) {
                     // Reaction insertion failed
                     http_response_code(400);
                     $response['error_code'] = 2;
+                } catch (DatabaseSelectException $e) {
+                    // Donation checking failed
+                    http_response_code(400);
+                    $response['error_code'] = 3;
                 }
             } else {
                 // One of the parameter was malformed
