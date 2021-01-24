@@ -48,13 +48,13 @@
          * @return array Messages with the tag
          * @throws DatabaseSelectException
          */
-        public function get_messages_from_search(string $tag): array {
+        public function get_messages_from_search(string $tag, $limit, $offset): array {
             $messDB = new MessagesDB();
             $first_part_of_query_param = '%β';
             $end_of_query_param = '%';
             $query_param = $first_part_of_query_param . $tag . $end_of_query_param;
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, reactions_for_donations, image_link FROM MESSAGES WHERE content LIKE ?');
-            $prepared_query->bind_param('s', $query_param);
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, reactions_for_donations, image_link FROM MESSAGES WHERE content LIKE ? ORDER BY date LIMIT ? OFFSET ?');
+            $prepared_query->bind_param('sii', $query_param, $limit, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
 
