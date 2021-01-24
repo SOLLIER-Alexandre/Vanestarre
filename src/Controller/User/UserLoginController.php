@@ -38,7 +38,7 @@
             $password = $_POST['mdp'];
 
             // Check posted values
-            if (isset($username) && isset($password) && strlen($username) <= 64 && strlen($password) <= 128) {
+            if (isset($username) && isset($password)) {
                 try {
                     $this->authenticate_user($username, $password);
                 } catch (UnknownUsernameException | IncorrectPasswordException $e) {

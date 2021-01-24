@@ -32,19 +32,23 @@
                 return;
             }
 
-            $redirect_route = '/account';
+            $redirect_route = '/account?confirm=';
 
             if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
-                strlen($_POST['oldPassword']) <= 128 && strlen($_POST['newPassword']) <= 128 &&
-                $_POST['newPassword'] === $_POST['newPasswordConfirmation']) {
-                if (password_verify($_POST['oldPassword'], $connected_user->get_password())) {
-                    // Hash the new password and set it
-                    $hashed_password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+                strlen($_POST['oldPassword']) <= 128 && strlen($_POST['newPassword']) <= 128) {
+                if ($_POST['newPassword'] === $_POST['newPasswordConfirmation']) {
+                    if (password_verify($_POST['oldPassword'], $connected_user->get_password())) {
+                        // Hash the new password and set it
+                        $hashed_password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
 
-                    // TODO: Set the new password to the DB
-                    $redirect_route = '/account?confirm=';
+                        // TODO: Set the new password to the DB
+                    } else {
+                        // The actual password verification failed
+                        $redirect_route = '/account?err=3';
+                        http_response_code(400);
+                    }
                 } else {
-                    // The actual password verification failed
+                    // The new password and its confirmation doesn't match
                     $redirect_route = '/account?err=2';
                     http_response_code(400);
                 }

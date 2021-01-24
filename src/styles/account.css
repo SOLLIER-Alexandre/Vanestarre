@@ -33,6 +33,15 @@ label {
     padding: 25px;
 }
 
+.password-message-title {
+    display: flex;
+    align-items: center;
+}
+
+.password-message-title > :first-child {
+    margin-right: 8px;
+}
+
 #submit-pwd-change {
     border: none;
     border-radius: 4px;

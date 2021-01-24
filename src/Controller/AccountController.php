@@ -52,6 +52,13 @@
                 $this->view->set_show_config_link(true);
             }
 
+            // Check for password error/confirmation in the get parameters
+            if (is_numeric($_GET['err'])) {
+                $this->view->set_error_messageId(intval($_GET['err']));
+            } else if (isset($_GET['confirm'])) {
+                $this->view->set_error_messageId(0);
+            }
+
             // Output the View contents
             $this->view->echo_contents();
         }

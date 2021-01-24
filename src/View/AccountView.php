@@ -27,23 +27,66 @@
         private $show_config_link;
 
         /**
+         * @var int|null $error_message_id ID of the error message to print
+         */
+        private $error_message_id;
+
+        /**
          * AccountView constructor.
          */
         public function __construct() {
             $this->username = '';
             $this->email = '';
             $this->show_config_link = false;
+            $this->error_message_id = null;
         }
 
         /**
          * @inheritDoc
          */
         public function echo_contents(): void {
+            if (isset($this->error_message_id)) {
+                $this->echo_password_message_card();
+            }
+
             $this->echo_account_card();
 
             if ($this->show_config_link) {
                 $this->echo_config_link();
             }
+        }
+
+        /**
+         * Outputs the password change confirmation/error message card
+         */
+        private function echo_password_message_card(): void {
+            echo <<<HTML
+                    <!-- Password change message card -->
+                    <div class="card">
+                        <h2 class="password-message-title"><span class="material-icons unselectable">info</span> Mot de passe</h2>
+
+            HTML;
+
+            // Output the correct message
+            switch ($this->error_message_id) {
+                case 0:
+                    echo '            <p>Le mot de passe a été changé avec succès !</p>' . PHP_EOL;
+                    break;
+
+                case 2:
+                    echo '            <p>Le nouveau mot de passe et sa confirmation ne correspondent pas</p>' . PHP_EOL;
+                    break;
+
+                case 3:
+                    echo '            <p>Le mot de passe actuel est incorrect</p>' . PHP_EOL;
+                    break;
+
+                case 1:
+                default:
+                    echo '            <p>Une erreur inconnue s\'est produite</p>' . PHP_EOL;
+            }
+
+            echo '        </div>' . PHP_EOL;
         }
 
         /**
@@ -72,7 +115,7 @@
                             </div>
                             
                             <div class="div-form">
-                               <label for="old-pwd">Ancien mot de passe :</label>
+                               <label for="old-pwd">Mot de passe actuel :</label>
                                <input type="password" id="old-pwd" name="oldPassword" autocomplete="current-password" maxlength="128" required>
                             </div>
                             
@@ -130,6 +173,13 @@
          */
         public function set_show_config_link(bool $show_config_link): void {
             $this->show_config_link = $show_config_link;
+        }
+
+        /**
+         * @param int|null $error_message_id New error message ID
+         */
+        public function set_error_messageId(?int $error_message_id): void {
+            $this->error_message_id = $error_message_id;
         }
     }
 ?>
