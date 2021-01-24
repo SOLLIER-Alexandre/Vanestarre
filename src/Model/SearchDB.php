@@ -50,7 +50,7 @@
          */
         public function get_messages_from_search(string $tag): array {
             $messDB = new MessagesDB();
-            $prepared_query = $this->mysqli->prepare("SELECT message_id, date, content, image_link FROM MESSAGES WHERE content LIKE '%β?%'");
+            $prepared_query = $this->mysqli->prepare("SELECT message_id, date, content, reactions_for_donations, image_link FROM MESSAGES WHERE content LIKE '%β?%'");
             $prepared_query->bind_param('s', $tag);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
@@ -62,7 +62,7 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $messDB->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $row['reactions_for_donations'], $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
