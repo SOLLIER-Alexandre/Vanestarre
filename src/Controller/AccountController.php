@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Model\AuthDB;
     use Vanestarre\View\AccountView;
 
     /**
@@ -23,18 +24,32 @@
          * AccountController constructor.
          */
         public function __construct() {
-            $this->view = new AccountView("Username", "User@hotmail.com");
+            $this->view = new AccountView();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
-            if (!isset($_SESSION['current_user'])) {
+            // Grab the currently connected user
+            $auth_db = new AuthDB();
+            $connected_user = $auth_db->get_logged_in_user();
+
+            // Make sure it's not null
+            if (!isset($connected_user)) {
                 // User is not logged in
                 http_response_code(401);
                 header('Location: /login');
                 return;
+            }
+
+            // Set the username and email to the view
+            $this->view->set_username($connected_user->get_username());
+            $this->view->set_email($connected_user->get_email());
+
+            if ($connected_user->get_id() === 0) {
+                // Show a link to the config page if the connected user is the admin
+                $this->view->set_show_config_link(true);
             }
 
             // Output the View contents
@@ -59,7 +74,7 @@
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return ['/scripts/account.js'];
+            return [];
         }
 
         /**
