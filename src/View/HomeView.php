@@ -355,8 +355,11 @@
             if ($is_selected) {
                 $classList .= ' selected';
             }
-
-            echo '            <a class="' . $classList . '" href="/home?page=' . $page_number . '">' . $page_number . '</a>' . PHP_EOL;
+            $href = '" href="/home?page=' . $page_number;
+            if(isset($this->search_query)){
+                $href .= "&query=" . urlencode($this->search_query);
+            }
+            echo '            <a class="' . $classList . $href . '">' . $page_number . '</a>' . PHP_EOL;
         }
 
         /**

@@ -109,7 +109,7 @@
 
             // Set page data
             try {
-                $message_count = $messageDB->count_messages();
+                $message_count = $searchDB->count_messages_with_tag($_GET['query']);
             } catch (DatabaseSelectException $e) {
                 // Don't do anything, let the message count at 0
             }
@@ -128,10 +128,10 @@
                 $this->view->set_error(intval($_GET['err']));
             }
 
-
             // Try to set the messages to the view
             try {
-                $this->view->set_messages($searchDB->get_messages_from_search($_GET['query']));
+                $message_offset = $msg_per_page * ($this->view->get_current_page() - 1);
+                $this->view->set_messages($searchDB->get_messages_from_search($_GET['query'], $msg_per_page, $message_offset));
             } catch (DatabaseSelectException $e) {
                 // If there was an error, we'll show it to the user
                 $this->view->set_error_fetching_messages(true);

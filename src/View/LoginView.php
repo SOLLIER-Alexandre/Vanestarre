@@ -16,7 +16,7 @@
          */
         public function echo_contents() {
             echo <<<'HTML'
-                    <div class="login-box">
+                    <div class="card login-box">
                         <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre" class="login-image"><br/>
                         <p>Connectez vous, ou créez un compte !</p>
                         
@@ -26,6 +26,7 @@
                             <input type="password" name="mdp" autocomplete="current-password" maxlength="128" required>
                             <input type="submit" name="connexion" value="Se connecter">
                         </form>
+                        <a href="/us" class="forgotten-password">mot de passe oublié ?</a> 
                         
                         <a href="/register" class="create-account-button">Create an account</a><br/>
                     </div>
