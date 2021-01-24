@@ -64,7 +64,7 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $this->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $message_reactions, $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $message_reactions, $row['image_link'], $row['reactions_for_donations']));
                 }
                 return $messages_list;
             }
@@ -140,7 +140,7 @@
          * @throws DatabaseInsertException
          */
         public function add_reaction(int $message_id, string $reaction_type, int $user_id): void {
-            $prepared_query = $this->mysqli->prepare('INSERT INTO REACTIONS(message_id, reaction_type, user_id) VALUES(?, ?, ?)');
+            $prepared_query = $this->mysqli->prepare('REPLACE INTO REACTIONS(message_id, reaction_type, user_id) VALUES(?, ?, ?)');
             $prepared_query->bind_param('isi', $message_id, $reaction_type, $user_id);
 
             if (!$prepared_query->execute()) {
@@ -167,11 +167,12 @@
          * Adds a message in the database
          * @param string $content Content of the message to add
          * @param string|null $image URL of the image to join to the message, pass null for no image
+         * @param int $reactions_for_donations The number of reactions before asking for a donation
          * @throws DatabaseInsertException
          */
-        public function add_message(string $content, ?string $image): void {
-            $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link) VALUES(?, NOW(), ?)');
-            $prepared_query->bind_param('ss', $content, $image);
+        public function add_message(string $content, ?string $image, int $reactions_for_donations): void {
+            $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link, reactions_for_donations) VALUES(?, NOW(), ?, ?)');
+            $prepared_query->bind_param('ssi', $content, $image, $reactions_for_donations);
 
             if (!$prepared_query->execute()) {
                 throw new DatabaseInsertException();

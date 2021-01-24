@@ -40,6 +40,11 @@
         private $image;
 
         /**
+         * @var int $reactions_for_donations The number of reactions before asking for a donation
+         */
+        private $reactions_for_donations;
+
+        /**
          * Constructs a new message
          * @param int $id Message ID
          * @param string $message Message contents
@@ -47,12 +52,13 @@
          * @param MessageReactions $reactions Reactions this message has
          * @param string|null $image URL to an image, if any
          */
-        public function __construct(int $id, string $message, DateTimeImmutable $creation_date, MessageReactions $reactions, ?string $image = null) {
+        public function __construct(int $id, string $message, DateTimeImmutable $creation_date, MessageReactions $reactions, ?string $image = null, int $reactions_for_donations) {
             $this->id = $id;
             $this->message = $message;
             $this->creation_date = $creation_date;
             $this->reactions = $reactions;
             $this->image = $image;
+            $this->reactions_for_donations = $reactions_for_donations;
         }
 
         /**
@@ -88,6 +94,10 @@
          */
         public function get_image(): ?string {
             return $this->image;
+        }
+
+        public function get_reactions_for_donations(): int {
+            return $this->reactions_for_donations;
         }
     }
 
