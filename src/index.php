@@ -68,7 +68,7 @@
             $controller = new Controller\User\UserPasswordUpdateController();
             break;
 
-        case '/user/passwordUpdate':
+        case '/user/passwordForgotten':
             $controller = new Controller\User\UserPasswordForgottenController();
             break;
 
