@@ -1,4 +1,5 @@
 <?php
+
     namespace Vanestarre\Controller\User;
 
     use Exception;

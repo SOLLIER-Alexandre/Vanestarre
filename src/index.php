@@ -77,7 +77,7 @@
             break;
 
         case '/register':
-            $controller = new Controller\CreateAccountController();
+            $controller = new Controller\RegisterController();
             break;
 
         case '/login':

@@ -2,28 +2,28 @@
 
     namespace Vanestarre\Controller;
 
-    use Vanestarre\View\CreateAccountView;
+    use Vanestarre\View\RegisterView;
 
     /**
-     * Class CreateAccountController
+     * Class RegisterController
      *
-     * Controller for the create account page
+     * Controller for the register page
      *
      * @author RADJA Samy
      * @package Vanestarre\Controller
      */
-    class CreateAccountController implements IController
+    class RegisterController implements IController
     {
         /**
-         * @var CreateAccountView View associated with this Controller
+         * @var RegisterView View associated with this Controller
          */
         private $view;
 
         /**
-         * CreateAccountController constructor.
+         * RegisterController constructor.
          */
         public function __construct() {
-            $this->view = new CreateAccountView();
+            $this->view = new RegisterView();
         }
 
         /**
@@ -53,7 +53,7 @@
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/create_account.css'];
+            return ['/styles/register.css'];
         }
 
         /**

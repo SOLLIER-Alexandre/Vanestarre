@@ -2,14 +2,14 @@
     namespace Vanestarre\View;
 
     /**
-     * Class CreateAccountView
+     * Class RegisterView
      *
      * View for the create account page
      *
      * @author RADJA Samy
      * @package Vanestarre\View
      */
-    class CreateAccountView implements IView
+    class RegisterView implements IView
     {
         /**
          * @inheritDoc

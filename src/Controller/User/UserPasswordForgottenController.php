@@ -1,8 +1,9 @@
 <?php
 
-    namespace Vanestarre\User\Controller;
+    namespace Vanestarre\Controller\User;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\View\UserPasswordForgottenView;
 
     /**
      * Class UserPasswordForgottenController
@@ -38,14 +39,14 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'Template';
+            return 'password forgotten';
         }
 
         /**
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return [];
+            return ['/styles/password_forgotten.css'];
         }
 
         /**
