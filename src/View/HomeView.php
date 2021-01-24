@@ -205,7 +205,7 @@
         private function echo_message(Message $message): void {
             // Check for tags in the message
             $message_text = preg_replace_callback('/β\w+/m', function ($matches) {
-                return '<a href="/search?query=' . mb_substr($matches[0], 1) . '" class="post-tag">' . $matches[0] . '</a>';
+                return '<a href="/home?query=' . mb_substr($matches[0], 1) . '" class="post-tag">' . $matches[0] . '</a>';
             }, $message->get_message());
 
             // Begin the message card

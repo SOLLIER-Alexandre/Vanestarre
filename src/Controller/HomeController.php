@@ -4,6 +4,7 @@
 
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Model\MessagesDB;
+    use Vanestarre\Model\SearchDB;
     use Vanestarre\Model\VanestarreConfig;
     use Vanestarre\View\HomeView;
 
@@ -95,7 +96,44 @@
          * Shows the results of a search query
          */
         private function show_search_results() {
-            // TODO: Do this
+            // Grab the messages from the database
+            $searchDB = new SearchDB();
+            $messageDB = new MessagesDB();
+
+            // Grab the number of messages per page
+            $config = new VanestarreConfig();
+            $msg_per_page = $config->get_nbr_messages_par_page();
+            $message_count = 0;
+
+            // Set page data
+            try {
+                $message_count = $messageDB->count_messages();
+            } catch (DatabaseSelectException $e) {
+                // Don't do anything, let the message count at 0
+            }
+            $this->view->set_page_count(intval(ceil($message_count / $msg_per_page)));
+
+            if (is_numeric($_GET['page'])) {
+                // We got a page number in the request, check it and set it if it's good
+                $page = intval($_GET['page']);
+                if ($page >= 1 && $page <= $this->view->get_page_count()) {
+                    $this->view->set_current_page($page);
+                }
+            }
+
+            // Set the error to the view if there is one
+            if (is_numeric($_GET['err'])) {
+                $this->view->set_error(intval($_GET['err']));
+            }
+
+
+            // Try to set the messages to the view
+            try {
+                $this->view->set_messages($searchDB->get_messages_from_search($_GET['query']));
+            } catch (DatabaseSelectException $e) {
+                // If there was an error, we'll show it to the user
+                $this->view->set_error_fetching_messages(true);
+            }
         }
 
         /**
