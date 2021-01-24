@@ -162,6 +162,14 @@
                     if (!isUnreacting) {
                         setReactionContainerSelected(clickedReactionContainer, true);
                     }
+
+                    // Check if the user must donate
+                    const jsonResponse = JSON.parse(xhr.responseText);
+
+                    if (jsonResponse['donate']) {
+                        // It's money time, show the donation modal
+                        MicroModal.show('modal-donate');
+                    }
                 }
             });
 
