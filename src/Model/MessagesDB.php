@@ -76,7 +76,7 @@
          * @param MessageReactions $reactions The reaction counts
          * @throws DatabaseSelectException
          */
-        private function get_message_reaction_count(int $message_id, MessageReactions $reactions): void {
+        public function get_message_reaction_count(int $message_id, MessageReactions $reactions): void {
             $prepared_query = $this->mysqli->prepare('SELECT reaction_type, COUNT(reaction_type) FROM REACTIONS WHERE message_id = ? GROUP BY reaction_type;');
             $prepared_query->bind_param('i', $message_id);
 

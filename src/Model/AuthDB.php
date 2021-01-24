@@ -25,7 +25,7 @@
         private $mysqli;
 
         /**
-         * MessagesDB constructor. Connects AuthDB to the database.
+         * AuthDB constructor. Connects AuthDB to the database.
          */
         public function __construct(){
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
