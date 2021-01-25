@@ -31,6 +31,7 @@
          */
         public function execute() {
             // Output the view contents
+            $this->view->set_show_confirmation(isset($_GET['confirm']));
             $this->view->echo_contents();
         }
 

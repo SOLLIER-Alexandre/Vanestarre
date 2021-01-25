@@ -2,7 +2,10 @@
     namespace Vanestarre\Controller\User;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseSelectException;
+    use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\View\UserPasswordForgottenView;
+    use Vanestarre\Model\AuthDB;
 
     /**
      * Class UserPasswordForgottenController
@@ -15,60 +18,47 @@
     class UserPasswordForgottenController implements IController
     {
         /**
-         * @var UserPasswordForgottenView View associated with this controller
-         */
-        private $view;
-
-        /**
-         * UserPasswordForgottenController constructor.
-         */
-        public function __construct() {
-            $this->view = new UserPasswordForgottenView();
-        }
-
-        /**
          * @inheritDoc
          */
         public function execute() {
             // Output the view contents
+            $id = NULL;
             $email = $_POST['mail'];
+            $auth_DB = new AuthDB();
+
+            try {
+                $id = $auth_DB->get_id_from_email($email);
+            } catch (DatabaseSelectException $exception) {
+                // Couldn't get the id
+                http_response_code(400);
+            }
+
+            //create a temporary password
             $temporary_password = $this->create_password();
-            mail($email,
-                "Password forgotten",
-                "Heeeeey dude ! Looks like you messed up with that tiny memory of yours huh ? Here you go, a new password : $temporary_password",
-                "Reset your password");
-            $this->view->echo_contents();
+            $hashed_password = password_hash($temporary_password, PASSWORD_DEFAULT);
+
+            if (isset($id)) {
+                try {
+                    $auth_DB->change_password($id, $hashed_password);
+                    mail($email,
+                        'Password forgotten',
+                        'Heeeeey dude ! Looks like you messed up with that tiny memory of yours huh ?' . PHP_EOL .
+                        'Here you go, a new password : ' . $temporary_password);
+                } catch (DatabaseUpdateException $exception2) {
+                    // Couldn't change the password
+                    http_response_code(400);
+                }
+            }
+
+            header('Location: /passwordForgotten?confirm=');
         }
 
         /**
-         * @inheritDoc
+         * Function to create a random password
+         *
+         * @return string The clear random password
          */
-        public function get_title(): string {
-            return 'Mail sent!';
-        }
-
-        /**
-         * @inheritDoc
-         */
-        public function get_stylesheets(): array {
-            return ['/styles/password_forgotten.css'];
-        }
-
-        /**
-         * @inheritDoc
-         */
-        public function get_scripts(): array {
-            return [];
-        }
-
-        /**
-         * @inheritDoc
-         */
-        public function needs_standard_layout(): bool {
-            return true;
-        }
-
-        public function create_password(): string {
+        private function create_password(): string {
             static $baseAlphaMaj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             static $baseAlphaMin = "abcdefghijklmnopqrstuvwxyz";
             static $baseNumber = "0123456789";
@@ -93,7 +83,34 @@
                 }
             }
             return $password;
+        }
 
+        /**
+         * @inheritDoc
+         */
+        public function get_title(): string {
+            return 'Mail sent!';
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function get_stylesheets(): array {
+            return [];
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function get_scripts(): array {
+            return [];
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function needs_standard_layout(): bool {
+            return false;
         }
     }
 ?>
