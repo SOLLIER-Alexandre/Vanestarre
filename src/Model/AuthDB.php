@@ -176,11 +176,11 @@
 
         /**
          * Return the id of an user from the database with an email
-         * @param string $email Email of the user
+         * @param ?string $email Email of the user
          * @return string ID of the user
          * @throws DatabaseSelectException
          */
-        public function get_id_from_email(string $email): string {
+        public function get_id_from_email(?string $email): ?string {
             $prepared_query = $this->mysqli->prepare('SELECT user_id FROM USERS WHERE email = ?');
             $prepared_query->bind_param('s', $email);
             $prepared_query->execute();
@@ -188,7 +188,8 @@
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
-                return $result['user_id'];
+                $row = $result->fetch_assoc();
+                return $row['user_id'];
             }
         }
     }
