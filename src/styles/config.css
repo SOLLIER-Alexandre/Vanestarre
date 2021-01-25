@@ -37,18 +37,17 @@ label {
 .table-line {
     width: 100%;
     margin-bottom: 2px;
+    border: #7E7E7E 1px solid;
 }
 
 .text-box {
     padding: 3px;
     margin: 2px;
-    background-color: #313131;
-    border: #7E7E7E 1px solid;
+    width: 250px;
 }
 
 .shown-line {
     display: flex;
-    border: #7E7E7E 1px solid;
     width: 100%;
 }
 

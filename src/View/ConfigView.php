@@ -93,7 +93,10 @@
                                     </div>
                                 </div>   
                                 <div class="hidden-line">
-                                
+                                    <form id="form-modif-membre" action="/config/changemember">
+                                        <input type="text" id="new-username" name="new-username">
+                                        <input type="text" id="new-email-adress" name="new-email-adress">
+                                    </form>
                                 </div>                             
                             </div>
                         </div>
