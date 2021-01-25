@@ -40,6 +40,31 @@ label {
     box-sizing: border-box;
 }
 
+.table-line {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.text-box {
+    padding: 3px;
+    margin: 2px;
+    background-color: #313131;
+    border: #7E7E7E 1px solid;
+}
+
+.shown-line {
+    display: flex;
+    border: #7E7E7E 1px solid;
+    width: 100%;
+}
+
+.arrow-down {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 #submit-config-change {
     border: none;
     border-radius: 4px;
@@ -57,4 +82,14 @@ label {
 #form-modif-config input[type="number"] {
     background-color: #313131;
     width: 185px;
+}
+
+#configuration-card {
+    margin-bottom: 12px;
+}
+
+#members-table {
+    display: flex;
+    border: #7E7E7E 1px solid;
+    padding: 2px 2px 20px 2px;
 }
