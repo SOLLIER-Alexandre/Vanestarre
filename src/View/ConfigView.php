@@ -44,7 +44,7 @@
         public function echo_contents(): void {
             echo <<<HTML
                     <!-- Configuration card -->
-                    <div class="card">
+                    <div class="card" id="configuration-card">
                         <h2>Bonjour Vanéstarre</h2>
                         
                         <form id="form-modif-config" action="/config/update">
@@ -69,6 +69,37 @@
                             
                             <input type="submit" value="Valider" id="submit-config-change"> 
                         </form>
+                    </div>
+                    
+                    <!-- Member management card -->
+                    <div class="card">
+                        <h2>Gestion des membres</h2>                            
+                        <div class="text-line">
+                            <p>Vous avez accès ci-dessous à l'ensemble des membres de Vanéstarre :</p>
+                        </div>
+                        
+                        <div id="members-table">
+                            <!-- example line for the table -->
+                            <div class="table-line">
+                                <div class="shown-line">
+                                    <div class="text-box">
+                                        <p>example_username</p>
+                                    </div>
+                                    <div class="text-box">
+                                        <p>example_email_address</p>
+                                    </div>
+                                    <div class="arrow-down">
+                                        <span class="material-icons" class="button-like" class="unselectable">keyboard_arrow_down</span>
+                                    </div>
+                                </div>   
+                                <div class="hidden-line">
+                                    <form id="form-modif-membre" action="/config/changemember">
+                                        <input type="text" id="new-username" name="new-username">
+                                        <input type="text" id="new-email-adress" name="new-email-adress">
+                                    </form>
+                                </div>                             
+                            </div>
+                        </div>
                     </div>
 
             HTML;
