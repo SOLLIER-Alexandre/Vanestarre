@@ -179,7 +179,7 @@
          * @return string ID of the user
          * @throws DatabaseSelectException
          */
-        public function get_id_from_email(string $user_id): string {
+        public function get_id_from_email(string $email): string {
             $prepared_query = $this->mysqli->prepare('SELECT user_id FROM USERS WHERE email = ?');
             $prepared_query->bind_param('s', $email);
             $prepared_query->execute();
