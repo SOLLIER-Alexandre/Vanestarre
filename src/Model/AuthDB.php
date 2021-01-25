@@ -188,7 +188,9 @@
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
-                return $result['user_id'];
+                $row = $result->fetch_assoc();
+                return $row['user_id'];
+
             }
         }
     }
