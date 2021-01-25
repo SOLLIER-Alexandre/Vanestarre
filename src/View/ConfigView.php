@@ -2,14 +2,14 @@
     namespace Vanestarre\View;
 
     /**
-     * Class VanestarreConfigView
+     * Class ConfigView
      *
      * Config page for Vanestarre
      *
      * @author CHATEAUX Adrien
      * @package Vanestarre\View
      */
-    class VanestarreConfigView implements IView
+    class ConfigView implements IView
     {
         /**
          * @var int $messages_par_page The default value for the "nbr-messages-par-page" input

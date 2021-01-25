@@ -1,17 +1,18 @@
 <?php
-    namespace Vanestarre\Controller;
+    namespace Vanestarre\Controller\Config;
 
+    use Vanestarre\Controller\IController;
     use Vanestarre\Model\VanestarreConfig;
 
     /**
-     * Class ModifConfigController
+     * Class ConfigUpdateController
      *
      * Used to change the json config file
      *
      * @author CHATEAUX Adrien
-     * @package Vanestarre\Controller
+     * @package Vanestarre\Controller\Config
      */
-    class ModifConfigController implements IController
+    class ConfigUpdateController implements IController
     {
         /**
          * @inheritDoc

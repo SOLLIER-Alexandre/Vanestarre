@@ -2,29 +2,29 @@
     namespace Vanestarre\Controller;
 
     use Vanestarre\Model\VanestarreConfig;
-    use Vanestarre\View\VanestarreConfigView;
+    use Vanestarre\View\ConfigView;
 
     /**
-    * Class VanestarreConfigController
+    * Class ConfigController
     *
-    * Controller for the VanestarreConfigView page
+    * Controller for the ConfigView page
     *
     * @author CHATEAUX Adrien
     * @package Vanestarre\Controller
     */
-    class VanestarreConfigController implements IController
+    class ConfigController implements IController
     {
         /**
-         * @var VanestarreConfigView View associated with this controller
+         * @var ConfigView View associated with this controller
          */
         private $view;
 
         /**
-         * VanestarreConfigController constructor.
+         * ConfigController constructor.
          */
         public function __construct() {
             $config = new VanestarreConfig();
-            $this->view = new VanestarreConfigView($config->get_nbr_messages_par_page(), $config->get_love_lim_inf(), $config->get_love_lim_sup());
+            $this->view = new ConfigView($config->get_nbr_messages_par_page(), $config->get_love_lim_inf(), $config->get_love_lim_sup());
         }
 
         /**
@@ -53,7 +53,7 @@
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/vanestarre_config.css'];
+            return ['/styles/config.css'];
         }
 
         /**

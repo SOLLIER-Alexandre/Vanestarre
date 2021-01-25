@@ -83,7 +83,7 @@
             break;
 
         case '/config/update':
-            $controller = new Controller\ModifConfigController();
+            $controller = new Controller\Config\ConfigUpdateController();
             break;
 
         case '/register':
@@ -103,7 +103,7 @@
             break;
 
         case '/config':
-            $controller = new Controller\VanestarreConfigController();
+            $controller = new Controller\ConfigController();
             break;
 
         case '/unauthorized':
