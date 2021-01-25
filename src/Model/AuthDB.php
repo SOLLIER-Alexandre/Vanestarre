@@ -159,20 +159,35 @@
         }
 
         /**
-         * Return the password of an user from the database with an email
+         * Change the username of the user from an user_id
+         * @param int $user_id ID of the user
+         * @param string $new_username New password for the user
+         * @throws DatabaseUpdateException
+         */
+        public function change_username(int $user_id, string $new_username): void {
+            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET username = ? WHERE user_id = ?');
+            $prepared_query->bind_param('si', $new_username, $user_id);
+
+            if (!$prepared_query->execute()) {
+                throw new DatabaseUpdateException();
+            }
+        }
+
+        /**
+         * Return the id of an user from the database with an email
          * @param string $email Email of the user
-         * @return string Password of the user
+         * @return string ID of the user
          * @throws DatabaseSelectException
          */
-        public function get_password_from_email(string $email): string {
-            $prepared_query = $this->mysqli->prepare('SELECT password FROM USERS WHERE email = ?');
+        public function get_id_from_email(string $user_id): string {
+            $prepared_query = $this->mysqli->prepare('SELECT user_id FROM USERS WHERE email = ?');
             $prepared_query->bind_param('s', $email);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
-                return $result['password'];
+                return $result['user_id'];
             }
         }
     }
