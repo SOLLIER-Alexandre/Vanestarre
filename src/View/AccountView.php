@@ -27,9 +27,9 @@
         private $show_config_link;
 
         /**
-         * @var int|null $error_message_id ID of the error message to print
+         * @var int|null $status_id ID of the status to print a message for
          */
-        private $error_message_id;
+        private $status_id;
 
         /**
          * AccountView constructor.
@@ -38,21 +38,24 @@
             $this->username = '';
             $this->email = '';
             $this->show_config_link = false;
-            $this->error_message_id = null;
+            $this->status_id = null;
         }
 
         /**
          * @inheritDoc
          */
         public function echo_contents(): void {
-            if (isset($this->error_message_id)) {
+            if (isset($this->status_id)) {
+                // There's a status message to show
                 $this->echo_password_message_card();
             }
 
+            // Show cards for editing the account
             $this->echo_account_card();
             $this->echo_password_change_card();
 
             if ($this->show_config_link) {
+                // Show link to the configuration page if user is authorized
                 $this->echo_config_link();
             }
         }
@@ -64,21 +67,25 @@
             echo <<<HTML
                     <!-- Password change message card -->
                     <div class="card">
-                        <h2 class="password-message-title"><span class="material-icons unselectable">info</span> Mot de passe</h2>
+                        <h2 class="password-message-title"><span class="material-icons unselectable">info</span> Information</h2>
 
             HTML;
 
             // Output the correct message
-            switch ($this->error_message_id) {
-                case 0:
+            switch ($this->status_id) {
+                case 1:
                     echo '            <p>Le mot de passe a été changé avec succès !</p>' . PHP_EOL;
                     break;
 
                 case 2:
+                    echo '            <p>Vos informations ont été changées avec succès !</p>' . PHP_EOL;
+                    break;
+
+                case 11:
                     echo '            <p>Le nouveau mot de passe et sa confirmation ne correspondent pas</p>' . PHP_EOL;
                     break;
 
-                case 3:
+                case 12:
                     echo '            <p>Le mot de passe actuel est incorrect</p>' . PHP_EOL;
                     break;
 
@@ -188,10 +195,10 @@
         }
 
         /**
-         * @param int|null $error_message_id New error message ID
+         * @param int|null $status_id New error message ID
          */
-        public function set_error_messageId(?int $error_message_id): void {
-            $this->error_message_id = $error_message_id;
+        public function set_status_id(?int $status_id): void {
+            $this->status_id = $status_id;
         }
     }
 ?>

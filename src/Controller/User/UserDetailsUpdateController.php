@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller\User;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Model\AuthDB;
 
     /**
@@ -32,9 +33,29 @@
                 return;
             }
 
-            $redirect_route = '/account?confirm=';
+            $redirect_route = '/account?status=2';
 
-            // TODO: Do this
+            // Grab posted values
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+
+            // Check posted values
+            if (isset($username) && isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL) &&
+                mb_strlen($username) <= 64 && mb_strlen($email) <= 64) {
+                $auth_db = new AuthDB();
+
+                try {
+                    $auth_db->change_username_and_email($connected_user->get_id(), $username, $email);
+                } catch (DatabaseUpdateException $exception) {
+                    // Couldn't change user details
+                    $redirect_route = '/account?status=21';
+                    http_response_code(400);
+                }
+            } else {
+                // One of the parameter was malformed
+                $redirect_route = '/account?status=20';
+                http_response_code(400);
+            }
 
             header('Location: ' . $redirect_route);
         }
