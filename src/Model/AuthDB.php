@@ -161,27 +161,13 @@
         /**
          * Change the username of the user from an user_id
          * @param int $user_id ID of the user
-         * @param string $new_username New password for the user
+         * @param string $new_username New username for the user
+         * @param string $new_email New email for the user
          * @throws DatabaseUpdateException
          */
-        public function change_username(int $user_id, string $new_username): void {
-            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET username = ? WHERE user_id = ?');
-            $prepared_query->bind_param('si', $new_username, $user_id);
-
-            if (!$prepared_query->execute()) {
-                throw new DatabaseUpdateException();
-            }
-        }
-
-        /**
-         * Change the email of the user from an user_id
-         * @param int $user_id ID of the user
-         * @param string $new_email New password for the user
-         * @throws DatabaseUpdateException
-         */
-        public function change_email(int $user_id, string $new_email): void {
-            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET email = ? WHERE user_id = ?');
-            $prepared_query->bind_param('si', $new_email, $user_id);
+        public function change_username_and_email(int $user_id, string $new_username, string $new_email): void {
+            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET username = ?, email = ? WHERE user_id = ?');
+            $prepared_query->bind_param('ssi', $new_username, $new_email, $user_id);
 
             if (!$prepared_query->execute()) {
                 throw new DatabaseUpdateException();
