@@ -33,7 +33,7 @@
                 return;
             }
 
-            $redirect_route = '/account?confirm=';
+            $redirect_route = '/account?status=1';
 
             if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
                 mb_strlen($_POST['oldPassword']) <= 128 && mb_strlen($_POST['newPassword']) <= 128) {
@@ -46,22 +46,22 @@
                             $auth_db->change_password($connected_user->get_id(), $hashed_password);
                         } catch (DatabaseUpdateException $e) {
                             // The password couldn't be changed
-                            $redirect_route = '/account?err=4';
+                            $redirect_route = '/account?status=13';
                             http_response_code(400);
                         }
                     } else {
                         // The actual password verification failed
-                        $redirect_route = '/account?err=3';
+                        $redirect_route = '/account?status=12';
                         http_response_code(400);
                     }
                 } else {
                     // The new password and its confirmation doesn't match
-                    $redirect_route = '/account?err=2';
+                    $redirect_route = '/account?status=11';
                     http_response_code(400);
                 }
             } else {
                 // One of the parameter was malformed
-                $redirect_route = '/account?err=1';
+                $redirect_route = '/account?status=10';
                 http_response_code(400);
             }
 
