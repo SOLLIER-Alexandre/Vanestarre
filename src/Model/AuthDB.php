@@ -174,12 +174,27 @@
         }
 
         /**
+         * Change the email of the user from an user_id
+         * @param int $user_id ID of the user
+         * @param string $new_email New password for the user
+         * @throws DatabaseUpdateException
+         */
+        public function change_email(int $user_id, string $new_email): void {
+            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET email = ? WHERE user_id = ?');
+            $prepared_query->bind_param('si', $new_email, $user_id);
+
+            if (!$prepared_query->execute()) {
+                throw new DatabaseUpdateException();
+            }
+        }
+
+        /**
          * Return the id of an user from the database with an email
          * @param string $email Email of the user
          * @return string ID of the user
          * @throws DatabaseSelectException
          */
-        public function get_id_from_email(string $user_id): string {
+        public function get_id_from_email(string $email): string {
             $prepared_query = $this->mysqli->prepare('SELECT user_id FROM USERS WHERE email = ?');
             $prepared_query->bind_param('s', $email);
             $prepared_query->execute();
