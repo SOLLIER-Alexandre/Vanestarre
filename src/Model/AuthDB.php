@@ -157,5 +157,23 @@
                 throw new DatabaseUpdateException();
             }
         }
+
+        /**
+         * Return the password of an user from the database with an email
+         * @param string $email Email of the user
+         * @return string Password of the user
+         * @throws DatabaseSelectException
+         */
+        public function get_password_from_email(string $email): string {
+            $prepared_query = $this->mysqli->prepare('SELECT password FROM USERS WHERE email = ?');
+            $prepared_query->bind_param('s', $email);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if (!$result) {
+                throw new DatabaseSelectException();
+            } else {
+                return $result['password'];
+            }
+        }
     }
 ?>
