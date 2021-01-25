@@ -2,7 +2,6 @@
 
     namespace Vanestarre\Controller;
 
-    use Vanestarre\Controller\IController;
     use Vanestarre\View\PasswordForgottenView;
 
     /**
@@ -11,7 +10,7 @@
      * Controller for getting a new password via mail when the previous one is forgotten
      *
      * @author RADJA Samy
-     * @package Vanestarre\Controller\User
+     * @package Vanestarre\Controller
      */
     class PasswordForgottenController implements IController
     {
@@ -21,7 +20,7 @@
         private $view;
 
         /**
-         * TemplateController constructor.
+         * PasswordForgottenController constructor.
          */
         public function __construct() {
             $this->view = new PasswordForgottenView();

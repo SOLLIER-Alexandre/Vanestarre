@@ -75,7 +75,8 @@
             static $baseSpecial = "%#:$*";
 
             $password = "";
-            for ($i = 0; $i < rand(8,12); $i++) {
+            $lenghtPassword = rand(8,12);
+            for ($i = 0; $i < $lenghtPassword; $i++) {
                 switch (rand(1, 4)) {
                     case 1 :
                         $password .= $baseAlphaMaj[rand(0, strlen($baseAlphaMaj))];

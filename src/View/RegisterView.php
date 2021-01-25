@@ -15,7 +15,7 @@
          * @inheritDoc
          */
         public function echo_contents() {
-            echo <<<'HTML'
+            echo <<< 'HTML'
                     <div class="card">
                         <h2>Créez un compte</h2> 
                                 
