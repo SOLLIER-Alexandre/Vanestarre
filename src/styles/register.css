@@ -4,12 +4,6 @@
  * @author RADJA Samy
  */
 
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 h2 {
     color: #FFFFFFDE;
 }
@@ -27,7 +21,6 @@ label {
 }
 
 .input-zone {
-    background-color: #313131;
     width: 185px;
     margin-bottom: 12px;
 }

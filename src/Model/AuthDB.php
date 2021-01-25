@@ -157,5 +157,40 @@
                 throw new DatabaseUpdateException();
             }
         }
+
+        /**
+         * Change the username of the user from an user_id
+         * @param int $user_id ID of the user
+         * @param string $new_username New username for the user
+         * @param string $new_email New email for the user
+         * @throws DatabaseUpdateException
+         */
+        public function change_username_and_email(int $user_id, string $new_username, string $new_email): void {
+            $prepared_query = $this->mysqli->prepare('UPDATE USERS SET username = ?, email = ? WHERE user_id = ?');
+            $prepared_query->bind_param('ssi', $new_username, $new_email, $user_id);
+
+            if (!$prepared_query->execute()) {
+                throw new DatabaseUpdateException();
+            }
+        }
+
+        /**
+         * Return the id of an user from the database with an email
+         * @param ?string $email Email of the user
+         * @return string ID of the user
+         * @throws DatabaseSelectException
+         */
+        public function get_id_from_email(?string $email): ?string {
+            $prepared_query = $this->mysqli->prepare('SELECT user_id FROM USERS WHERE email = ?');
+            $prepared_query->bind_param('s', $email);
+            $prepared_query->execute();
+            $result = $prepared_query->get_result();
+            if (!$result) {
+                throw new DatabaseSelectException();
+            } else {
+                $row = $result->fetch_assoc();
+                return $row['user_id'];
+            }
+        }
     }
 ?>

@@ -4,10 +4,8 @@
  * @author CHATEAUX Adrien
  */
 
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+p {
+    margin: 0;
 }
 
 h2 {
@@ -18,18 +16,17 @@ h2 {
 h3 {
     display: inline;
     color: white;
+    margin: 0;
 }
 
 label {
     display: flex;
 }
 
-.text-line {
-    margin-bottom: 1rem;
-}
-
 .div-form {
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
 }
 
 .card {
@@ -64,11 +61,6 @@ label {
     cursor: pointer;
     transition: background-color 0.5s ease;
     background-color: #dedede;
-}
-
-#form-modif-pwd input[type="password"] {
-    background-color: #313131;
-    width: 185px;
 }
 
 #config-link-container {

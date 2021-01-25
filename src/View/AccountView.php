@@ -50,6 +50,7 @@
             }
 
             $this->echo_account_card();
+            $this->echo_password_change_card();
 
             if ($this->show_config_link) {
                 $this->echo_config_link();
@@ -97,22 +98,34 @@
                     <div class="card">
                         <h2>Compte Vanéstarre</h2>
                         
-                        <div class="text-line">
-                            <h3>Votre nom d'utilisateur : </h3>
-                            <p>$this->username</p>
-                        </div>
-                        
-                        <div class="text-line">
-                            <h3>Votre adresse e-mail : </h3>
-                            <p>$this->email</p>
-                        </div>
-                        
-                        <!-- Form for changing password -->
-                        <form id="form-modif-pwd" action="/user/passwordUpdate" method="post">
-                            <div class="text-line">
-                                <h3>Changez votre mot de passe : </h3>
+                        <form action="/user/detailsUpdate" method="post">
+                            <div class="div-form">
+                                <label for="username-input">Votre nom d'utilisateur :</label>
+                                <input type="text" id="username-input" name="username" value="$this->username" autocomplete="username" maxlength="64" required>
                             </div>
                             
+                            <div class="div-form">
+                                <label for="email-input">Votre adresse e-mail :</label>
+                                <input type="email" id="email-input" name="email" value="$this->email" autocomplete="email" maxlength="64" required>
+                            </div>
+                            
+                            <input type="submit" value="Valider" id="submit-pwd-change"> 
+                        </form>
+                    </div>
+
+               HTML;
+        }
+
+        /**
+         * Outputs the card for changing password
+         */
+        private function echo_password_change_card(): void {
+            echo <<<'HTML'
+                    <div class="card">
+                        <!-- Form for changing password -->
+                        <h2>Changez votre mot de passe :</h2>
+                        
+                        <form id="form-modif-pwd" action="/user/passwordUpdate" method="post">
                             <div class="div-form">
                                <label for="old-pwd">Mot de passe actuel :</label>
                                <input type="password" id="old-pwd" name="oldPassword" autocomplete="current-password" maxlength="128" required>
@@ -132,7 +145,7 @@
                         </form>
                     </div>
 
-               HTML;
+            HTML;
         }
 
         /**

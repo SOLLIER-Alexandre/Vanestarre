@@ -78,6 +78,10 @@
             $controller = new Controller\User\UserPasswordUpdateController();
             break;
 
+        case '/user/detailsUpdate':
+            $controller = new Controller\User\UserDetailsUpdateController();
+            break;
+
         case '/passwordForgotten':
             $controller = new Controller\PasswordForgottenController();
             break;
@@ -116,7 +120,8 @@
 
     if (!is_null($controller)) {
         // Begin the common page if needed
-        if ($controller->needs_standard_layout()) {
+        $needs_standard_layout = $controller->needs_standard_layout();
+        if ($needs_standard_layout) {
             start_page($controller->get_title() . ' – Vanéstarre', $controller->get_stylesheets(), $controller->get_scripts());
             start_layout();
         }
@@ -125,7 +130,7 @@
         $controller->execute();
 
         // End the common page if needed
-        if ($controller->needs_standard_layout()) {
+        if ($needs_standard_layout) {
             end_layout();
             end_page();
         }
