@@ -26,6 +26,12 @@ textarea {
     font-family: 'Roboto', sans-serif;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /*We need to separate those two because WebKit-based browsers have >60% market share and yet are unable
 to ignore a tag they don't understand*/
 input::-webkit-input-placeholder,
@@ -51,6 +57,7 @@ textarea {
     border: #7E7E7E 1px solid;
     padding: 8px;
     color: #FFFFFFDE;
+    background-color: #313131;
 }
 
 input[type="text"]:focus,

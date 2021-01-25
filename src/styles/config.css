@@ -4,12 +4,6 @@
  * @author CHATEAUX Adrien
  */
 
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 h2 {
     margin-top: 0;
     color: white;
@@ -55,6 +49,5 @@ label {
 }
 
 #form-modif-config input[type="number"] {
-    background-color: #313131;
     width: 185px;
 }

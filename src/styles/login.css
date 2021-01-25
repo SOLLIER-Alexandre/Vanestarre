@@ -4,12 +4,6 @@
  * @author RADJA Samy
  */
 
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 p {
     text-align: center;
 }
@@ -59,7 +53,7 @@ p {
 }
 
 .forgotten-password {
-    color: #6eabd8;
+    color: #6EABD8;
     margin-top: 1%;
     text-decoration: underline;
     text-align: center;
@@ -72,11 +66,6 @@ p {
 #login-form {
     margin-top: 5%;
     display: grid;
-}
-
-#login-form > input[type="text"],
-#login-form > input[type="password"] {
-    background-color: #313131;
 }
 
 @media (max-width: 656px), (max-height: 500px) {
