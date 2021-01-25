@@ -161,7 +161,7 @@
         /**
          * Change the username of the user from an user_id
          * @param int $user_id ID of the user
-         * @param string $new_username New password for the user
+         * @param string $new_username New username for the user
          * @throws DatabaseUpdateException
          */
         public function change_username(int $user_id, string $new_username): void {
@@ -176,7 +176,7 @@
         /**
          * Change the email of the user from an user_id
          * @param int $user_id ID of the user
-         * @param string $new_email New password for the user
+         * @param string $new_email New email for the user
          * @throws DatabaseUpdateException
          */
         public function change_email(int $user_id, string $new_email): void {
