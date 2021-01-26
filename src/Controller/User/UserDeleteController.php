@@ -35,13 +35,26 @@
 
             $redirect_route = '/';
 
-            try {
-                // Try to delete and disconnect the current user
-                $auth_db->delete_user($connected_user->get_id());
-                unset($_SESSION['current_user']);
-            } catch (DatabaseDeleteException $e) {
-                // Couldn't delete the user
-                $redirect_route = '/account?status=30';
+            // Check if the target is not the connected user (only for an author)
+            $target_user_id = $connected_user->get_id();
+            if ($connected_user->get_id() === 0 && is_numeric($_POST['userId'])) {
+                // Delete another user than the connected one
+                $target_user_id = intval($_POST['userId']);
+            }
+
+            if ($target_user_id !== 0) {
+                try {
+                    // Try to delete and disconnect the current user
+                    $auth_db->delete_user($target_user_id);
+                    unset($_SESSION['current_user']);
+                } catch (DatabaseDeleteException $e) {
+                    // Couldn't delete the user
+                    $redirect_route = '/account?status=30';
+                    http_response_code(400);
+                }
+            } else {
+                // We don't allow deleting the author account
+                $redirect_route = '/account?status=31';
                 http_response_code(400);
             }
 
