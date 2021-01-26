@@ -12,7 +12,7 @@
     class LoginView implements IView
     {
         /**
-         * @var int|null $status_id ID of the status to print a message for
+         * @var int|null $err_id ID of the err to print a message for
          */
         private $err_id;
 
@@ -34,7 +34,7 @@
         private function echo_error(): void {
             echo <<<HTML
                     <!-- Password change message card -->
-                    <div class="error">
+                    <div class="error-text">
                         <span class="material-icons alert">alert</span>
             HTML;
 
@@ -64,19 +64,18 @@
                         <form action="/user/login" method="post" id="login-form">
                             <input type="text" name="username" autocomplete="username" maxlength="16" required>
                             <input type="password" name="mdp" autocomplete="current-password" maxlength="32" required>
-                            <input type="submit" class="login-button" id="login-input-trigger" value="Login">
-                        </form>
             HTML;
+            echo '            <a href="/passwordForgotten" class="forgotten-password">mot de passe oublié ?</a>' . PHP_EOL;
             if(isset($this->err_id)) {
                 //if there is an error, shows it
                 $this->echo_error();
             }
             echo <<<'HTML'
-                        <a href="/passwordForgotten" class="forgotten-password">mot de passe oublié ?</a>     
+                            <input type="submit" class="login-button" id="login-input-trigger" value="Login">
+                        </form>
                         <a href="/register" class="create-account-button">Create an account</a>
                     <div/>
             HTML;
         }
-
     }
 ?>

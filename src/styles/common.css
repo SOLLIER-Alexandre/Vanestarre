@@ -133,6 +133,10 @@ h1 {
     display: flex;
 }
 
+.error-text {
+    color: #e45353;
+}
+
 #page-title {
     font-family: 'Ubuntu', sans-serif;
     font-size: 1.5rem;
