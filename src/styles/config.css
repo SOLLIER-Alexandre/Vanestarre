@@ -52,10 +52,22 @@ label {
 }
 
 .hidden-line {
-    display: flex;
+    display: none;
     width: 100%;
     justify-content: flex-start;
     align-items: center;
+}
+
+.table-line.expanded > .hidden-line {
+    display: flex;
+}
+
+.arrow-down-icon {
+    transition: transform 500ms ease-in-out;
+}
+
+.table-line.expanded .arrow-down-icon {
+    transform: rotate(180deg);
 }
 
 .arrow-down {

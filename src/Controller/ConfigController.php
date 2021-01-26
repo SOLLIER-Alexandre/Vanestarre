@@ -72,7 +72,7 @@
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return [];
+            return ['/scripts/config.js'];
         }
 
         /**

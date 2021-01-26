@@ -43,43 +43,48 @@ class ConfigView implements IView
      */
     public function echo_contents(): void {
         echo <<<HTML
-                    <!-- Configuration card -->
-                    <div class="card" id="configuration-card">
-                        <h2>Bonjour Vanéstarre</h2>
+                <!-- Configuration card -->
+                <div class="card" id="configuration-card">
+                    <h2>Bonjour Vanéstarre</h2>
                         
-                        <form id="form-modif-config" action="/config/update">
-                            <div class="text-line">
-                                <p>Vous pouvez changer ci-dessous la configuration de votre site :</p>
-                            </div>
-                            
-                            <div class="div-form">
-                                <label for="nbr-messages-par-page">Nombre de messages affichés par page :</label>
-                                <input type="number" id="nbr-messages-par-page" min="1" value=$this->messages_par_page name="nbr_messages_par_page">
-                            </div>
-                            
-                            <div class="div-form">
-                                <label for="nbr-min-react-pour-event">Nombre de reactions "love" minimum pour déclencher l'heureux évènement :</label>
-                                <input type="number" id="nbr-min-react-pour-event" min="1" value=$this->min_reaction_event name="nbr_min_react_pour_event">
-                            </div>
-                            
-                            <div class="div-form">
-                                <label for="nbr-max-react-pour-event">Nombre de reactions "love" maximum pour déclencher l'heureux évènement :</label>
-                                <input type="number" id="nbr-max-react-pour-event" min="1" value=$this->max_reaction_event name="nbr_max_react_pour_event">
-                            </div>
-                            
-                            <input type="submit" value="Valider" id="submit-config-change"> 
-                        </form>
-                    </div>
-                    
-                    <!-- Member management card -->
-                    <div class="card">
-                        <h2>Gestion des membres</h2>                            
+                    <form id="form-modif-config" action="/config/update">
                         <div class="text-line">
-                            <p>Vous avez accès ci-dessous à l'ensemble des membres de Vanéstarre :</p>
+                            <p>Vous pouvez changer ci-dessous la configuration de votre site :</p>
                         </div>
-                        
-                        <div id="members-table">
-                            <!-- example line for the table -->
+                            
+                        <div class="div-form">
+                            <label for="nbr-messages-par-page">Nombre de messages affichés par page :</label>
+                            <input type="number" id="nbr-messages-par-page" min="1" value="$this->messages_par_page" name="nbr_messages_par_page">
+                        </div>
+                            
+                        <div class="div-form">
+                            <label for="nbr-min-react-pour-event">Nombre de reactions "love" minimum pour déclencher l'heureux évènement :</label>
+                            <input type="number" id="nbr-min-react-pour-event" min="1" value="$this->min_reaction_event" name="nbr_min_react_pour_event">
+                        </div>
+                            
+                        <div class="div-form">
+                            <label for="nbr-max-react-pour-event">Nombre de reactions "love" maximum pour déclencher l'heureux évènement :</label>
+                            <input type="number" id="nbr-max-react-pour-event" min="1" value="$this->max_reaction_event" name="nbr_max_react_pour_event">
+                        </div>
+                            
+                        <input type="submit" value="Valider" id="submit-config-change"> 
+                    </form>
+                </div>
+                    
+                <!-- Member management card -->
+                <div class="card">
+                    <h2>Gestion des membres</h2>                            
+                    <div class="text-line">
+                        <p>Vous avez accès ci-dessous à l'ensemble des membres de Vanéstarre :</p>
+                    </div>
+                                              
+                    <div id="members-table">
+
+        HTML;
+
+        for ($i = 0; $i < 10; ++$i)
+        {
+            echo <<<'HTML'
                             <div class="table-line">
                                 <div class="shown-line">
                                     <div class="text-box">
@@ -89,13 +94,13 @@ class ConfigView implements IView
                                         <p>example_email_address</p>
                                     </div>
                                     <div class="arrow-down">
-                                        <span class="material-icons button-like unselectable">keyboard_arrow_down</span>
+                                        <span class="material-icons button-like unselectable arrow-down-icon">keyboard_arrow_down</span>
                                     </div>
                                 </div>   
                                 <div class="hidden-line">
                                     <form id="form-modif-membre" action="/config/changemember">
-                                        <input type="text" class="new-username" name="new-username">
-                                        <input type="text" class="new-email-address" name="new-email-address">
+                                        <input type="text" class="new-username" name="new-username" placeholder="New Username">
+                                        <input type="text" class="new-email-address" name="new-email-address" placeholder="New Email Adress">
                                         <span class="material-icons button-like unselectable ">done</span>
                                         <div class="delete">
                                             <span class="material-icons button-like unselectable">delete</span>
@@ -103,10 +108,15 @@ class ConfigView implements IView
                                     </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
+                            
             HTML;
+        }
+
+        echo <<<'HTML'
+                    </div>
+                </div>
+
+        HTML;
     }
 }
 ?>
