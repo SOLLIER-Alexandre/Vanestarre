@@ -22,9 +22,9 @@
         private $email;
 
         /**
-         * @var bool $show_config_link True if we can show a link to the config page
+         * @var bool $is_author True if the user is an author (we can show a link to the config page and not show a link to delete the account)
          */
-        private $show_config_link;
+        private $is_author;
 
         /**
          * @var int|null $status_id ID of the status to print a message for
@@ -37,7 +37,7 @@
         public function __construct() {
             $this->username = '';
             $this->email = '';
-            $this->show_config_link = false;
+            $this->is_author = false;
             $this->status_id = null;
         }
 
@@ -54,9 +54,13 @@
             $this->echo_account_card();
             $this->echo_password_change_card();
 
-            if ($this->show_config_link) {
+            if ($this->is_author) {
                 // Show link to the configuration page if user is authorized
                 $this->echo_config_link();
+            } else {
+                // User is not an admin, allow them to delete their account
+                $this->echo_account_deletion_card();
+                $this->echo_account_deletion_confirm_dialog();
             }
         }
 
@@ -173,6 +177,52 @@
                HTML;
         }
 
+        private function echo_account_deletion_card(): void {
+            echo <<<HTML
+                    <!-- Account deletion card -->
+                    <div class="card">
+                        <h2>Suppression du compte</h2>
+                        
+                        <p>Nous ne voulons pas vous voir partir...</p>
+                        <p>Mais si vous le souhaitez réellement, vous pouvez le faire ici.</p>
+                        <p id="delete-account-button" class="button-like unselectable" role="button" data-micromodal-trigger="modal-account-deletion"><span class="material-icons">delete</span>Supprimer mon compte</p>
+                    </div>
+            HTML;
+        }
+
+        /**
+         * Outputs the dialog for asking the user if they really want to delete their account
+         * (But why would they?!)
+         */
+        private function echo_account_deletion_confirm_dialog(): void {
+            echo <<<'HTML'
+                    <!-- Modal for confirming account deletion -->
+                    <div id="modal-account-deletion" class="modal" aria-hidden="true">
+                        <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+                            <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-account-deletion-title">
+                                <header class="dialog-header">
+                                    <h2 id="modal-account-deletion-title">Suppression du compte Vanéstarre</h2>
+                                </header>
+                        
+                                <div class="modal-confirm-content">
+                                    <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+                                    <p>Nous ne voulons pas vous voir partir :(</p>
+                                    <p>Vanéstarre vous aime tous xoxoxoxo</p>
+                                    <p><q>c vré</q> - Vanéstarre</p>
+                                </div>
+                                
+                                <form class="modal-confirm-form" action="/user/delete" method="post">
+                                    <input id="remove-message-image-id" name="messageId" type="hidden">
+                                    <input class="input-button" type="button" value="Annuler" data-micromodal-close>
+                                    <input class="input-button" type="submit" value="Supprimer">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+            HTML;
+        }
+
         /**
          * @param string $username New username
          */
@@ -188,10 +238,10 @@
         }
 
         /**
-         * @param bool $show_config_link New show config link state
+         * @param bool $is_author New author state
          */
-        public function set_show_config_link(bool $show_config_link): void {
-            $this->show_config_link = $show_config_link;
+        public function set_is_author(bool $is_author): void {
+            $this->is_author = $is_author;
         }
 
         /**

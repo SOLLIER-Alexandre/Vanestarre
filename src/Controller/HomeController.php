@@ -200,7 +200,7 @@
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/home.css'];
+            return ['/styles/common_modal.css', '/styles/home.css'];
         }
 
         /**

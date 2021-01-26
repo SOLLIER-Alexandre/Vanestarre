@@ -60,7 +60,7 @@
 
             if ($connected_user->get_id() === 0) {
                 // Show a link to the config page if the connected user is the admin
-                $this->view->set_show_config_link(true);
+                $this->view->set_is_author(true);
             }
 
             // Check for status code in the get parameters
@@ -83,14 +83,14 @@
          * @inheritDoc
          */
         public function get_stylesheets(): array {
-            return ['/styles/account.css'];
+            return ['/styles/common_modal.css', '/styles/account.css'];
         }
 
         /**
          * @inheritDoc
          */
         public function get_scripts(): array {
-            return [];
+            return ['/scripts/account.js', 'https://unpkg.com/micromodal/dist/micromodal.min.js'];
         }
 
         /**
