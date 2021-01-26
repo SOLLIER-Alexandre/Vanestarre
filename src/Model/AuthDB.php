@@ -199,7 +199,7 @@
          * @throws DatabaseSelectException
          */
         public function get_all_users(): array {
-            $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS')
+            $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS');
             $prepared_query->execute();
             $result = $prepared_query->get_result();
             if(!$result){
@@ -207,7 +207,7 @@
             } else {
                 $user_list = array();
                 while($row = $result->fetch_assoc()){
-                    array_push($user_list, new User($row['user_id'], $row['username'], $row['email'], $row['password'], $row['registration_date']))
+                    array_push($user_list, new User($row['user_id'], $row['username'], $row['email'], $row['password'], $row['registration_date']));
                 }
                 return $user_list;
             }
