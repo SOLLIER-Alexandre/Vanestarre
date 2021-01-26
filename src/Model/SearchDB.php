@@ -4,6 +4,7 @@
 
     use DateTimeImmutable;
     use mysqli;
+    use Vanestarre\Exception\DatabaseConnectionException;
 
     /**
      * Class SearchDB

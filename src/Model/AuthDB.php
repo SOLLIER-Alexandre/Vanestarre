@@ -9,6 +9,7 @@
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\DatabaseUpdateException;
+    use Vanestarre\Exception\DatabaseConnectionException;
 
     /**
      * Class Messages
