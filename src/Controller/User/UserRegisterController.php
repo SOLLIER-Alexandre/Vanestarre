@@ -48,7 +48,18 @@
             $email = $_POST['email'];
 
             // Check posted values
-            if (isset($username) && isset($password) && isset($email) &&
+
+            //the password is too short
+            if(strlen($password) < 5) {
+                $redirect_route = '/register?err=1';
+            }
+
+            //the email isn't the right format
+            else if(filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
+                $redirect_route = '/register?err=2';
+            }
+
+            else if (isset($username) && isset($password) && isset($email) &&
                 filter_var($email, FILTER_VALIDATE_EMAIL) &&
                 mb_strlen($username) <= 64 && mb_strlen($password) <= 128 && mb_strlen($email) <= 64) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -59,12 +70,12 @@
                     $_SESSION["current_user"] = $user_id;
                 } catch (DatabaseInsertException $exception) {
                     // Couldn't register the user
-                    $redirect_route = '/register?err=2';
+                    $redirect_route = '/register?err=3';
                     http_response_code(400);
                 }
             } else {
                 // One of the parameter was malformed
-                $redirect_route = '/register?err=1';
+                $redirect_route = '/register?err=4';
                 http_response_code(400);
             }
 

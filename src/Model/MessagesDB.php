@@ -9,6 +9,7 @@
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\DatabaseUpdateException;
+    use Vanestarre\Exception\DatabaseConnectionException;
 
 
     /**
@@ -30,9 +31,11 @@
          * MessagesDB constructor. Connects MessagesDB to the database.
          */
         public function __construct(){
-            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
+                                        '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
             if (mysqli_connect_errno()) {
-                throw new Error("Echec lors de la connexion à la base de données : " . mysqli_connect_error());
+                throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : " 
+                                                    . mysqli_connect_error());
             }
         }
 
@@ -51,7 +54,8 @@
          * @throws DatabaseSelectException
          */
         public function get_n_last_messages(int $n, int $offset): array {
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link, reactions_for_donations FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link, reactions_for_donations ' .
+                                                    'FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
             $prepared_query->bind_param('ii', $n, $offset);
 
             $prepared_query->execute();
@@ -64,7 +68,9 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $this->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $row['reactions_for_donations'], $message_reactions, $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], 
+                                new DateTimeImmutable($row['date']), $row['reactions_for_donations'], 
+                                $message_reactions, $row['image_link']));
                 }
 
                 return $messages_list;
@@ -78,7 +84,8 @@
          * @throws DatabaseSelectException
          */
         public function get_message_reaction_count(int $message_id, MessageReactions $reactions): void {
-            $prepared_query = $this->mysqli->prepare('SELECT reaction_type, COUNT(reaction_type) FROM REACTIONS WHERE message_id = ? GROUP BY reaction_type;');
+            $prepared_query = $this->mysqli->prepare('SELECT reaction_type, COUNT(reaction_type) ' .
+                                                    'FROM REACTIONS WHERE message_id = ? GROUP BY reaction_type;');
             $prepared_query->bind_param('i', $message_id);
 
             $prepared_query->execute();
@@ -126,7 +133,8 @@
 
             // Prepare the query
             $ids_param = str_repeat('?, ', count($message_ids) - 1) . '?';
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS 
+                                                    WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
             $prepared_query->bind_param('i' . str_repeat('i', count($message_ids)), $user_id, ...$message_ids);
             $prepared_query->execute();
 
@@ -151,7 +159,8 @@
          * @throws DatabaseInsertException
          */
         public function add_reaction(int $message_id, string $reaction_type, int $user_id): void {
-            $prepared_query = $this->mysqli->prepare('REPLACE INTO REACTIONS(message_id, reaction_type, user_id) VALUES(?, ?, ?)');
+            $prepared_query = $this->mysqli->prepare('REPLACE INTO REACTIONS(message_id, reaction_type, user_id) ' .
+                                                    'VALUES(?, ?, ?)');
             $prepared_query->bind_param('isi', $message_id, $reaction_type, $user_id);
 
             if (!$prepared_query->execute()) {
@@ -181,7 +190,9 @@
          * @throws DatabaseSelectException
          */
         public function has_message_reached_reactions(int $message_id): bool {
-            $prepared_query = $this->mysqli->prepare('SELECT COUNT(*), reactions_for_donations FROM REACTIONS JOIN MESSAGES M ON REACTIONS.message_id = M.message_id WHERE REACTIONS.message_id = ? AND reaction_type = \'love\'');
+            $prepared_query = $this->mysqli->prepare('SELECT COUNT(*), reactions_for_donations ' .
+                                                    'FROM REACTIONS JOIN MESSAGES M ON REACTIONS.message_id = M.message_id ' . 
+                                                    'WHERE REACTIONS.message_id = ? AND reaction_type = \'love\'');
             $prepared_query->bind_param('i', $message_id);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
@@ -207,7 +218,8 @@
          * @throws DatabaseInsertException
          */
         public function add_message(string $content, ?string $image, int $reactions_for_donations): void {
-            $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link, reactions_for_donations) VALUES(?, NOW(), ?, ?)');
+            $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link, reactions_for_donations) ' .
+                                                    'VALUES(?, NOW(), ?, ?)');
             $prepared_query->bind_param('ssi', $content, $image, $reactions_for_donations);
 
             if (!$prepared_query->execute()) {
@@ -226,7 +238,8 @@
         public function edit_message(int $message_id, string $new_content, ?string $new_image): void {
             if (isset($new_image)) {
                 // Modify message contents and set a new image
-                $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ?, image_link = ? WHERE message_id = ?');
+                $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ?, image_link = ? ' .
+                                                        'WHERE message_id = ?');
                 $prepared_query->bind_param('ssi', $new_content, $new_image, $message_id);
 
                 if (!$prepared_query->execute()) {

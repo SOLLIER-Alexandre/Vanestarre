@@ -12,9 +12,8 @@ p {
     text-align: center;
 }
 
-.error {
+.error-text {
     color: #e45353;
-    align-content: center;
 }
 
 .login-box {

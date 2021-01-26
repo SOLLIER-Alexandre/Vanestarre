@@ -44,8 +44,15 @@
                 mb_strlen($username) <= 64 && mb_strlen($email) <= 64) {
                 $auth_db = new AuthDB();
 
+                // Check if the target is not the connected user (only for an author)
+                $target_user_id = $connected_user->get_id();
+                if ($connected_user->get_id() === 0 && is_numeric($_POST['userId'])) {
+                    // Change details for another user than the connected one
+                    $target_user_id = intval($_POST['userId']);
+                }
+
                 try {
-                    $auth_db->change_username_and_email($connected_user->get_id(), $username, $email);
+                    $auth_db->change_username_and_email($target_user_id, $username, $email);
                 } catch (DatabaseUpdateException $exception) {
                     // Couldn't change user details
                     $redirect_route = '/account?status=21';
