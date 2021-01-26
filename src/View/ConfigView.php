@@ -89,7 +89,7 @@
                                         <p>example_email_address</p>
                                     </div>
                                     <div class="arrow-down">
-                                        <span class="material-icons" class="button-like" class="unselectable">keyboard_arrow_down</span>
+                                        <span class="material-icons button-like unselectable">keyboard_arrow_down</span>
                                     </div>
                                 </div>   
                                 <div class="hidden-line">
@@ -97,7 +97,7 @@
                                         <input type="text" id="new-username" name="new-username">
                                         <input type="text" id="new-email-adress" name="new-email-adress">
                                     </form>
-                                </div>                             
+                                </div>
                             </div>
                         </div>
                     </div>

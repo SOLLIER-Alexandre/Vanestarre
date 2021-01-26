@@ -109,24 +109,24 @@
          */
         private function echo_account_card(): void {
             echo <<<HTML
-                    <!-- Account card -->
-                    <div class="card">
-                        <h2>Compte Vanéstarre</h2>
-                        
-                        <form action="/user/detailsUpdate" method="post">
-                            <div class="div-form">
-                                <label for="username-input">Votre nom d'utilisateur :</label>
-                                <input type="text" id="username-input" name="username" value="$this->username" autocomplete="username" maxlength="64" required>
-                            </div>
+                       <!-- Account card -->
+                       <div class="card">
+                           <h2>Compte Vanéstarre</h2>
                             
-                            <div class="div-form">
-                                <label for="email-input">Votre adresse e-mail :</label>
-                                <input type="email" id="email-input" name="email" value="$this->email" autocomplete="email" maxlength="64" required>
-                            </div>
-                            
-                            <input type="submit" value="Valider" id="submit-pwd-change"> 
-                        </form>
-                    </div>
+                           <form action="/user/detailsUpdate" method="post">
+                               <div class="div-form">
+                                   <label for="username-input">Votre nom d'utilisateur :</label>
+                                   <input type="text" id="username-input" name="username" value="$this->username" autocomplete="username" maxlength="64" required>
+                               </div>
+                               
+                               <div class="div-form">
+                                   <label for="email-input">Votre adresse e-mail :</label>
+                                   <input type="email" id="email-input" name="email" value="$this->email" autocomplete="email" maxlength="64" required>
+                               </div>
+                                
+                               <input type="submit" value="Valider" class="submit-button"> 
+                           </form>
+                       </div>
 
                HTML;
         }
@@ -137,9 +137,9 @@
         private function echo_password_change_card(): void {
             echo <<<'HTML'
                     <div class="card">
-                        <!-- Form for changing password -->
                         <h2>Changez votre mot de passe :</h2>
                         
+                        <!-- Form for changing password -->
                         <form id="form-modif-pwd" action="/user/passwordUpdate" method="post">
                             <div class="div-form">
                                <label for="old-pwd">Mot de passe actuel :</label>
@@ -156,7 +156,7 @@
                                <input type="password" id="new-pwd-bis" name="newPasswordConfirmation" autocomplete="new-password" maxlength="128" required>
                             </div>
                             
-                            <input type="submit" value="Valider" id="submit-pwd-change"> 
+                            <input type="submit" value="Valider" class="submit-button"> 
                         </form>
                     </div>
 
@@ -168,15 +168,15 @@
          */
         private function echo_config_link(): void {
             echo <<<HTML
-                    <!-- Config card -->
-                    <div class="card">
-                        <h2>Configuration du site</h2>
-                        
-                        <div id="config-link-container">
-                            <span class="material-icons unselectable">arrow_forward</span>
-                            <a href="/config">Cliquez ici pour configurer votre site internet</a>
-                        </div>
-                    </div>
+                       <!-- Config card -->
+                       <div class="card">
+                           <h2>Configuration du site</h2>
+                            
+                           <div id="config-link-container">
+                               <span class="material-icons unselectable">arrow_forward</span>
+                               <a href="/config">Cliquez ici pour configurer votre site internet</a>
+                           </div>
+                       </div>
 
                HTML;
         }
@@ -191,6 +191,7 @@
                         <p>Mais si vous le souhaitez réellement, vous pouvez le faire ici.</p>
                         <p id="delete-account-button" class="button-like unselectable" role="button" data-micromodal-trigger="modal-account-deletion"><span class="material-icons">delete</span>Supprimer mon compte</p>
                     </div>
+
             HTML;
         }
 

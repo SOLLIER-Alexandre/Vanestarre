@@ -32,9 +32,9 @@
                             <input type="submit" name="envoie" class="submit-button" value="Créer votre compte">
                         </form>
                         
-                    <div/>
-            HTML;
+                    </div>
 
+            HTML;
         }
     }
 ?>

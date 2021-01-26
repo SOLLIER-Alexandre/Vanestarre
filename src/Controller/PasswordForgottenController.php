@@ -58,7 +58,7 @@
          * @inheritDoc
          */
         public function get_title(): string {
-            return 'password forgotten';
+            return 'Mot de passe oublié';
         }
 
         /**

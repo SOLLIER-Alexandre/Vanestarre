@@ -397,7 +397,7 @@
                             <div class="modal-container card" role="dialog" aria-modal="true" aria-labelledby="modal-edit-message-title">
                                 <header class="dialog-header">
                                     <h2 id="modal-edit-message-title">Editer un message</h2>
-                                    <span class="material-icons button-like unselectable" aria-label="Close modal" data-micromodal-close>close</span>
+                                    <span class="material-icons button-like unselectable" data-micromodal-close>close</span>
                                 </header>
                         
                                 <div>
