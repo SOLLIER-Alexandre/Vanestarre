@@ -88,9 +88,14 @@
                 $this->echo_error_box();
             }
 
-            if ($this->has_authoring_tools) {
-                // Output message writer if connected user is an author
+            if ($this->has_authoring_tools && !isset($this->search_query)) {
+                // Output message writer if connected user is an author and there is no search query going on
                 $this->echo_message_writer();
+            }
+
+            if (isset($this->search_query)) {
+                // Output the search query message if there's a search going on
+                $this->echo_search_query();
             }
 
             // Output every message
@@ -207,6 +212,15 @@
             $this->echo_message_post_form('send-message', false);
 
             echo '        </div>' . PHP_EOL;
+        }
+
+        /**
+         * Outputs a message containing the current search query
+         */
+        private function echo_search_query(): void {
+            echo <<<HTML
+                <h2>Résultats de la recherche "$this->search_query"</h2>
+            HTML;
         }
 
         /**
