@@ -44,7 +44,7 @@
                         <p>Vous avez oublié votre mot de passe ?</p>
                         <p>Indiquez l'addresse email avec laquelle vous avez créé votre compte pour réinitialiser votre mot de passe :</p>
                                 
-                        <form action="/user/passwordForgottenMessage" method="post">
+                        <form action="/user/passwordForgotten" method="post">
                             <input type="text" name="mail" autocomplete="email" maxlength="64" required/>                        
                             <input type="submit" name="reset" class="submit-button" value="Réinitialiser">
                         </form>                    

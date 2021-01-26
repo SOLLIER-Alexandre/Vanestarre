@@ -74,16 +74,16 @@
             $controller = new Controller\User\UserLogoutController();
             break;
 
+        case '/user/passwordForgotten':
+            $controller = new Controller\User\UserPasswordForgottenController();
+            break;
+
         case '/user/passwordUpdate':
             $controller = new Controller\User\UserPasswordUpdateController();
             break;
 
         case '/user/detailsUpdate':
             $controller = new Controller\User\UserDetailsUpdateController();
-            break;
-
-        case '/passwordForgotten':
-            $controller = new Controller\PasswordForgottenController();
             break;
 
         case '/config/update':
@@ -98,12 +98,12 @@
             $controller = new Controller\LoginController();
             break;
 
-        case '/account':
-            $controller = new Controller\AccountController();
+        case '/passwordForgotten':
+            $controller = new Controller\PasswordForgottenController();
             break;
 
-        case '/user/passwordForgottenMessage':
-            $controller = new Controller\User\UserPasswordForgottenController();
+        case '/account':
+            $controller = new Controller\AccountController();
             break;
 
         case '/config':

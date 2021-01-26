@@ -4,6 +4,7 @@
 
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseUpdateException;
+    use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\MessagesDB;
 
     /**
@@ -21,7 +22,10 @@
          */
         public function execute() {
             session_start();
-            if ($_SESSION['current_user'] !== 0) {
+            $auth_db = new AuthDB();
+            $connected_user = $auth_db->get_logged_in_user();
+
+            if (!isset($connected_user) || $connected_user->get_id() !== 0) {
                 // User is not authorized
                 http_response_code(401);
                 header('Location: /unauthorized');

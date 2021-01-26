@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller;
 
     use Vanestarre\Model\AuthDB;
+    use Vanestarre\Model\User;
     use Vanestarre\View\AccountView;
 
     /**
@@ -21,10 +22,20 @@
         private $view;
 
         /**
+         * @var User|null Currently connected user
+         */
+        private $connected_user;
+
+        /**
          * AccountController constructor.
          */
         public function __construct() {
             $this->view = new AccountView();
+
+            // Get the currently connected user
+            session_start();
+            $auth_db = new AuthDB();
+            $this->connected_user = $auth_db->get_logged_in_user();
         }
 
         /**
@@ -86,8 +97,7 @@
          * @inheritDoc
          */
         public function needs_standard_layout(): bool {
-            session_start();
-            return isset($_SESSION['current_user']);
+            return isset($this->connected_user);
         }
     }
 ?>

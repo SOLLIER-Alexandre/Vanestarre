@@ -3,9 +3,11 @@
     namespace Vanestarre\Controller;
 
     use Vanestarre\Exception\DatabaseSelectException;
+    use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\Message;
     use Vanestarre\Model\MessagesDB;
     use Vanestarre\Model\SearchDB;
+    use Vanestarre\Model\User;
     use Vanestarre\Model\VanestarreConfig;
     use Vanestarre\View\HomeView;
 
@@ -25,10 +27,20 @@
         private $view;
 
         /**
+         * @var User|null Currently connected user
+         */
+        private $connected_user;
+
+        /**
          * AccountController constructor.
          */
         public function __construct() {
             $this->view = new HomeView();
+
+            // Get the currently connected user
+            session_start();
+            $auth_db = new AuthDB();
+            $this->connected_user = $auth_db->get_logged_in_user();
         }
 
         /**
@@ -36,9 +48,10 @@
          */
         public function execute() {
             // Check if the user is an author
-            session_start();
-            $this->view->set_is_connected(isset($_SESSION['current_user']));
-            $this->view->set_has_authoring_tools($_SESSION['current_user'] === 0);
+            if (isset($this->connected_user)) {
+                $this->view->set_is_connected(true);
+                $this->view->set_has_authoring_tools($this->connected_user->get_id() === 0);
+            }
 
             if (isset($_GET['query'])) {
                 // User is searching for something
@@ -98,13 +111,13 @@
             // Set messages to the view
             $this->view->set_messages($messages);
 
-            if (isset($_SESSION['current_user'])) {
+            if (isset($this->connected_user)) {
                 // There is a connected user, get its reactions
                 $message_ids = array_map(function (Message $item) {
                     return $item->get_id();
                 }, $messages);
 
-                $this->view->set_user_reactions($message_db->get_reactions($_SESSION['current_user'], $message_ids));
+                $this->view->set_user_reactions($message_db->get_reactions($this->connected_user->get_id(), $message_ids));
             }
         }
 

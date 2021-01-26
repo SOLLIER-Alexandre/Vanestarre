@@ -2,6 +2,8 @@
 
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Model\AuthDB;
+    use Vanestarre\Model\User;
     use Vanestarre\View\PasswordForgottenView;
 
     /**
@@ -20,16 +22,33 @@
         private $view;
 
         /**
+         * @var User|null Currently connected user
+         */
+        private $connected_user;
+
+        /**
          * PasswordForgottenController constructor.
          */
         public function __construct() {
             $this->view = new PasswordForgottenView();
+
+            // Get the currently connected user
+            session_start();
+            $auth_db = new AuthDB();
+            $this->connected_user = $auth_db->get_logged_in_user();
         }
 
         /**
          * @inheritDoc
          */
         public function execute() {
+            if (isset($this->connected_user)) {
+                // User is already logged in
+                http_response_code(401);
+                header('Location: /account');
+                return;
+            }
+
             // Output the view contents
             $this->view->set_show_confirmation(isset($_GET['confirm']));
             $this->view->echo_contents();

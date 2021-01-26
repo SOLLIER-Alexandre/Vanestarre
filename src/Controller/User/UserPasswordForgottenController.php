@@ -4,7 +4,6 @@
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\DatabaseUpdateException;
-    use Vanestarre\View\UserPasswordForgottenView;
     use Vanestarre\Model\AuthDB;
 
     /**
@@ -21,6 +20,17 @@
          * @inheritDoc
          */
         public function execute() {
+            session_start();
+            $auth_db = new AuthDB();
+            $connected_user = $auth_db->get_logged_in_user();
+
+            if (isset($connected_user)) {
+                // User is already logged in
+                http_response_code(401);
+                header('Location: /account');
+                return;
+            }
+
             // Output the view contents
             $id = NULL;
             $email = $_POST['mail'];

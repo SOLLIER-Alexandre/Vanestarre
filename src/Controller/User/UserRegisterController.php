@@ -30,7 +30,10 @@
          */
         public function execute() {
             session_start();
-            if (isset($_SESSION['current_user'])) {
+            $auth_db = new AuthDB();
+            $connected_user = $auth_db->get_logged_in_user();
+
+            if (isset($connected_user)) {
                 // User is already logged in
                 http_response_code(401);
                 header('Location: /account');
