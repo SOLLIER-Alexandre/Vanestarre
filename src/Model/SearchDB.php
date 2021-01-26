@@ -4,10 +4,6 @@
 
     use DateTimeImmutable;
     use mysqli;
-    use mysqli_stmt;
-    use Vanestarre\Exception\DatabaseDeleteException;
-    use Vanestarre\Exception\DatabaseInsertException;
-    use Vanestarre\Exception\DatabaseSelectException;
 
     /**
      * Class SearchDB
@@ -28,9 +24,11 @@
          * SearchDB constructor. Connects SearchDB to the database.
          */
         public function __construct(){
-            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
+                                        '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
             if (mysqli_connect_errno()) {
-                throw new Error("Echec lors de la connexion à la base de données : " . mysqli_connect_error());
+                throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : " . 
+                                                        mysqli_connect_error());
             }
         }
 
@@ -45,15 +43,18 @@
         /**
          * Get messages with a specific tag
          * @param string $tag The tag (a word after β symbol) to find
+         * @param int $limit Number max of messages to return
+         * @param int $offset Offset of the query
          * @return array Messages with the tag
          * @throws DatabaseSelectException
          */
-        public function get_messages_from_search(string $tag, $limit, $offset): array {
+        public function get_messages_from_search(string $tag, int $limit, int $offset): array {
             $messDB = new MessagesDB();
             $first_part_of_query_param = '%β';
             $end_of_query_param = '%';
             $query_param = $first_part_of_query_param . $tag . $end_of_query_param;
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, reactions_for_donations, image_link FROM MESSAGES WHERE content LIKE ? ORDER BY date DESC LIMIT ? OFFSET ?');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, reactions_for_donations, image_link ' . 
+                                                    'FROM MESSAGES WHERE content LIKE ? ORDER BY date DESC LIMIT ? OFFSET ?');
             $prepared_query->bind_param('sii', $query_param, $limit, $offset);
             $prepared_query->execute();
             $result = $prepared_query->get_result();
@@ -65,7 +66,9 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $messDB->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], new DateTimeImmutable($row['date']), $row['reactions_for_donations'], $message_reactions, $row['image_link']));
+                    array_push($messages_list, new Message($row['message_id'], $row['content'], 
+                                new DateTimeImmutable($row['date']), $row['reactions_for_donations'], 
+                                $message_reactions, $row['image_link']));
                 }
                 return $messages_list;
             }
@@ -79,7 +82,6 @@
          * @throws DatabaseSelectException
          */
         public function count_messages_with_tag(string $tag): int{
-            $messDB = new MessagesDB();
             $first_part_of_query_param = '%β';
             $end_of_query_param = '%';
             $query_param = $first_part_of_query_param . $tag . $end_of_query_param;

@@ -29,9 +29,11 @@
          * AuthDB constructor. Connects AuthDB to the database.
          */
         public function __construct(){
-            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
+                                        '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
             if (mysqli_connect_errno()) {
-                throw new Error("Echec lors de la connexion à la base de données : " . mysqli_connect_error());
+                throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : " . 
+                                                    mysqli_connect_error());
             }
         }
 
@@ -51,7 +53,8 @@
          * @throws DatabaseInsertException
          */
         public function add_user(string $username, string $email, string $password): int {
-            $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) VALUES (NOW(),?,?,?)');
+            $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) ' . 
+                                                    'VALUES (NOW(),?,?,?)');
             $prepared_query->bind_param('sss', $email, $password, $username);
 
             if (!$prepared_query->execute()) {
@@ -88,7 +91,9 @@
             if ($result) {
                 $user_data = $result->fetch_assoc();
                 if (isset($user_data)) {
-                    return new User($user_data['user_id'], $user_data['username'], $user_data['email'], $user_data['password'], new DateTimeImmutable($user_data['registration_date']));
+                    return new User($user_data['user_id'], $user_data['username'], 
+                                    $user_data['email'], $user_data['password'], 
+                                    new DateTimeImmutable($user_data['registration_date']));
                 }
             }
 
@@ -207,7 +212,9 @@
             } else {
                 $user_list = array();
                 while($row = $result->fetch_assoc()){
-                    array_push($user_list, new User($row['user_id'], $row['username'], $row['email'], $row['password'], $row['registration_date']));
+                    array_push($user_list, new User($row['user_id'], 
+                                $row['username'], $row['email'], 
+                                $row['password'], $row['registration_date']));
                 }
                 return $user_list;
             }
