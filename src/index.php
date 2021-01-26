@@ -86,6 +86,10 @@
             $controller = new Controller\User\UserDetailsUpdateController();
             break;
 
+        case '/user/delete':
+            $controller = new Controller\User\UserDeleteController();
+            break;
+
         case '/config/update':
             $controller = new Controller\Config\ConfigUpdateController();
             break;
