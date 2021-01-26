@@ -23,6 +23,13 @@ Présentation du projet :
     éventuellement d'une image.
 
 Choix techniques :
+    - Mesures de sécurité pour le mot de passe : Le mot de passe est stocké hashé dans
+      la base de données à l'aide de la fonction password_hash() de PHP qui utilise un
+      algorithme de hashage moderne. Cette fonction s'occupe aussi automatiquement du
+      salting.
+      Le site web est configuré pour upgrade les connexions HTTP vers HTTPS afin que
+      la transmission du mot de passe vers le serveur soit plus compliquée à être
+      interceptée sur le réseau.
     - Nous avons choisi de router toutes les requêtes vers le fichier index.php
       afin d'avoir une cohérence sur la présentation de toutes les pages du site
       web, de pouvoir présenter une URL "propre" a l'utilisateur (sans extension

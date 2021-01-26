@@ -93,6 +93,10 @@
                     echo '            <p>Le mot de passe actuel est incorrect</p>' . PHP_EOL;
                     break;
 
+                case 30:
+                    echo '            <p>Votre compte n\'a pas pu petre supprimé</p>' . PHP_EOL;
+                    break;
+
                 default:
                     echo '            <p>Une erreur inconnue s\'est produite</p>' . PHP_EOL;
             }
