@@ -41,28 +41,23 @@
             // Output the correct message
             switch ($this->err_id) {
                 case 1:
-                    echo '            <p>Votre mot de passe est trop court (5 caractères minimums)</p>' . PHP_EOL;
+                    echo '            <p>Votre mot de passe est trop court (5 caractères minimum)</p>' . PHP_EOL;
                     break;
 
                 case 2:
-                    echo '            <p>L\'username est déjà pris</p>' . PHP_EOL;
-                    break;
-
-                case 3:
                     echo '            <p>L\' email est invalide</p>' . PHP_EOL;
                     break;
 
+                case 3:
+                    echo '            <p>L\' username ou l\' email a déjà été utilisé</p>' . PHP_EOL;
+                    break;
+
                 case 4:
-                    echo '            <p>Erreur lors de l\'inscription. Veuillez réessayer</p>' . PHP_EOL;
+                    echo '            <p>Erreur lors de l\' inscription. Veuillez réessayer</p>' . PHP_EOL;
                     break;
-
-                case 5:
-                    echo '            <p>Un ou plusieurs paramètres sont invalides</p>' . PHP_EOL;
-                    break;
-
 
                 default:
-                    echo '            <p>Une erreur inconnue s\'est produite. Veuillez réessayer</p>' . PHP_EOL;
+                    echo '            <p>Une erreur inconnue s\' est produite. Veuillez réessayer</p>' . PHP_EOL;
                     break;
             }
 

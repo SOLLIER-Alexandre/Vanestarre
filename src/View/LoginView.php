@@ -74,7 +74,7 @@
                             <input type="submit" class="login-button" id="login-input-trigger" value="Login">
                         </form>
                         <a href="/register" class="create-account-button">Create an account</a>
-                    <div/>
+                    </div>
             HTML;
         }
     }

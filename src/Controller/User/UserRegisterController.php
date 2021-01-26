@@ -54,14 +54,9 @@
                 $redirect_route = '/register?err=1';
             }
 
-            //the username already exist
-            else if($auth_db->get_user_data_by_username($username) !== NULL) {
-                $redirect_route = '/register?err=2';
-            }
-
             //the email isn't the right format
             else if(filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
-                $redirect_route = '/register?err=3';
+                $redirect_route = '/register?err=2';
             }
 
             else if (isset($username) && isset($password) && isset($email) &&
@@ -75,12 +70,12 @@
                     $_SESSION["current_user"] = $user_id;
                 } catch (DatabaseInsertException $exception) {
                     // Couldn't register the user
-                    $redirect_route = '/register?err=4';
+                    $redirect_route = '/register?err=3';
                     http_response_code(400);
                 }
             } else {
                 // One of the parameter was malformed
-                $redirect_route = '/register?err=5';
+                $redirect_route = '/register?err=4';
                 http_response_code(400);
             }
 
