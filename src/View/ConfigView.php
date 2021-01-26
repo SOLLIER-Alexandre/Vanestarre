@@ -1,48 +1,48 @@
 <?php
-    namespace Vanestarre\View;
+namespace Vanestarre\View;
+
+/**
+ * Class ConfigView
+ *
+ * Config page for Vanestarre
+ *
+ * @author CHATEAUX Adrien
+ * @package Vanestarre\View
+ */
+class ConfigView implements IView
+{
+    /**
+     * @var int $messages_par_page The default value for the "nbr-messages-par-page" input
+     */
+    private $messages_par_page;
 
     /**
-     * Class ConfigView
-     *
-     * Config page for Vanestarre
-     *
-     * @author CHATEAUX Adrien
-     * @package Vanestarre\View
+     * @var int $min_reaction_event The default value for the "nbr-min-react-pour-event" input
      */
-    class ConfigView implements IView
-    {
-        /**
-         * @var int $messages_par_page The default value for the "nbr-messages-par-page" input
-         */
-        private $messages_par_page;
+    private $min_reaction_event;
 
-        /**
-         * @var int $min_reaction_event The default value for the "nbr-min-react-pour-event" input
-         */
-        private $min_reaction_event;
+    /**
+     * @var int $max_reaction_event The default value for the "nbr-max-react-pour-event" input
+     */
+    private $max_reaction_event;
 
-        /**
-         * @var int $max_reaction_event The default value for the "nbr-max-react-pour-event" input
-         */
-        private $max_reaction_event;
+    /**
+     * AccountView constructor.
+     * @param int $messages_par_page The default value for the "nbr-messages-par-page" input
+     * @param int $min_reaction_event The default value for the "nbr-min-react-pour-event" input
+     * @param int $max_reaction_event The default value for the "nbr-max-react-pour-event" input
+     */
+    public function __construct(int $messages_par_page, int $min_reaction_event, int $max_reaction_event) {
+        $this->messages_par_page = $messages_par_page;
+        $this->min_reaction_event = $min_reaction_event;
+        $this->max_reaction_event = $max_reaction_event;
+    }
 
-        /**
-         * AccountView constructor.
-         * @param int $messages_par_page The default value for the "nbr-messages-par-page" input
-         * @param int $min_reaction_event The default value for the "nbr-min-react-pour-event" input
-         * @param int $max_reaction_event The default value for the "nbr-max-react-pour-event" input
-         */
-        public function __construct(int $messages_par_page, int $min_reaction_event, int $max_reaction_event) {
-            $this->messages_par_page = $messages_par_page;
-            $this->min_reaction_event = $min_reaction_event;
-            $this->max_reaction_event = $max_reaction_event;
-        }
-
-        /**
-         * @inheritDoc
-         */
-        public function echo_contents(): void {
-            echo <<<HTML
+    /**
+     * @inheritDoc
+     */
+    public function echo_contents(): void {
+        echo <<<HTML
                     <!-- Configuration card -->
                     <div class="card" id="configuration-card">
                         <h2>Bonjour Vanéstarre</h2>
@@ -94,8 +94,12 @@
                                 </div>   
                                 <div class="hidden-line">
                                     <form id="form-modif-membre" action="/config/changemember">
-                                        <input type="text" id="new-username" name="new-username">
-                                        <input type="text" id="new-email-adress" name="new-email-adress">
+                                        <input type="text" class="new-username" name="new-username">
+                                        <input type="text" class="new-email-address" name="new-email-address">
+                                        <span class="material-icons button-like unselectable ">done</span>
+                                        <div class="delete">
+                                            <span class="material-icons button-like unselectable">delete</span>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -103,6 +107,8 @@
                     </div>
 
             HTML;
-        }
     }
+}
 ?>
+
+

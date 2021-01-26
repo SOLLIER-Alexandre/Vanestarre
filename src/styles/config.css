@@ -37,7 +37,7 @@ label {
 .table-line {
     width: 100%;
     margin-bottom: 2px;
-    border: #7E7E7E 1px solid;
+    /*border: #7E7E7E 1px solid;*/
 }
 
 .text-box {
@@ -51,11 +51,33 @@ label {
     width: 100%;
 }
 
+.hidden-line {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .arrow-down {
     display: flex;
     width: 100%;
     justify-content: flex-end;
     align-items: center;
+}
+
+.delete {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.new-username {
+    margin-right: 5px;
+}
+
+.new-email-address {
+    margin-right: 5px;
 }
 
 #submit-config-change {
@@ -83,5 +105,12 @@ label {
 #members-table {
     display: flex;
     border: #7E7E7E 1px solid;
-    padding: 2px 2px 20px 2px;
+    padding: 5px 5px 20px 5px;
+    flex-direction: column;
+}
+
+#form-modif-membre {
+    display: flex;
+    align-content: center;
+    width: 100%;
 }
