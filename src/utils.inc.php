@@ -58,8 +58,6 @@
         HTML;
     }
 
-    ;
-
     /**
      * Echoes the end of a regular HTML document (started with the start_page() function)
      */

@@ -174,8 +174,8 @@
             });
 
             // Set the URL and body
-            let xhrUrl = null;
-            let xhrBody = null;
+            let xhrUrl;
+            let xhrBody;
 
             if (isUnreacting) {
                 // Un-react endpoint
