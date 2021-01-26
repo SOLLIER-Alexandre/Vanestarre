@@ -12,6 +12,11 @@ p {
     text-align: center;
 }
 
+.error {
+    color: #e45353;
+    align-content: center;
+}
+
 .login-box {
     justify-content: center;
     align-items: center;
@@ -43,7 +48,7 @@ p {
     border: none;
     color: #f2f2f2;
     background-color: #8f23bb;
-    margin-top: 5%;
+    margin-top: 10%;
     padding: 20px;
     font-size: 16px;
     font-family: Arial, sans-serif;
@@ -59,7 +64,6 @@ p {
 .forgotten-password {
     color: #6EABD8;
     margin-top: 1%;
-    text-decoration: underline;
     text-align: center;
 }
 

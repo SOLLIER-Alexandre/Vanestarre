@@ -49,6 +49,11 @@
                 return;
             }
 
+            // Check for err code in the get parameters
+            if (is_numeric($_GET['err'])) {
+                $this->view->set_err_id(intval($_GET['err']));
+            }
+
             // Output the View contents
             // TODO: Handle login error
             $this->view->echo_contents();
