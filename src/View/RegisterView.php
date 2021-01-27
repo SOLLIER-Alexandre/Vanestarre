@@ -83,7 +83,7 @@
                             <input type="email" name="email" class="input-zone" autocomplete="email" maxlength="64" required/><br/>
                             
                             <label>Mot de passe :</label>
-                            <input type="password" name="mdp" class="input-zone" autocomplete="current-password" maxlength="128" required/><br/>
+                            <input type="password" name="mdp" class="input-zone" autocomplete="current-password" minlength="5" maxlength="128" required/><br/>
 
             HTML;
             if(isset($this->err_id)) {

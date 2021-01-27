@@ -93,6 +93,10 @@
                     echo '            <p>Le mot de passe actuel est incorrect</p>' . PHP_EOL;
                     break;
 
+                case 14:
+                    echo '            <p>Le nouveau mot de passe est trop court (5 caractères minimum)</p>' . PHP_EOL;
+                    break;
+
                 case 30:
                     echo '            <p>Votre compte n\'a pas pu petre supprimé</p>' . PHP_EOL;
                     break;
@@ -148,12 +152,12 @@
                             
                             <div class="div-form">
                                <label for="new-pwd">Nouveau mot de passe :</label>
-                               <input type="password" id="new-pwd" name="newPassword" autocomplete="new-password" maxlength="128" required>
+                               <input type="password" id="new-pwd" name="newPassword" autocomplete="new-password" minlength="5" maxlength="128" required>
                             </div>
                             
                             <div class="div-form">
                                <label for="new-pwd-bis">Confirmation du nouveau mot de passe :</label>
-                               <input type="password" id="new-pwd-bis" name="newPasswordConfirmation" autocomplete="new-password" maxlength="128" required>
+                               <input type="password" id="new-pwd-bis" name="newPasswordConfirmation" autocomplete="new-password" minlength="5" maxlength="128" required>
                             </div>
                             
                             <input type="submit" value="Valider" class="submit-button"> 

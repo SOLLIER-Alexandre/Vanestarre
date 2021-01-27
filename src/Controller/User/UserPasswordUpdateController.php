@@ -35,7 +35,10 @@
 
             $redirect_route = '/account?status=1';
 
-            if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
+            if (mb_strlen($_POST['newPassword']) < 5) {
+                // The password is too short
+                $redirect_route = '/account?status=14';
+            } else if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
                 mb_strlen($_POST['oldPassword']) <= 128 && mb_strlen($_POST['newPassword']) <= 128) {
                 if ($_POST['newPassword'] === $_POST['newPasswordConfirmation']) {
                     if (password_verify($_POST['oldPassword'], $connected_user->get_password())) {

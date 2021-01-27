@@ -54,27 +54,16 @@
             $email = $_POST['email'];
 
             // Check posted values
-
-            //the password is too short
-            if(strlen($password) < 5) {
+            if (mb_strlen($password) < 5) {
+                // The password is too short
                 $redirect_route = '/register?err=1';
-            }
-
-            //the email isn't the right format
-            else if(filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
+            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                // The email isn't the right format
                 $redirect_route = '/register?err=2';
-            }
-
-            else if (isset($username) && isset($password) && isset($email) &&
-                filter_var($email, FILTER_VALIDATE_EMAIL) &&
+            } else if (isset($username) && isset($password) && isset($email) &&
                 mb_strlen($username) <= 64 && mb_strlen($password) <= 128 && mb_strlen($email) <= 64) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                try {
-                    $auth_db = new AuthDB();
-                } catch (DatabaseConnectionException $exception) {
-                    //couldn't connect to the database
-                    http_response_code(400);
-                }
+                $auth_db = new AuthDB();
 
                 try {
                     $user_id = $auth_db->add_user($username, $email, $hashed_password);
