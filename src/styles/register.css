@@ -4,7 +4,12 @@
  * @author RADJA Samy
  */
 
+main {
+    justify-content: center;
+}
+
 h2 {
+    margin: 0;
     color: #FFFFFFDE;
 }
 
@@ -12,16 +17,12 @@ label {
     display: flex;
 }
 
-.register-box {
-    margin: 50px auto auto auto;
-}
-
 .card {
     display: flex;
     width: 100%;
     max-width: 768px;
     box-sizing: border-box;
-    padding: 0 16px 16px;
+    padding: 16px;
 }
 
 .input-zone {
