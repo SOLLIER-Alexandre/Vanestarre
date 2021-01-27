@@ -3,7 +3,7 @@
     namespace Vanestarre\Model;
 
     use DateTimeImmutable;
-    use Error;
+    use Exception;
     use mysqli;
     use Vanestarre\Exception\DatabaseDeleteException;
     use Vanestarre\Exception\DatabaseInsertException;
@@ -29,6 +29,7 @@
 
         /**
          * MessagesDB constructor. Connects MessagesDB to the database.
+         * @throws DatabaseConnectionException
          */
         public function __construct(){
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
@@ -68,9 +69,13 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $this->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], 
-                                new DateTimeImmutable($row['date']), $row['reactions_for_donations'], 
-                                $message_reactions, $row['image_link']));
+                    try{
+                        array_push($messages_list, new Message($row['message_id'], $row['content'],
+                            new DateTimeImmutable($row['date']), $row['reactions_for_donations'],
+                            $message_reactions, $row['image_link']));
+                    } catch(Exception $exception) {
+                        throw new DatabaseSelectException();
+                    }
                 }
 
                 return $messages_list;
@@ -133,8 +138,8 @@
 
             // Prepare the query
             $ids_param = str_repeat('?, ', count($message_ids) - 1) . '?';
-            $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS 
-                                                    WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
+            $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS ' .
+                                                    'WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
             $prepared_query->bind_param('i' . str_repeat('i', count($message_ids)), $user_id, ...$message_ids);
             $prepared_query->execute();
 

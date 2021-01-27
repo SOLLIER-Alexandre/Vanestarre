@@ -2,7 +2,7 @@
     namespace Vanestarre\Model;
 
     use DateTimeImmutable;
-    use Error;
+    use Exception;
     use mysqli;
     use mysqli_stmt;
     use Vanestarre\Exception\DatabaseDeleteException;
@@ -28,6 +28,7 @@
 
         /**
          * AuthDB constructor. Connects AuthDB to the database.
+         * @throws DatabaseConnectionException
          */
         public function __construct(){
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
@@ -91,11 +92,16 @@
 
             if ($result) {
                 $user_data = $result->fetch_assoc();
-                if (isset($user_data)) {
-                    return new User($user_data['user_id'], $user_data['username'], 
-                                    $user_data['email'], $user_data['password'], 
-                                    new DateTimeImmutable($user_data['registration_date']));
+                try{
+                    if (isset($user_data)) {
+                        return new User($user_data['user_id'], $user_data['username'],
+                            $user_data['email'], $user_data['password'],
+                            new DateTimeImmutable($user_data['registration_date']));
+                    }
+                } catch (Exception $exception){
+                    throw new DatabaseSelectException();
                 }
+
             }
 
             throw new DatabaseSelectException();
@@ -212,11 +218,16 @@
                 throw new DatabaseSelectException();
             } else {
                 $user_list = array();
-                while($row = $result->fetch_assoc()){
-                    array_push($user_list, new User($row['user_id'], 
-                                $row['username'], $row['email'], 
-                                $row['password'], $row['registration_date']));
+                try {
+                    while($row = $result->fetch_assoc()){
+                        array_push($user_list, new User($row['user_id'],
+                            $row['username'], $row['email'],
+                            $row['password'], new DateTimeImmutable($row['registration_date'])));
+                    }
+                } catch(Exception $exception) {
+                    throw new DatabaseSelectException();
                 }
+
                 return $user_list;
             }
         }

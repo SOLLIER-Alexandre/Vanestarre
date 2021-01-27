@@ -3,8 +3,10 @@
     namespace Vanestarre\Model;
 
     use DateTimeImmutable;
+    use Exception;
     use mysqli;
     use Vanestarre\Exception\DatabaseConnectionException;
+    use Vanestarre\Exception\DatabaseSelectException;
 
     /**
      * Class SearchDB
@@ -23,6 +25,7 @@
 
         /**
          * SearchDB constructor. Connects SearchDB to the database.
+         * @throws DatabaseConnectionException
          */
         public function __construct(){
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
@@ -67,9 +70,14 @@
                 while ($row = $result->fetch_assoc()) {
                     $message_reactions = new MessageReactions();
                     $messDB->get_message_reaction_count($row['message_id'], $message_reactions);
-                    array_push($messages_list, new Message($row['message_id'], $row['content'], 
-                                new DateTimeImmutable($row['date']), $row['reactions_for_donations'], 
-                                $message_reactions, $row['image_link']));
+                    try{
+                        array_push($messages_list, new Message($row['message_id'], $row['content'],
+                            new DateTimeImmutable($row['date']), $row['reactions_for_donations'],
+                            $message_reactions, $row['image_link']));
+                    } catch(Exception $exception) {
+                        throw new DatabaseSelectException();
+                    }
+
                 }
                 return $messages_list;
             }
