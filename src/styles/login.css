@@ -12,11 +12,6 @@ p {
     text-align: center;
 }
 
-hr {
-    margin-top: 16px;
-    width: 96%;
-}
-
 .error-text {
     color: #e45353;
 }
@@ -35,6 +30,7 @@ hr {
     color: #313131;
     background-color: #f2f2f2;
     margin-top: 16px;
+    margin-bottom: 10px;
     padding: 20px;
     width: 90%;
     font-size: 16px;

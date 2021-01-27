@@ -71,7 +71,8 @@
             echo <<< 'HTML'
                     <div class="card">
                         <h2>Créez un compte</h2> 
-                                
+                        <hr/>
+                         
                         <form action="/user/register" method="post">
                             <label>Identifiant :</label>
                             <input type="text" name="username" class="input-zone" autocomplete="username" maxlength="64" required/><br/>
