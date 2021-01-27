@@ -218,8 +218,12 @@
          * Outputs a message containing the current search query
          */
         private function echo_search_query(): void {
+            // Filter the search query before outputting it
+            $filtered_query = filter_var($this->search_query, FILTER_SANITIZE_SPECIAL_CHARS);
+
             echo <<<HTML
-                <h2>Résultats de la recherche <span class="search-query">$this->search_query</span></h2>
+                    <h2>Résultats de la recherche <span class="search-query">$filtered_query</span></h2>
+
             HTML;
         }
 

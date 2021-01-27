@@ -105,13 +105,8 @@ class ConfigView implements IView
                             <div class="table-line" data-user-id=$id>
                                 <!-- Information about user #$id -->
                                 <div class="shown-line">
-                                    <div class="text-box">
-                                        <p>$filtered_username</p>
-                                    </div>
-                                    
-                                    <div class="text-box">
-                                        <a href="mailto:$email">$email</a>
-                                    </div>
+                                    <span>$filtered_username</span>
+                                    <a href="mailto:$email">$email</a>
                                                                                                                                                                                  
                                     <div class="arrow-down">
                                         <span class="material-icons button-like unselectable arrow-down-icon">keyboard_arrow_down</span>

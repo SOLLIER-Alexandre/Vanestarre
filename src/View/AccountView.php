@@ -17,7 +17,7 @@
         private $username;
 
         /**
-         * @var string $mail_adress The mail adress of the user
+         * @var string $mail_adress The mail address of the user
          */
         private $email;
 

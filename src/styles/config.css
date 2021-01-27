@@ -6,12 +6,12 @@
 
 h2 {
     margin-top: 0;
-    color: white;
+    color: #FFFFFFDE;
 }
 
 h3 {
     display: inline;
-    color: white;
+    color: #FFFFFFDE;
 }
 
 label {
@@ -32,53 +32,6 @@ label {
     width: 100%;
     max-width: 768px;
     box-sizing: border-box;
-}
-
-.table-line {
-    width: 100%;
-    margin-bottom: 2px;
-}
-
-.table-line:nth-child(2n) {
-    background-color: #525252;
-}
-
-.text-box {
-    padding: 3px;
-    margin: 2px;
-}
-
-.shown-line {
-    display: flex;
-    width: 100%;
-}
-
-.hidden-line {
-    display: none;
-    width: 100%;
-    justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 5px;
-    padding-left: 5px;
-}
-
-.table-line.expanded > .hidden-line {
-    display: flex;
-}
-
-.arrow-down-icon {
-    transition: transform 500ms ease-in-out;
-}
-
-.table-line.expanded .arrow-down-icon {
-    transform: rotate(180deg);
-}
-
-.arrow-down {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: center;
 }
 
 .delete {
@@ -122,7 +75,7 @@ label {
 #submit-config-change:hover {
     cursor: pointer;
     transition: background-color 0.5s ease;
-    background-color: #dedede;
+    background-color: #DEDEDE;
 }
 
 #form-modif-config input[type="number"] {
@@ -136,12 +89,58 @@ label {
 #members-table {
     display: flex;
     border: #7E7E7E 1px solid;
-    padding: 5px 5px 20px 5px;
     flex-direction: column;
 }
 
 .form-modif-membre {
     display: flex;
     align-content: center;
-    width: 100%;
+}
+
+.shown-line {
+    display: flex;
+    flex-wrap: wrap;
+    color: #FFFFFFDE;
+}
+
+.shown-line > :first-child {
+    margin-right: 6px;
+}
+
+.shown-line > a {
+    color: #9C4ABD;
+}
+
+.hidden-line {
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.table-line {
+    padding: 6px 4px;
+}
+
+.table-line:nth-child(2n) {
+    background-color: #525252;
+}
+
+.table-line.expanded > .hidden-line {
+    display: flex;
+}
+
+.arrow-down {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.arrow-down-icon {
+    transition: transform 500ms ease-in-out;
+}
+
+.table-line.expanded .arrow-down-icon {
+    transform: rotate(180deg);
 }
