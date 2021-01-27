@@ -61,9 +61,11 @@
                         <img src="https://i.ibb.co/2P3H0nK/Vfor-Vanessa2.png" alt="Logo Vanestarre" class="login-image">
                         <p>Connectez vous, ou créez un compte !</p>
                                        
-                        <form action="/user/login" method="post" id="login-form">
-                            <input type="text" name="username" autocomplete="username" maxlength="16" required>
-                            <input type="password" name="mdp" autocomplete="current-password" maxlength="32" required>
+                        <form action="/user/login" method="post" class="login-form">
+                        
+                            <input type="text" class="input-zone" name="username" placeholder="Username" autocomplete="username" maxlength="16" required>
+                            
+                            <input type="password" class="input-zone" name="mdp" placeholder="Password" autocomplete="current-password" maxlength="32" required>
             HTML;
             echo '            <a href="/passwordForgotten" class="forgotten-password">mot de passe oublié ?</a>' . PHP_EOL;
             if(isset($this->err_id)) {
@@ -71,8 +73,9 @@
                 $this->echo_error();
             }
             echo <<<'HTML'
-                            <input type="submit" class="login-button" id="login-input-trigger" value="Login">
+                            <input type="submit" class="login-button" value="Login">
                         </form>
+                        <hr/>
                         <a href="/register" class="create-account-button">Create an account</a>
                     </div>
             HTML;
