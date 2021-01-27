@@ -12,6 +12,10 @@ label {
     display: flex;
 }
 
+.register-box {
+    margin: 50px auto auto auto;
+}
+
 .card {
     display: flex;
     width: 100%;

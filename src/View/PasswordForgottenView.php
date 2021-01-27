@@ -30,7 +30,7 @@
             if ($this->show_confirmation) {
                 echo <<< 'HTML'
                         <!-- Password reset confirmation card -->
-                        <div class="card">
+                        <div class="card forgotten-password-box">
                             <h2>Mail envoyé avec succès</h2>        
                             <hr>
                             
@@ -42,14 +42,16 @@
             } else {
                 echo <<< 'HTML'
                         <!-- Password reset card -->
-                        <div class="card">
-                            <h2>Mot de passe oublié ?</h2>        
+                        <div class="card forgotten-password-box">
+                            <h2>Mot de passe oublié ?</h2>    
+                            <hr/>
+                               
                             <p>Vous avez oublié votre mot de passe ?</p>
                             <p>Indiquez l'addresse email avec laquelle vous avez créé votre compte pour réinitialiser votre mot de passe :</p>
                                     
                             <form action="/user/passwordForgotten" method="post">
-                                <input type="text" name="mail" autocomplete="email" maxlength="64" required/>                        
-                                <input type="submit" name="reset" class="submit-button" value="Réinitialiser">
+                                <input type="text" class="input-zone" name="mail" autocomplete="email" maxlength="64" required/>                        
+                                <input type="submit" class="button-submit" name="reset" value="Réinitialiser">
                             </form>                    
                         </div>
 

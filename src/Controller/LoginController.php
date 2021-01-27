@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\User;
     use Vanestarre\View\LoginView;
@@ -34,7 +35,12 @@
 
             // Get the currently connected user
             session_start();
-            $auth_db = new AuthDB();
+            try {
+                $auth_db = new AuthDB();
+            } catch (DatabaseConnectionException $exception) {
+                //couldn't connect to the database
+                http_response_code(400);
+            }
             $this->connected_user = $auth_db->get_logged_in_user();
         }
 

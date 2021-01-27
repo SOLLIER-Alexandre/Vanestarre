@@ -63,7 +63,7 @@
                                        
                         <form action="/user/login" method="post" class="login-form">
                         
-                            <input type="text" class="input-zone" name="username" placeholder="Username" autocomplete="username" maxlength="16" required>
+                            <input type="text" class="input-zone" name="username" placeholder="Username" autocomplete="username" maxlength="32" required>
                             
                             <input type="password" class="input-zone" name="mdp" placeholder="Password" autocomplete="current-password" maxlength="32" required>
             HTML;

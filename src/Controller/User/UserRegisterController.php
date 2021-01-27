@@ -3,6 +3,7 @@
 
     use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Model\AuthDB;
 
@@ -30,7 +31,12 @@
          */
         public function execute() {
             session_start();
-            $auth_db = new AuthDB();
+            try {
+                $auth_db = new AuthDB();
+            } catch (DatabaseConnectionException $exception) {
+                //couldn't connect to the database
+                http_response_code(400);
+            }
             $connected_user = $auth_db->get_logged_in_user();
 
             if (isset($connected_user)) {
@@ -63,7 +69,12 @@
                 filter_var($email, FILTER_VALIDATE_EMAIL) &&
                 mb_strlen($username) <= 64 && mb_strlen($password) <= 128 && mb_strlen($email) <= 64) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $auth_db = new AuthDB();
+                try {
+                    $auth_db = new AuthDB();
+                } catch (DatabaseConnectionException $exception) {
+                    //couldn't connect to the database
+                    http_response_code(400);
+                }
 
                 try {
                     $user_id = $auth_db->add_user($username, $email, $hashed_password);

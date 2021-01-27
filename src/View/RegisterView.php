@@ -69,7 +69,7 @@
          */
         public function echo_contents() {
             echo <<< 'HTML'
-                    <div class="card">
+                    <div class="card register-box">
                         <h2>Créez un compte</h2> 
                         <hr/>
                          

@@ -2,6 +2,7 @@
     namespace Vanestarre\Controller\User;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Model\AuthDB;
@@ -21,7 +22,12 @@
          */
         public function execute() {
             session_start();
-            $auth_db = new AuthDB();
+            try {
+                $auth_db = new AuthDB();
+            } catch (DatabaseConnectionException $exception) {
+                //couldn't connect to the database
+                http_response_code(400);
+            }
             $connected_user = $auth_db->get_logged_in_user();
 
             if (isset($connected_user)) {
@@ -34,7 +40,12 @@
             // Output the view contents
             $id = NULL;
             $email = $_POST['mail'];
-            $auth_DB = new AuthDB();
+            try {
+                $auth_DB = new AuthDB();
+            } catch (DatabaseConnectionException $exception) {
+                //couldn't connect to the database
+                http_response_code(400);
+            }
 
             try {
                 $id = $auth_DB->get_id_from_email($email);

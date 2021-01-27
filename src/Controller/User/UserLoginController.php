@@ -4,6 +4,7 @@
 
     use Exception;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\IncorrectPasswordException;
     use Vanestarre\Exception\UnknownUsernameException;
@@ -25,7 +26,12 @@
          */
         public function execute(): void {
             session_start();
-            $auth_db = new AuthDB();
+            try {
+                $auth_db = new AuthDB();
+            } catch (DatabaseConnectionException $exception) {
+                //couldn't connect to the database
+                http_response_code(400);
+            }
             $connected_user = $auth_db->get_logged_in_user();
 
             if (isset($connected_user)) {
@@ -67,7 +73,12 @@
          * @throws IncorrectPasswordException
          */
         private function authenticate_user(string $username, string $password): void {
-            $login = new AuthDB();
+            try {
+                $login = new AuthDB();
+            } catch (DatabaseConnectionException $exception) {
+                //couldn't connect to the database
+                http_response_code(400);
+            }
 
             // Grab user hashed password
             try {
