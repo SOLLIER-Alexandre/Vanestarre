@@ -61,7 +61,6 @@
             }
 
             // Output the View contents
-            // TODO: Handle errors
             $this->view->echo_contents();
         }
 

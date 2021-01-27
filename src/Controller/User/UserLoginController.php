@@ -2,7 +2,6 @@
 
     namespace Vanestarre\Controller\User;
 
-    use Exception;
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseSelectException;
@@ -22,7 +21,6 @@
     {
         /**
          * @inheritDoc
-         * @throws Exception
          */
         public function execute(): void {
             session_start();

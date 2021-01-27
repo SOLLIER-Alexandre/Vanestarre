@@ -61,7 +61,6 @@
             }
 
             // Output the View contents
-            // TODO: Handle login error
             $this->view->echo_contents();
         }
 

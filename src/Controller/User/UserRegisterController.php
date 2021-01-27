@@ -1,7 +1,6 @@
 <?php
     namespace Vanestarre\Controller\User;
 
-    use Exception;
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseInsertException;
@@ -18,16 +17,8 @@
 
     class UserRegisterController implements IController
     {
-
-        /**
-         * RegisterController constructor.
-         */
-        public function __construct() {
-        }
-
         /**
          * @inheritDoc
-         * @throws Exception
          */
         public function execute() {
             session_start();

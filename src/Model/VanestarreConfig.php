@@ -128,3 +128,5 @@
             $this->set_love_lim_sup($configs['love_lim_sup']);
         }
     }
+
+    ?>

@@ -31,9 +31,8 @@
                 $connected_user = null;
             }
 
-            // Make sure it's not null
-            if (!isset($connected_user)) {
-                // User is not logged in
+            if (!isset($connected_user) || !isset($auth_db)) {
+                // User is not logged in or problem with the auth database
                 http_response_code(401);
                 header('Location: /');
                 return;
