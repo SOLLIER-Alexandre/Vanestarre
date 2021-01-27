@@ -219,7 +219,7 @@
          */
         private function echo_search_query(): void {
             echo <<<HTML
-                <h2>Résultats de la recherche "$this->search_query"</h2>
+                <h2>Résultats de la recherche <span class="search-query">$this->search_query</span></h2>
             HTML;
         }
 
@@ -228,10 +228,13 @@
          * @param Message $message Message to output
          */
         private function echo_message(Message $message): void {
-            // Check for tags in the message
+            // Filter the message
+            $filtered_message = filter_var($message->get_message(), FILTER_SANITIZE_SPECIAL_CHARS);
+
+            // Check for tags in the message, and replace them with search links
             $message_text = preg_replace_callback('/β\w+/m', function ($matches) {
                 return '<a href="/home?query=' . mb_substr($matches[0], 1) . '" class="post-tag">' . $matches[0] . '</a>';
-            }, $message->get_message());
+            }, $filtered_message);
 
             // Begin the message card
             echo '        <!-- Card for message #' . $message->get_id() . ' -->' . PHP_EOL;

@@ -47,9 +47,6 @@
 
             // Check that all values are correct
             if (isset($_POST['message']) && mb_strlen($_POST['message']) > 0 && mb_strlen($_POST['message']) <= 50) {
-                // Filter the message to prevent XSS
-                $filtered_message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
-
                 // Check if there was an image uploaded
                 $image_path = null;
                 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -58,7 +55,7 @@
 
                 // Try to post the message
                 try {
-                    $this->post_message($filtered_message, $image_path, $message_id);
+                    $this->post_message($_POST['message'], $image_path, $message_id);
                 } catch (MessageInsertionException $e) {
                     $redirect_route = '/home?err=2';
                     http_response_code(400);
