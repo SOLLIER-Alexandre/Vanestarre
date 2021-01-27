@@ -88,7 +88,7 @@ class ConfigView implements IView
      * Outputs the card to configure the website
      */
     private function echo_configuration_card(): void {
-        echo <<<'HTML'
+        echo <<<HTML
                 <!-- Configuration card -->
                 <div class="card" id="configuration-card">
                     <h2>Bonjour Vanéstarre</h2>
