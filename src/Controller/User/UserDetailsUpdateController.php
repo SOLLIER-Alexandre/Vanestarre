@@ -49,6 +49,7 @@
                 if ($connected_user->get_id() === 0 && is_numeric($_POST['userId'])) {
                     // Change details for another user than the connected one
                     $target_user_id = intval($_POST['userId']);
+                    $redirect_route = '/config';
                 }
 
                 try {

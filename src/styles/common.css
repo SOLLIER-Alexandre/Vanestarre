@@ -114,6 +114,11 @@ h1 {
     font-weight: normal;
 }
 
+hr {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .unselectable {
     -webkit-user-select: none;
     -moz-user-select: none;
