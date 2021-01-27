@@ -40,13 +40,13 @@
             if ($connected_user->get_id() === 0 && is_numeric($_POST['userId'])) {
                 // Delete another user than the connected one
                 $target_user_id = intval($_POST['userId']);
+                $redirect_route = '/config';
             }
 
             if ($target_user_id !== 0) {
                 try {
-                    // Try to delete and disconnect the current user
+                    // Try to delete the targeted user
                     $auth_db->delete_user($target_user_id);
-                    unset($_SESSION['current_user']);
                 } catch (DatabaseDeleteException $e) {
                     // Couldn't delete the user
                     $redirect_route = '/account?status=30';
