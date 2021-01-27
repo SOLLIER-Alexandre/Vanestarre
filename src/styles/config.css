@@ -18,6 +18,15 @@ label {
     display: flex;
 }
 
+#error-box-title {
+    display: flex;
+    align-items: center;
+}
+
+#error-box-title > .material-icons {
+    margin-right: 8px;
+}
+
 .text-line {
     margin-bottom: 16px;
 }

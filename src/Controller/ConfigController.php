@@ -64,6 +64,9 @@
                 // We should have been redirected to the /unauthorized location by now anyway
             }
 
+            // Set the error to the view if there is one
+            $this->view->set_show_error(isset($_GET['err']));
+
             // Output the view contents
             $this->view->echo_contents();
         }
