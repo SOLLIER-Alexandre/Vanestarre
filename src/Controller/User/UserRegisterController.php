@@ -33,12 +33,14 @@
             session_start();
             try {
                 $auth_db = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /register with an error
+                http_response_code(401);
+                header('Location: /register?err=10');
+                return;
             }
-            $connected_user = $auth_db->get_logged_in_user();
 
+            $connected_user = $auth_db->get_logged_in_user();
             if (isset($connected_user)) {
                 // User is already logged in
                 http_response_code(401);
@@ -63,7 +65,6 @@
             } else if (isset($username) && isset($password) && isset($email) &&
                 mb_strlen($username) <= 64 && mb_strlen($password) <= 128 && mb_strlen($email) <= 64) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $auth_db = new AuthDB();
 
                 try {
                     $user_id = $auth_db->add_user($username, $email, $hashed_password);

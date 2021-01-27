@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller\Message;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseDeleteException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\MessagesDB;
@@ -22,8 +23,13 @@
          */
         public function execute() {
             session_start();
-            $auth_db = new AuthDB();
-            $connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /unauthorized
+                $connected_user = null;
+            }
 
             if (!isset($connected_user) || $connected_user->get_id() !== 0) {
                 // User is not authorized
@@ -36,10 +42,10 @@
             $redirect_route = '/';
 
             if (is_numeric($_POST['messageId'])) {
-                $messages_db = new MessagesDB();
                 try {
+                    $messages_db = new MessagesDB();
                     $messages_db->delete_message(intval($_POST['messageId']));
-                } catch (DatabaseDeleteException $e) {
+                } catch (DatabaseConnectionException | DatabaseDeleteException $e) {
                     // The message couldn't be deleted
                     $redirect_route = '/home?err=11';
                     http_response_code(400);

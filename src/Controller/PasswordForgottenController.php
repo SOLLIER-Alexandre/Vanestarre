@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\User;
     use Vanestarre\View\PasswordForgottenView;
@@ -34,8 +35,13 @@
 
             // Get the currently connected user
             session_start();
-            $auth_db = new AuthDB();
-            $this->connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $this->connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Let the connected user be null
+                $this->connected_user = null;
+            }
         }
 
         /**

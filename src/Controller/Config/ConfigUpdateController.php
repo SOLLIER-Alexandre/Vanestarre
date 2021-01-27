@@ -2,6 +2,7 @@
     namespace Vanestarre\Controller\Config;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\VanestarreConfig;
 
@@ -20,8 +21,13 @@
          */
         public function execute() {
             session_start();
-            $auth_db = new AuthDB();
-            $connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /unauthorized
+                $connected_user = null;
+            }
 
             if (!isset($connected_user) || $connected_user->get_id() !== 0) {
                 // User is not authorized

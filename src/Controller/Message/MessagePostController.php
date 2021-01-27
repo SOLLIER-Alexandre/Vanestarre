@@ -3,6 +3,7 @@
 
     use CURLFile;
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Exception\ImageUploadException;
@@ -27,8 +28,13 @@
          */
         public function execute() {
             session_start();
-            $auth_db = new AuthDB();
-            $connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /unauthorized
+                $connected_user = null;
+            }
 
             if (!isset($connected_user) || $connected_user->get_id() !== 0) {
                 // User is not authorized
@@ -57,13 +63,20 @@
                 try {
                     $this->post_message($_POST['message'], $image_path, $message_id);
                 } catch (MessageInsertionException $e) {
+                    // Message couldn't be inserted
                     $redirect_route = '/home?err=2';
                     http_response_code(400);
                 } catch (MessageEditionException $e) {
+                    // Message couldn't be edited
                     $redirect_route = '/home?err=10';
                     http_response_code(400);
                 } catch (ImageUploadException $e) {
+                    // Attached image couldn't be uploaded
                     $redirect_route = '/home?err=20';
+                    http_response_code(400);
+                } catch (DatabaseConnectionException $e) {
+                    // Couldn't connect to the database
+                    $redirect_route = '/home?err=1';
                     http_response_code(400);
                 }
             } else {
@@ -120,6 +133,7 @@
          * @param string $message Message contents
          * @param string|null $image_path Path of the image to upload in the local filesystem, pass null for none
          * @param int|null $message_id ID of the message to edit, pass null to add a new one
+         * @throws DatabaseConnectionException
          * @throws ImageUploadException
          * @throws MessageEditionException
          * @throws MessageInsertionException

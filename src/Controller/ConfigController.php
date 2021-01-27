@@ -1,6 +1,8 @@
 <?php
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Exception\DatabaseConnectionException;
+    use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\User;
     use Vanestarre\Model\VanestarreConfig;
@@ -35,8 +37,13 @@
 
             // Get the currently connected user
             session_start();
-            $auth_db = new AuthDB();
-            $this->connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $this->connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Let the connected user be null
+                $this->connected_user = null;
+            }
         }
 
         /**
@@ -50,8 +57,12 @@
                 return;
             }
 
-            $auth_db = new AuthDB();
-            $this->view->set_users($auth_db->get_all_users());
+            try {
+                $auth_db = new AuthDB();
+                $this->view->set_users($auth_db->get_all_users());
+            } catch (DatabaseConnectionException | DatabaseSelectException $e) {
+                // We should have been redirected to the /unauthorized location by now anyway
+            }
 
             // Output the view contents
             $this->view->echo_contents();
