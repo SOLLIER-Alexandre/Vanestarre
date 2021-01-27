@@ -50,6 +50,9 @@
                 return;
             }
 
+            $auth_db = new AuthDB();
+            $this->view->set_users($auth_db->get_all_users());
+
             // Output the view contents
             $this->view->echo_contents();
         }

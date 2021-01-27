@@ -27,6 +27,11 @@ class ConfigView implements IView
     private $max_reaction_event;
 
     /**
+     * @var array $users The list of all existing users
+     */
+    private $users;
+
+    /**
      * AccountView constructor.
      * @param int $messages_par_page The default value for the "nbr-messages-par-page" input
      * @param int $min_reaction_event The default value for the "nbr-min-react-pour-event" input
@@ -36,6 +41,13 @@ class ConfigView implements IView
         $this->messages_par_page = $messages_par_page;
         $this->min_reaction_event = $min_reaction_event;
         $this->max_reaction_event = $max_reaction_event;
+    }
+
+    /**
+     * @param array $users
+     */
+    public function set_users(array $users): void {
+        $this->users = $users;
     }
 
     /**
@@ -82,29 +94,44 @@ class ConfigView implements IView
 
         HTML;
 
-        for ($i = 0; $i < 10; ++$i)
-        {
-            echo <<<'HTML'
-                            <div class="table-line">
+        // Output every user of the website
+        foreach ($this->users as $user) {
+            $username = $user->get_username();
+            $filtered_username = filter_var($username, FILTER_SANITIZE_SPECIAL_CHARS);
+            $email = $user->get_email();
+            $id = $user->get_id();
+
+            echo <<<HTML
+                            <div class="table-line" data-user-id=$id>
+                                <!-- Information about user #$id -->
                                 <div class="shown-line">
                                     <div class="text-box">
-                                        <p>example_username</p>
+                                        <p>$filtered_username</p>
                                     </div>
+                                    
                                     <div class="text-box">
-                                        <p>example_email_address</p>
+                                        <a href="mailto:$email">$email</a>
                                     </div>
+                                                                                                                                                                                 
                                     <div class="arrow-down">
                                         <span class="material-icons button-like unselectable arrow-down-icon">keyboard_arrow_down</span>
-                                    </div>
-                                </div>   
+                                    </div>                                   
+                                </div>
+                                
+                                <!-- Information editor for user #$id -->
                                 <div class="hidden-line">
-                                    <form id="form-modif-membre" action="/config/changemember">
-                                        <input type="text" class="new-username" name="new-username" placeholder="New Username">
-                                        <input type="text" class="new-email-address" name="new-email-address" placeholder="New Email Adress">
-                                        <span class="material-icons button-like unselectable ">done</span>
-                                        <div class="delete">
-                                            <span class="material-icons button-like unselectable">delete</span>
-                                        </div>
+                                    <form class="form-modif-membre" action="/user/detailsUpdate" method="post">
+                                        <input type="text" class="new-username" name="username" placeholder="New Username" value="$username">
+                                        <input type="text" class="new-email-address" name="email" placeholder="New Email Address" value="$email">
+                                        <input type="hidden" value="$id" name="userId">
+                                        <label for="update-submit-$id" class="material-icons button-like unselectable ">done</label>          
+                                        <input type="submit" id="update-submit-$id" class="submit-button hidden-button button-like">                            
+                                    </form>
+                                    
+                                    <form class="delete" action="/user/delete" method="post">
+                                        <label for="delete-submit-$id" class="material-icons button-like unselectable">delete</label>
+                                        <input type="hidden" value="$id" name="userId">
+                                        <input type="submit" id="delete-submit-$id" class="hidden-button button-like">
                                     </form>
                                 </div>
                             </div>
