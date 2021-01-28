@@ -31,8 +31,10 @@
          * @throws DatabaseConnectionException
          */
         public function __construct() {
+            // Create a mysqli connection to the database
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072',
                 '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+            // Throws a DatabaseConnectionException if there is an error when establishing the connection
             if ($this->mysqli->connect_errno) {
                 throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : "
                     . $this->mysqli->connect_error);
@@ -55,14 +57,18 @@
          * @throws DatabaseInsertException
          */
         public function add_user(string $username, string $email, string $password): int {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('INSERT INTO USERS(registration_date, email, password, username) ' . 
                                                     'VALUES (NOW(),?,?,?)');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('sss', $email, $password, $username);
 
+            // Execute the query, and throws a DatabaseInsertException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseInsertException();
             }
 
+            // Return the ID of the new user
             return $prepared_query->insert_id;
         }
 
@@ -72,9 +78,12 @@
          * @throws DatabaseDeleteException
          */
         public function delete_user(int $id): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('DELETE FROM USERS WHERE user_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i', $id);
 
+            // Execute the query, and throws a DatabaseDeleteException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseDeleteException();
             }
@@ -87,23 +96,30 @@
          * @throws DatabaseSelectException
          */
         private function get_user_data(mysqli_stmt $prepared_query): User {
+            // Execute the query given as parameter
             $prepared_query->execute();
+            // Store the result of the query (result of a SELECT query)
             $result = $prepared_query->get_result();
 
+            // If the query returned something...
             if ($result) {
+                // Stores the query result as an array called "$user_data"
                 $user_data = $result->fetch_assoc();
                 try{
+                    // If $user_data isn't empty, create a new User object and return it
                     if (isset($user_data)) {
                         return new User($user_data['user_id'], $user_data['username'],
                             $user_data['email'], $user_data['password'],
                             new DateTimeImmutable($user_data['registration_date']));
                     }
+                // If DateTimeImmutable throws an exception, throws a DatabaseSelectException
                 } catch (Exception $exception){
                     throw new DatabaseSelectException();
                 }
 
             }
 
+            // If the query returned nothing or $user_data is empty...
             throw new DatabaseSelectException();
         }
 
@@ -114,9 +130,12 @@
          * @throws DatabaseSelectException
          */
         public function get_user_data_by_username(string $username): User {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE username = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('s', $username);
 
+            // Return a User object created with get_user_data()
             return $this->get_user_data($prepared_query);
         }
 
@@ -127,9 +146,12 @@
          * @throws DatabaseSelectException
          */
         public function get_user_data_by_id(int $user_id): User {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS WHERE user_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i', $user_id);
 
+            // Return a User object created with get_user_data()
             return $this->get_user_data($prepared_query);
         }
 
@@ -162,9 +184,12 @@
          * @throws DatabaseUpdateException
          */
         public function change_password(int $user_id, string $new_password): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('UPDATE USERS SET password = ? WHERE user_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('si', $new_password, $user_id);
 
+            // Execute the query, and throws a DatabaseUpdateException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseUpdateException();
             }
@@ -178,9 +203,12 @@
          * @throws DatabaseUpdateException
          */
         public function change_username_and_email(int $user_id, string $new_username, string $new_email): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('UPDATE USERS SET username = ?, email = ? WHERE user_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('ssi', $new_username, $new_email, $user_id);
 
+            // Execute the query, and throws a DatabaseUpdateException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseUpdateException();
             }
@@ -189,17 +217,24 @@
         /**
          * Return the id of an user from the database with an email
          * @param ?string $email Email of the user
-         * @return string ID of the user
+         * @return int ID of the user
          * @throws DatabaseSelectException
          */
         public function get_id_from_email(?string $email): ?string {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT user_id FROM USERS WHERE email = ?');
+            // Bind parameters to the query's template : create a real query and executes it
             $prepared_query->bind_param('s', $email);
             $prepared_query->execute();
+
+            // Stores the query's result
             $result = $prepared_query->get_result();
+
+            // If it's empty, throws a DatabaseSelectException
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
+                // Returns the user's ID
                 $row = $result->fetch_assoc();
                 return $row['user_id'];
             }
@@ -211,12 +246,19 @@
          * @throws DatabaseSelectException
          */
         public function get_all_users(): array {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT * FROM USERS');
+            // Bind parameters to the query's template : create a real query and executes it
             $prepared_query->execute();
+
+            // Stores the query's result
             $result = $prepared_query->get_result();
+
+            // If it's empty, throws a DatabaseSelectException
             if(!$result){
                 throw new DatabaseSelectException();
             } else {
+                // Fills an array with User objects
                 $user_list = array();
                 try {
                     while($row = $result->fetch_assoc()){
@@ -224,6 +266,7 @@
                             $row['username'], $row['email'],
                             $row['password'], new DateTimeImmutable($row['registration_date'])));
                     }
+                // If DateTimeImmutable throws an exception, throws a DatabaseSelectException
                 } catch(Exception $exception) {
                     throw new DatabaseSelectException();
                 }

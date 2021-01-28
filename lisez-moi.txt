@@ -7,7 +7,7 @@ Nom de l'équipe et de ses membres :
 
 Répartition des tâches :
     - CHATEAUX Adrien : Pages de compte (affichage username/mail, modification mot de passe) et administration
-      (dispo uniquement pour Vanessa: gestion des membres, paramètre de pagination, paramètre des dons).
+      (disponible uniquement pour Vanessa: gestion des membres, paramètre de pagination, paramètre des dons).
     - DEUDON Eugénie : Base de données (Setup de la base de données, des tables, choix des types), écriture des modèles
       (communication avec la DB) et page de recherche.
     - RADJA Samy : Gestion de l'authentification coté serveur (hash du mot de passe, membre connecté dans $_SESSION),
@@ -18,7 +18,7 @@ Répartition des tâches :
 URL du site Web : https://vanestarreiutinfo.alwaysdata.net/index.php
 
 Présentation du projet :
-    Le projet Vanéstarre consiste a faire un réseau social comme Instagram,
+    Le projet Vanéstarre consiste à faire un réseau social comme Instagram,
     mais où une seule personne (Vanéstarre) peut poster du texte, accompagné
     éventuellement d'une image.
 
@@ -32,15 +32,15 @@ Choix techniques :
       interceptée sur le réseau.
     - Nous avons choisi de router toutes les requêtes vers le fichier index.php
       afin d'avoir une cohérence sur la présentation de toutes les pages du site
-      web, de pouvoir présenter une URL "propre" a l'utilisateur (sans extension
+      web, de pouvoir présenter une URL "propre" à l'utilisateur (sans extension
       .php a la fin) ainsi que de pouvoir restructurer le site web en interne
       sans que cela n'ait d'impact sur les liens vers les différentes pages.
     - Nous utilisons l'architecture MVC afin de séparer les différentes
-      responsabilitées de notre programme.
+      responsabilités de notre programme.
     - Pour la fonctionnalité d'upload d'image, nous utilisons l'API d'Imgur
       afin d'uploader des images chez eux afin d'avoir des performances plus
       élevées que si nous les stockions chez nous. Cela évite aussi d'utiliser
-      notre espace disque limité. Nous laissons faire Imgur quand a la vérification
+      notre espace disque limité. Nous laissons faire Imgur quand à la vérification
       de la validité de l'image côté serveur, si l'upload échoue, alors
       l'opération est simplement annulée et un message d'erreur est présenté.
 
