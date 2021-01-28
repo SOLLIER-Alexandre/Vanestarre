@@ -15,7 +15,7 @@ Répartition des tâches :
     - SOLLIER Alexandre : Framework (MVC, router, scripts/stylesheets communs) et page d'accueil
       (lecture/écriture/modification/suppression de messages, pagination, réactions, tags, dons, upload d'images).
 
-URL du site Web : https://vanestarreiutinfo.alwaysdata.net/index.php
+URL du site Web : https://vanestarreiutinfo.alwaysdata.net/
 
 Présentation du projet :
     Le projet Vanéstarre consiste à faire un réseau social comme Instagram,
