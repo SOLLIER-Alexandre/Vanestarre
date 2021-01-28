@@ -73,7 +73,7 @@
             echo '                <a href="/passwordForgotten" class="forgotten-password">Mot de passe oublié ?</a>' . PHP_EOL;
 
             if (isset($this->err_id)) {
-                //if there is an error, output it
+                //if there is an error, shows it
                 $this->echo_error();
             }
 
