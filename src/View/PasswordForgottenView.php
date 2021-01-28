@@ -50,7 +50,7 @@
                             <p>Indiquez l'addresse email avec laquelle vous avez créé votre compte pour réinitialiser votre mot de passe :</p>
                                     
                             <form action="/user/passwordForgotten" method="post">
-                                <input type="text" class="input-zone" name="mail" autocomplete="email" maxlength="64" required/>                        
+                                <input type="email" class="input-zone" name="mail" placeholder="Email" autocomplete="email" maxlength="64" required/>                        
                                 <input type="submit" class="button-submit" name="reset" value="Réinitialiser">
                             </form>                    
                         </div>

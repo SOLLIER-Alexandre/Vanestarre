@@ -63,8 +63,8 @@
                     $auth_DB->change_password($id, $hashed_password);
                     mail($email,
                         'Password forgotten',
-                        'Heeeeey dude ! Looks like you messed up with that tiny memory of yours huh ?' . PHP_EOL .
-                        'Here you go, a new password : ' . $temporary_password);
+                        'Forgot your password ? No problem ! We are giving you a new one. Right after you log in, go to your account page and change your password immediatly.' . PHP_EOL .
+                        'Here is your temporary password : ' . $temporary_password);
                 } catch (DatabaseUpdateException $exception2) {
                     // Couldn't change the password
                     http_response_code(400);
