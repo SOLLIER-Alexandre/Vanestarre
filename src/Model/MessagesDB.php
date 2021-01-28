@@ -32,9 +32,11 @@
          * @throws DatabaseConnectionException
          */
         public function __construct() {
+            // Create a mysqli connection to the database
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072',
                 '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
 
+            // Throws a DatabaseConnectionException if there is an error when establishing the connection
             if ($this->mysqli->connect_errno) {
                 throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : "
                     . $this->mysqli->connect_error);
@@ -56,20 +58,29 @@
          * @throws DatabaseSelectException
          */
         public function get_n_last_messages(int $n, int $offset): array {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT message_id, date, content, image_link, reactions_for_donations ' .
                                                     'FROM MESSAGES ORDER BY date DESC LIMIT ? OFFSET ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('ii', $n, $offset);
 
             $prepared_query->execute();
+            // Stores the query result
             $result = $prepared_query->get_result();
 
+            // If the query result is empty
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
+                // Create an array to store Message objects
                 $messages_list = array();
+
                 while ($row = $result->fetch_assoc()) {
+                    // Get the number of reactions per type on this message
                     $message_reactions = new MessageReactions();
                     $this->get_message_reaction_count($row['message_id'], $message_reactions);
+
+                    // Fills the array with Message objects
                     try{
                         array_push($messages_list, new Message($row['message_id'], $row['content'],
                             new DateTimeImmutable($row['date']), $row['reactions_for_donations'],
@@ -90,16 +101,21 @@
          * @throws DatabaseSelectException
          */
         public function get_message_reaction_count(int $message_id, MessageReactions $reactions): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT reaction_type, COUNT(reaction_type) ' .
                                                     'FROM REACTIONS WHERE message_id = ? GROUP BY reaction_type;');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i', $message_id);
 
             $prepared_query->execute();
+            // Stores the query result
             $result = $prepared_query->get_result();
 
+            // If the query result is empty
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
+                // For each row in the query result, updates the MessageReactions object given in parameter
                 while ($row = $result->fetch_assoc()) {
                     switch ($row['reaction_type']) {
                         case 'cute':
@@ -137,14 +153,17 @@
 
             $reactions = [];
 
-            // Prepare the query
+            // Prepare the template for the SQL query
             $ids_param = str_repeat('?, ', count($message_ids) - 1) . '?';
             $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS ' .
                                                     'WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i' . str_repeat('i', count($message_ids)), $user_id, ...$message_ids);
             $prepared_query->execute();
 
+            // Stores the query result
             $result = $prepared_query->get_result();
+            // If it's empty
             if (!$result) {
                 throw new DatabaseSelectException();
             }
@@ -165,10 +184,13 @@
          * @throws DatabaseInsertException
          */
         public function add_reaction(int $message_id, string $reaction_type, int $user_id): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('REPLACE INTO REACTIONS(message_id, reaction_type, user_id) ' .
                                                     'VALUES(?, ?, ?)');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('isi', $message_id, $reaction_type, $user_id);
 
+            // Execute the query and throws a DatabaseInsertException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseInsertException();
             }
@@ -181,9 +203,12 @@
          * @throws DatabaseDeleteException
          */
         public function delete_reaction(int $message_id, int $user_id): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('DELETE FROM REACTIONS WHERE message_id = ? AND user_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('ii', $message_id, $user_id);
 
+            // Execute the query and throws a DatabaseDeleteException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseDeleteException();
             }
@@ -196,18 +221,24 @@
          * @throws DatabaseSelectException
          */
         public function has_message_reached_reactions(int $message_id): bool {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT COUNT(*), reactions_for_donations ' .
                                                     'FROM REACTIONS JOIN MESSAGES M ON REACTIONS.message_id = M.message_id ' . 
                                                     'WHERE REACTIONS.message_id = ? AND reaction_type = \'love\'');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i', $message_id);
+
+            // Execute the query and stores the result
             $prepared_query->execute();
             $result = $prepared_query->get_result();
 
+            // If the query result is empty
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
                 $row = $result->fetch_assoc();
 
+                // Return true if the number of reactions has reached the number set by Vanestarre
                 if (isset($row)) {
                     return $row['COUNT(*)'] === $row['reactions_for_donations'];
                 } else {
@@ -224,10 +255,13 @@
          * @throws DatabaseInsertException
          */
         public function add_message(string $content, ?string $image, int $reactions_for_donations): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('INSERT INTO MESSAGES(content, date, image_link, reactions_for_donations) ' .
                                                     'VALUES(?, NOW(), ?, ?)');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('ssi', $content, $image, $reactions_for_donations);
 
+            // Execute the query and throws a DatabaseInsertException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseInsertException();
             }
@@ -235,7 +269,7 @@
 
 
         /**
-         * Updates the content of a message.
+         * Modify message contents and set a new image
          * @param int $message_id ID of the message to update
          * @param string $new_content New content
          * @param string|null $new_image New image link, pass null to not update this column
@@ -243,19 +277,26 @@
          */
         public function edit_message(int $message_id, string $new_content, ?string $new_image): void {
             if (isset($new_image)) {
-                // Modify message contents and set a new image
+                // Modify message contents and image
+                // Prepare the template for the SQL query
                 $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ?, image_link = ? ' .
                                                         'WHERE message_id = ?');
+                // Bind parameters to the query's template : create a real query
                 $prepared_query->bind_param('ssi', $new_content, $new_image, $message_id);
 
+                // Execute the query and throws a DatabaseUpdateException if an error occurred
                 if (!$prepared_query->execute()) {
                     throw new DatabaseUpdateException();
                 }
+            // If there was no error during executions
             } else {
                 // Only modify message contents
+                // Prepare the template for the SQL query
                 $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET content = ? WHERE message_id = ?');
+                // Bind parameters to the query's template : create a real query
                 $prepared_query->bind_param('si', $new_content, $message_id);
 
+                // Execute the query and throws a DatabaseUpdateException if an error occurred
                 if (!$prepared_query->execute()) {
                     throw new DatabaseUpdateException();
                 }
@@ -268,9 +309,12 @@
          * @throws DatabaseDeleteException
          */
         public function delete_message(int $message_id): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('DELETE FROM MESSAGES WHERE message_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i', $message_id);
 
+            // Execute the query and throws a DatabaseDeleteException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseDeleteException();
             }
@@ -282,9 +326,12 @@
          * @throws DatabaseUpdateException
          */
         public function remove_message_image(int $message_id): void {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('UPDATE MESSAGES SET image_link = null WHERE message_id = ?');
+            // Bind parameters to the query's template : create a real query
             $prepared_query->bind_param('i', $message_id);
 
+            // Execute the query and throws a DatabaseUpdateException if an error occurred
             if (!$prepared_query->execute()) {
                 throw new DatabaseUpdateException();
             }
@@ -296,13 +343,18 @@
          * @throws DatabaseSelectException
          */
         public function count_messages(): int {
+            // Prepare the template for the SQL query
             $prepared_query = $this->mysqli->prepare('SELECT count(*) FROM MESSAGES');
+
             $prepared_query->execute();
+            // Stores the query result
             $result = $prepared_query->get_result();
 
+            // If the query result is empty
             if (!$result) {
                 throw new DatabaseSelectException();
             } else {
+                // Returns the number of messages
                 $row = $result->fetch_assoc();
                 return $row['count(*)'];
             }

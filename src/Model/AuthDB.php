@@ -34,6 +34,7 @@
             // Create a mysqli connection to the database
             $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072',
                 '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+
             // Throws a DatabaseConnectionException if there is an error when establishing the connection
             if ($this->mysqli->connect_errno) {
                 throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : "
