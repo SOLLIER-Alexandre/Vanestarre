@@ -24,12 +24,13 @@
             session_start();
             try {
                 $auth_db = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /passwordForgotten
+                header('Location: /passwordForgotten?confirm=');
+                return;
             }
-            $connected_user = $auth_db->get_logged_in_user();
 
+            $connected_user = $auth_db->get_logged_in_user();
             if (isset($connected_user)) {
                 // User is already logged in
                 http_response_code(401);
@@ -40,18 +41,11 @@
             // Output the view contents
             $id = NULL;
             $email = $_POST['mail'];
-            try {
-                $auth_DB = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
-            }
 
             try {
-                $id = $auth_DB->get_id_from_email($email);
+                $id = $auth_db->get_id_from_email($email);
             } catch (DatabaseSelectException $exception) {
                 // Couldn't get the id
-                http_response_code(400);
             }
 
             //create a temporary password
@@ -60,14 +54,13 @@
 
             if (isset($id)) {
                 try {
-                    $auth_DB->change_password($id, $hashed_password);
+                    $auth_db->change_password($id, $hashed_password);
                     mail($email,
                         'Password forgotten',
                         'Forgot your password ? No problem ! We are giving you a new one. Right after you log in, go to your account page and change your password immediatly.' . PHP_EOL .
                         'Here is your temporary password : ' . $temporary_password);
                 } catch (DatabaseUpdateException $exception2) {
                     // Couldn't change the password
-                    http_response_code(400);
                 }
             }
 
@@ -80,14 +73,15 @@
          * @return string The clear random password
          */
         private function create_password(): string {
-            static $baseAlphaMaj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            static $baseAlphaMin = "abcdefghijklmnopqrstuvwxyz";
-            static $baseNumber = "0123456789";
-            static $baseSpecial = "%#:$*";
+            static $baseAlphaMaj = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            static $baseAlphaMin = 'abcdefghijklmnopqrstuvwxyz';
+            static $baseNumber = '0123456789';
+            static $baseSpecial = '%#:$*';
 
-            $password = "";
-            $lenghtPassword = rand(8,12);
-            for ($i = 0; $i < $lenghtPassword; $i++) {
+            $password = '';
+            $passwordLength = rand(8, 12);
+
+            for ($i = 0; $i < $passwordLength; $i++) {
                 switch (rand(1, 4)) {
                     case 1 :
                         $password .= $baseAlphaMaj[rand(0, strlen($baseAlphaMaj))];

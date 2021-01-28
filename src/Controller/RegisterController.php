@@ -37,12 +37,11 @@
             session_start();
             try {
                 $auth_db = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
+                $this->connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Let the connected user be null
+                $this->connected_user = null;
             }
-
-            $this->connected_user = $auth_db->get_logged_in_user();
         }
 
         /**
@@ -62,7 +61,6 @@
             }
 
             // Output the View contents
-            // TODO: Handle errors
             $this->view->echo_contents();
         }
 

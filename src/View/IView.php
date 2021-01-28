@@ -19,4 +19,4 @@
         public function echo_contents();
     }
 
-    ?>
+?>

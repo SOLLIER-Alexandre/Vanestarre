@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller\Message\Reaction;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseDeleteException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\MessagesDB;
@@ -27,8 +28,13 @@
 
             // Grab the currently connected user
             session_start();
-            $auth_db = new AuthDB();
-            $connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll throw an error at the user
+                $connected_user = null;
+            }
 
             // Make sure it's not null
             if (!isset($connected_user)) {
@@ -40,16 +46,20 @@
 
             // Check posted values
             if (is_numeric($_POST['messageId'])) {
-                // Remove the reaction from the database
-                $message_db = new MessagesDB();
-
                 try {
+                    // Remove the reaction from the database
+                    $message_db = new MessagesDB();
+
                     $message_db->delete_reaction(intval($_POST['messageId']), $connected_user->get_id());
                     $response['success'] = true;
                 } catch (DatabaseDeleteException $e) {
                     // Reaction deletion failed
                     http_response_code(400);
                     $response['error_code'] = 2;
+                } catch (DatabaseConnectionException $e) {
+                    // Couldn't connect to the database
+                    http_response_code(400);
+                    $response['error_code'] = 3;
                 }
             } else {
                 // One of the parameter was malformed
@@ -90,4 +100,4 @@
         }
     }
 
-    ?>
+?>

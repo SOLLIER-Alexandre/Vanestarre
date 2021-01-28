@@ -5,11 +5,11 @@
     use Exception;
     use mysqli;
     use mysqli_stmt;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseDeleteException;
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Exception\DatabaseUpdateException;
-    use Vanestarre\Exception\DatabaseConnectionException;
 
     /**
      * Class Messages
@@ -30,12 +30,12 @@
          * AuthDB constructor. Connects AuthDB to the database.
          * @throws DatabaseConnectionException
          */
-        public function __construct(){
-            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072', 
-                                        '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
-            if (mysqli_connect_errno()) {
-                throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : " . 
-                                                    mysqli_connect_error());
+        public function __construct() {
+            $this->mysqli = new mysqli('mysql-vanestarreiutinfo.alwaysdata.net', '222072',
+                '0fQ12HhzmevY', 'vanestarreiutinfo_maindb');
+            if ($this->mysqli->connect_errno) {
+                throw new DatabaseConnectionException("Echec lors de la connexion à la base de données : "
+                    . $this->mysqli->connect_error);
             }
         }
 

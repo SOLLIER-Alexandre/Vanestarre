@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller\User;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseUpdateException;
     use Vanestarre\Model\AuthDB;
 
@@ -22,12 +23,17 @@
         public function execute() {
             // Grab the currently connected user
             session_start();
-            $auth_db = new AuthDB();
-            $connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /
+                $connected_user = null;
+            }
 
             // Make sure it's not null
-            if (!isset($connected_user)) {
-                // User is not logged in
+            if (!isset($connected_user) || !isset($auth_db)) {
+                // User is not logged in or problem with the auth database
                 http_response_code(401);
                 header('Location: /');
                 return;
@@ -35,7 +41,10 @@
 
             $redirect_route = '/account?status=1';
 
-            if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
+            if (mb_strlen($_POST['newPassword']) < 5) {
+                // The password is too short
+                $redirect_route = '/account?status=14';
+            } else if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) &&
                 mb_strlen($_POST['oldPassword']) <= 128 && mb_strlen($_POST['newPassword']) <= 128) {
                 if ($_POST['newPassword'] === $_POST['newPasswordConfirmation']) {
                     if (password_verify($_POST['oldPassword'], $connected_user->get_password())) {

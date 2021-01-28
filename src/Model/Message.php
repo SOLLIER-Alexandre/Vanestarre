@@ -98,6 +98,9 @@
             return $this->image;
         }
 
+        /**
+         * @return int The number of "love" reactions for requiring a donation
+         */
         public function get_reactions_for_donations(): int {
             return $this->reactions_for_donations;
         }

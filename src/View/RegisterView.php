@@ -33,35 +33,36 @@
 
         private function echo_error(): void {
             echo <<<HTML
-                    <!-- Password change message card -->
-                    <div class="error-text">
-                        <span class="material-icons alert">alert</span>
+                            <!-- Registration error message card -->
+                            <div class="error-text">
+                                <span class="material-icons alert">alert</span>
+
             HTML;
 
             // Output the correct message
             switch ($this->err_id) {
                 case 1:
-                    echo '            <p>Votre mot de passe est trop court (5 caractères minimum)</p>' . PHP_EOL;
+                    echo '                    <p>Votre mot de passe est trop court (5 caractères minimum)</p>' . PHP_EOL;
                     break;
 
                 case 2:
-                    echo '            <p>L\' email est invalide</p>' . PHP_EOL;
+                    echo '                    <p>L\' email est invalide</p>' . PHP_EOL;
                     break;
 
                 case 3:
-                    echo '            <p>L\' username ou l\' email a déjà été utilisé</p>' . PHP_EOL;
+                    echo '                    <p>L\' username ou l\' email a déjà été utilisé</p>' . PHP_EOL;
                     break;
 
                 case 4:
-                    echo '            <p>Erreur lors de l\' inscription. Veuillez réessayer</p>' . PHP_EOL;
+                    echo '                    <p>Erreur lors de l\' inscription. Veuillez réessayer</p>' . PHP_EOL;
                     break;
 
                 default:
-                    echo '            <p>Une erreur inconnue s\' est produite. Veuillez réessayer</p>' . PHP_EOL;
+                    echo '                    <p>Une erreur inconnue s\' est produite. Veuillez réessayer</p>' . PHP_EOL;
                     break;
             }
 
-            echo '        </div>' . PHP_EOL;
+            echo '                </div>' . PHP_EOL;
         }
 
         /**
@@ -73,6 +74,7 @@
                         <h2>Créez un compte</h2> 
                         <hr/>
                          
+                        <!-- Form for creating a new account -->
                         <form action="/user/register" method="post">
                             <label>Identifiant :</label>
                             <input type="text" name="username" class="input-zone" autocomplete="username" maxlength="64" required/><br/>
@@ -81,7 +83,7 @@
                             <input type="email" name="email" class="input-zone" autocomplete="email" maxlength="64" required/><br/>
                             
                             <label>Mot de passe :</label>
-                            <input type="password" name="mdp" class="input-zone" autocomplete="current-password" maxlength="128" required/><br/>
+                            <input type="password" name="mdp" class="input-zone" autocomplete="current-password" minlength="5" maxlength="128" required/><br/>
 
             HTML;
             if(isset($this->err_id)) {
@@ -89,6 +91,7 @@
                 $this->echo_error();
             }
             echo <<<'HTML'
+            
                             <input type="submit" name="envoie" class="submit-button" value="Create the account">
                         </form>                       
                     </div>

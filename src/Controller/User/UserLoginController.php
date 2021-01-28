@@ -2,7 +2,6 @@
 
     namespace Vanestarre\Controller\User;
 
-    use Exception;
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseSelectException;
@@ -22,18 +21,19 @@
     {
         /**
          * @inheritDoc
-         * @throws Exception
          */
         public function execute(): void {
             session_start();
             try {
                 $auth_db = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /login with an error
+                http_response_code(401);
+                header('Location: /login?err=10');
+                return;
             }
-            $connected_user = $auth_db->get_logged_in_user();
 
+            $connected_user = $auth_db->get_logged_in_user();
             if (isset($connected_user)) {
                 // User is already logged in
                 http_response_code(401);
@@ -50,7 +50,7 @@
             // Check posted values
             if (isset($username) && isset($password)) {
                 try {
-                    $this->authenticate_user($username, $password);
+                    $this->authenticate_user($auth_db, $username, $password);
                 } catch (UnknownUsernameException | IncorrectPasswordException $e) {
                     // Username or password is incorrect
                     $redirect_route = '/login?err=2';
@@ -67,22 +67,16 @@
 
         /**
          * Logs in a user
+         * @param AuthDB $auth_db Authentication database
          * @param string $username Username to authenticate
          * @param string $password Clear password of the user
-         * @throws UnknownUsernameException
          * @throws IncorrectPasswordException
+         * @throws UnknownUsernameException
          */
-        private function authenticate_user(string $username, string $password): void {
-            try {
-                $login = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
-            }
-
+        private function authenticate_user(AuthDB $auth_db, string $username, string $password): void {
             // Grab user hashed password
             try {
-                $user_info = $login->get_user_data_by_username($username);
+                $user_info = $auth_db->get_user_data_by_username($username);
             } catch (DatabaseSelectException $e) {
                 throw new UnknownUsernameException();
             }

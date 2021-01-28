@@ -142,7 +142,6 @@
                 }
             }
 
-            // TODO: Show donate dialog if needed
             // Get the currently selected reaction
             const selectedReactionContainer = document.querySelector('article[data-message-id="' + messageID + '"] .message-footer-reaction.selected');
             const isUnreacting = selectedReactionContainer === clickedReactionContainer;

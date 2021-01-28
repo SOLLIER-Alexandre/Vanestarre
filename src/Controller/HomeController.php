@@ -2,6 +2,7 @@
 
     namespace Vanestarre\Controller;
 
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Model\AuthDB;
     use Vanestarre\Model\Message;
@@ -39,8 +40,13 @@
 
             // Get the currently connected user
             session_start();
-            $auth_db = new AuthDB();
-            $this->connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $this->connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Let the connected user be null
+                $this->connected_user = null;
+            }
         }
 
         /**
@@ -126,7 +132,13 @@
          */
         private function show_last_messages(): void {
             // Grab the messages from the database
-            $message_db = new MessagesDB();
+            try {
+                $message_db = new MessagesDB();
+            } catch (DatabaseConnectionException $e) {
+                // Couldn't connect to the database
+                $this->view->set_error_fetching_messages(true);
+                return;
+            }
 
             $total_message_count = 0;
             $messages_to_fetch = 0;
@@ -158,8 +170,14 @@
          */
         private function show_search_results(): void {
             // Grab the search results from the database
-            $message_db = new MessagesDB();
-            $search_db = new SearchDB();
+            try {
+                $message_db = new MessagesDB();
+                $search_db = new SearchDB();
+            } catch (DatabaseConnectionException $e) {
+                // Couldn't connect to the database
+                $this->view->set_error_fetching_messages(true);
+                return;
+            }
 
             // Set the search query to the view
             $this->view->set_search_query($_GET['query']);

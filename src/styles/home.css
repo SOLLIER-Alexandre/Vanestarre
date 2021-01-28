@@ -112,6 +112,10 @@ main > .card:not(:last-child) {
     color: #9C4ABD;
 }
 
+.search-query {
+    color: #FFFFFFDE;
+}
+
 .card img {
     display: block;
     margin: 0 auto;

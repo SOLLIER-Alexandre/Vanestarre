@@ -1,7 +1,6 @@
 <?php
     namespace Vanestarre\Controller\User;
 
-    use Exception;
     use Vanestarre\Controller\IController;
     use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseInsertException;
@@ -18,27 +17,21 @@
 
     class UserRegisterController implements IController
     {
-
-        /**
-         * RegisterController constructor.
-         */
-        public function __construct() {
-        }
-
         /**
          * @inheritDoc
-         * @throws Exception
          */
         public function execute() {
             session_start();
             try {
                 $auth_db = new AuthDB();
-            } catch (DatabaseConnectionException $exception) {
-                //couldn't connect to the database
-                http_response_code(400);
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll redirect the user to /register with an error
+                http_response_code(401);
+                header('Location: /register?err=10');
+                return;
             }
-            $connected_user = $auth_db->get_logged_in_user();
 
+            $connected_user = $auth_db->get_logged_in_user();
             if (isset($connected_user)) {
                 // User is already logged in
                 http_response_code(401);
@@ -54,27 +47,15 @@
             $email = $_POST['email'];
 
             // Check posted values
-
-            //the password is too short
-            if(strlen($password) < 5) {
+            if (mb_strlen($password) < 5) {
+                // The password is too short
                 $redirect_route = '/register?err=1';
-            }
-
-            //the email isn't the right format
-            else if(filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
+            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                // The email isn't the right format
                 $redirect_route = '/register?err=2';
-            }
-
-            else if (isset($username) && isset($password) && isset($email) &&
-                filter_var($email, FILTER_VALIDATE_EMAIL) &&
+            } else if (isset($username) && isset($password) && isset($email) &&
                 mb_strlen($username) <= 64 && mb_strlen($password) <= 128 && mb_strlen($email) <= 64) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                try {
-                    $auth_db = new AuthDB();
-                } catch (DatabaseConnectionException $exception) {
-                    //couldn't connect to the database
-                    http_response_code(400);
-                }
 
                 try {
                     $user_id = $auth_db->add_user($username, $email, $hashed_password);

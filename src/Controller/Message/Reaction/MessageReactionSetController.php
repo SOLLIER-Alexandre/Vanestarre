@@ -3,6 +3,7 @@
     namespace Vanestarre\Controller\Message\Reaction;
 
     use Vanestarre\Controller\IController;
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Exception\DatabaseInsertException;
     use Vanestarre\Exception\DatabaseSelectException;
     use Vanestarre\Model\AuthDB;
@@ -28,8 +29,13 @@
 
             // Grab the currently connected user
             session_start();
-            $auth_db = new AuthDB();
-            $connected_user = $auth_db->get_logged_in_user();
+            try {
+                $auth_db = new AuthDB();
+                $connected_user = $auth_db->get_logged_in_user();
+            } catch (DatabaseConnectionException $e) {
+                // Authentication is down, we'll throw an error at the user
+                $connected_user = null;
+            }
 
             // Make sure it's not null
             if (!isset($connected_user)) {
@@ -41,10 +47,10 @@
 
             // Check posted values
             if (is_numeric($_POST['messageId']) && isset($_POST['reaction'])) {
-                // Add the reaction to the database
-                $message_db = new MessagesDB();
-
                 try {
+                    // Add the reaction to the database
+                    $message_db = new MessagesDB();
+
                     $message_db->add_reaction(intval($_POST['messageId']), $_POST['reaction'], $connected_user->get_id());
                     $response['success'] = true;
 
@@ -60,6 +66,10 @@
                     // Donation checking failed
                     http_response_code(400);
                     $response['error_code'] = 3;
+                } catch (DatabaseConnectionException $e) {
+                    // Couldn't connect to the database
+                    http_response_code(400);
+                    $response['error_code'] = 4;
                 }
             } else {
                 // One of the parameter was malformed
@@ -100,4 +110,4 @@
         }
     }
 
-    ?>
+?>

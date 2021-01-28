@@ -8,6 +8,7 @@
 
     namespace Vanestarre;
 
+    use Vanestarre\Exception\DatabaseConnectionException;
     use Vanestarre\Model\AuthDB;
 
     /**
@@ -91,8 +92,15 @@
 
         // Start session temporarily to get currently connected username
         session_start();
-        $auth_db = new AuthDB();
-        $logged_in_user = $auth_db->get_logged_in_user();
+
+        try {
+            // Get the logged in user
+            $auth_db = new AuthDB();
+            $logged_in_user = $auth_db->get_logged_in_user();
+        } catch (DatabaseConnectionException $e) {
+            // That doesn't smell good, let $logged_in_user be null
+        }
+
         session_write_close();
 
         if (isset($logged_in_user)) {

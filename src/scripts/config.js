@@ -6,12 +6,12 @@
 
 (() => {
     window.addEventListener('load', () => {
-        const arrowDownClass = document.getElementsByClassName('arrow-down');
+        const arrowDownIcons = document.getElementsByClassName('arrow-down-icon');
 
-        for (const arrowDown of arrowDownClass) {
-            arrowDown.addEventListener('click', () => {
-                const tableLine = arrowDown.parentElement.parentElement;
-                const icon = arrowDown.children[0];
+        for (const arrowDownIcon of arrowDownIcons) {
+            arrowDownIcon.addEventListener('click', () => {
+                // Expand the parent table-line
+                const tableLine = arrowDownIcon.parentElement.parentElement.parentElement;
                 tableLine.classList.toggle('expanded');
             });
         }
