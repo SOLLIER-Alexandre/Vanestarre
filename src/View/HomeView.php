@@ -236,7 +236,7 @@
             $filtered_message = filter_var($message->get_message(), FILTER_SANITIZE_SPECIAL_CHARS);
 
             // Check for tags in the message, and replace them with search links
-            $message_text = preg_replace_callback('/β\w+/m', function ($matches) {
+            $message_text = preg_replace_callback('/β\w+/mu', function ($matches) {
                 return '<a href="/home?query=' . mb_substr($matches[0], 1) . '" class="post-tag">' . $matches[0] . '</a>';
             }, $filtered_message);
 
