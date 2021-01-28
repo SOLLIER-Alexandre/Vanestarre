@@ -153,11 +153,12 @@
 
             $reactions = [];
 
-            // Prepare the template for the SQL query
+            // Put as much param marker as there are IDs in the $message_ids array
             $ids_param = str_repeat('?, ', count($message_ids) - 1) . '?';
             $prepared_query = $this->mysqli->prepare('SELECT message_id, reaction_type FROM REACTIONS ' .
                                                     'WHERE user_id = ? AND message_id IN (' . $ids_param . ')');
-            // Bind parameters to the query's template : create a real query
+
+            // Bind all the params, unpack the message IDs array
             $prepared_query->bind_param('i' . str_repeat('i', count($message_ids)), $user_id, ...$message_ids);
             $prepared_query->execute();
 

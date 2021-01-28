@@ -17,7 +17,7 @@
         private $err_id;
 
         /**
-         * @param int|null $err_id
+         * @param int|null $err_id setter
          */
         public function set_err_id(?int $err_id): void
         {
@@ -86,6 +86,7 @@
                             <input type="password" name="mdp" class="input-zone" autocomplete="current-password" minlength="5" maxlength="128" required/><br/>
 
             HTML;
+            //test if there is an error
             if(isset($this->err_id)) {
                 //if there is an error, shows it
                 $this->echo_error();

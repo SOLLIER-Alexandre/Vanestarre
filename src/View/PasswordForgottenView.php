@@ -48,7 +48,8 @@
                                
                             <p>Vous avez oublié votre mot de passe ?</p>
                             <p>Indiquez l'addresse email avec laquelle vous avez créé votre compte pour réinitialiser votre mot de passe :</p>
-                                    
+                            
+                            <!-- Form for asking for a temporary password (password forgotten) by email -->        
                             <form action="/user/passwordForgotten" method="post">
                                 <input type="email" class="input-zone" name="mail" placeholder="Email" autocomplete="email" maxlength="64" required/>                        
                                 <input type="submit" class="button-submit" name="reset" value="Réinitialiser">
@@ -60,7 +61,7 @@
         }
 
         /**
-         * @param bool $show_confirmation Show confirmation state
+         * @param bool $show_confirmation Show confirmation state (if the mail has been sent or not)
          */
         public function set_show_confirmation(bool $show_confirmation): void
         {
