@@ -112,6 +112,10 @@
          * Outputs the account details card, with a form for changing password
          */
         private function echo_account_card(): void {
+            // Filter the account fields
+            $filtered_username = filter_var($this->username, FILTER_SANITIZE_SPECIAL_CHARS);
+            $filtered_email = filter_var($this->email, FILTER_SANITIZE_SPECIAL_CHARS);
+
             echo <<<HTML
                        <!-- Account card -->
                        <div class="card">
@@ -120,12 +124,12 @@
                            <form action="/user/detailsUpdate" method="post">
                                <div class="div-form">
                                    <label for="username-input">Votre nom d'utilisateur :</label>
-                                   <input type="text" id="username-input" name="username" value="$this->username" autocomplete="username" maxlength="64" required>
+                                   <input type="text" id="username-input" name="username" value="$filtered_username" autocomplete="username" maxlength="64" required>
                                </div>
                                
                                <div class="div-form">
                                    <label for="email-input">Votre adresse e-mail :</label>
-                                   <input type="email" id="email-input" name="email" value="$this->email" autocomplete="email" maxlength="64" required>
+                                   <input type="email" id="email-input" name="email" value="$filtered_email" autocomplete="email" maxlength="64" required>
                                </div>
                                 
                                <input type="submit" value="Valider" class="submit-button"> 

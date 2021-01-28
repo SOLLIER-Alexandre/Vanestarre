@@ -155,15 +155,16 @@ class ConfigView implements IView
      * @param string $email Email of the user to manage
      */
     private function echo_member(int $id, string $username, string $email): void {
-        // Filter the username before outputting it to the page
+        // Filter the account fields
         $filtered_username = filter_var($username, FILTER_SANITIZE_SPECIAL_CHARS);
+        $filtered_email = filter_var($email, FILTER_SANITIZE_SPECIAL_CHARS);
 
         echo <<<HTML
                         <div class="table-line">
                             <!-- Information about user #$id -->
                             <div class="shown-line">
                                 <span>$filtered_username</span>
-                                <a href="mailto:$email">$email</a>
+                                <a href="mailto:$filtered_email">$filtered_email</a>
                                                                                                                                                                              
                                 <div class="arrow-down">
                                     <span class="material-icons button-like unselectable arrow-down-icon">keyboard_arrow_down</span>
@@ -173,8 +174,8 @@ class ConfigView implements IView
                             <!-- Information editor for user #$id -->
                             <div class="hidden-line">
                                 <form class="form-modif-membre" action="/user/detailsUpdate" method="post">
-                                    <input type="text" class="new-username" name="username" placeholder="New Username" value="$username">
-                                    <input type="text" class="new-email-address" name="email" placeholder="New Email Address" value="$email">
+                                    <input type="text" class="new-username" name="username" placeholder="New Username" value="$filtered_username">
+                                    <input type="text" class="new-email-address" name="email" placeholder="New Email Address" value="$filtered_email">
                                     <input type="hidden" value="$id" name="userId">
                                     <label for="update-submit-$id" class="material-icons button-like unselectable ">done</label>          
                                     <input type="submit" id="update-submit-$id" class="submit-button hidden-button button-like">                            
