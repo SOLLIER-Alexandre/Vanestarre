@@ -497,7 +497,7 @@
                                 </header>
                                 
                                 <p>Félicitation, vous êtes l'heureux gagnant du grand jeu concours de Vanéstarre !!!</p>
-                                <p>Vous avez été tiré au sort car vous avez été la personne n°<span id="modal-donate-number">0</span> à réagir a ce fabuleux message.</p>
+                                <p>Vous avez été tiré au sort car vous avez été la personne la plus branchée à réagir a ce fabuleux message.</p>
                                 <p>Le grand prix que vous avez gagné est le suivant : Donner 10 bitcoins (BTC) a Vanéstarre.</p>
                                 <p>Vous pouvez claim votre super prix en cliquant <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">sur ce lien</a> !</p>
                                 
