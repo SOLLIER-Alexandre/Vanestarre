@@ -93,7 +93,7 @@
             }
             echo <<<'HTML'
             
-                            <input type="submit" name="envoie" class="submit-button" value="Create the account">
+                            <input type="submit" name="envoie" class="submit-button" value="Créer le compte">
                         </form>                       
                     </div>
 
