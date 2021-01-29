@@ -1,24 +1,106 @@
+/**
+ * Common styles for every page of the website
+ *
+ * @author SOLLIER Alexandre
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@300&display=swap');
 
 body {
+    height: 100vh;
     background-color: #313131;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body,
+a {
     color: #FFFFFF99;
+}
+
+body,
+input,
+textarea {
     font-family: 'Roboto', sans-serif;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*We need to separate those two because WebKit-based browsers have >60% market share and yet are unable
+to ignore a tag they don't understand*/
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    font-family: 'Roboto', sans-serif;
+    color: #FFFFFF99;
+    font-size: 0.8rem;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    font-family: 'Roboto', sans-serif;
+    color: #FFFFFF99;
+    font-size: 0.8rem;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+textarea {
+    border: #7E7E7E 1px solid;
+    padding: 8px;
+    color: #FFFFFFDE;
+    background-color: #313131;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-color: #4A00E099;
+    outline: none;
+}
+
 header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
     background-color: #525252;
     padding: 6px;
     border-bottom: #7E7E7E 1px solid;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    z-index: 1000;
+}
+
+header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+header.search-shown .hidden-on-search {
+    display: none;
+}
+
+header.search-shown #search-box {
+    display: flex;
 }
 
 main {
-    padding: 6px;
+    padding: 8px;
+    flex: 1;
 }
 
 p {
@@ -26,13 +108,100 @@ p {
     padding: 0;
 }
 
-.title {
+h1 {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+hr {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.button-like {
+    cursor: pointer;
+}
+
+.button-like:hover {
+    color: #FFFFFFDE;
+}
+
+.flexbox {
+    display: flex;
+}
+
+.error-text {
+    color: #e45353;
+}
+
+#page-title {
     font-family: 'Ubuntu', sans-serif;
     font-size: 1.5rem;
     color: #FFFFFFDE;
-    text-decoration: none;
+}
+
+.header-right-content {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#search-btn {
+    margin-left: 8px;
+}
+
+#search-form {
+    display: flex;
+    flex: 1;
+}
+
+#search-box {
+    display: none;
+    background: #414141;
+    width: 100%;
+}
+
+#account-link {
+    margin-left: 12px;
+}
+
+#account-link > span {
+    margin-right: 4px;
+}
+
+#logout-button {
+    margin-left: 12px;
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     background-color: #414141;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@media (min-width: 656px) {
+    #search-btn {
+        display: none;
+    }
+
+    #search-form {
+        flex: initial;
+    }
+
+    #search-box {
+        display: flex;
+        width: 275px;
+    }
 }

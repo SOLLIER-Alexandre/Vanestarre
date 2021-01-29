@@ -1,0 +1,60 @@
+Nom de l'équipe et de ses membres :
+    Groupe "Da big spaghet"
+    - CHATEAUX Adrien   <Mail: adrien.chateaux@etu.univ-amu.fr; GitHub: RaspDonut>
+    - DEUDON Eugénie    <Mail: eugenie.deudon@etu.univ-amu.fr; GitHub: Cyani-Maisou>
+    - RADJA Samy        <Mail: samy.radja@etu.univ-amu.fr; GitHub: RadjaSamy>
+    - SOLLIER Alexandre <Mail: alexandre.sollier@etu.univ-amu.fr; GitHub: SOLLIER-Alexandre>
+
+Répartition des tâches :
+    - CHATEAUX Adrien : Pages de compte (affichage username/mail, modification mot de passe) et administration
+      (disponible uniquement pour Vanessa: gestion des membres, paramètre de pagination, paramètre des dons).
+    - DEUDON Eugénie : Base de données (Setup de la base de données, des tables, choix des types), écriture des modèles
+      (communication avec la DB) et page de recherche.
+    - RADJA Samy : Gestion de l'authentification coté serveur (hash du mot de passe, membre connecté dans $_SESSION),
+      page de connexion (login/logout/register/mot de passe perdu) et des privilèges.
+    - SOLLIER Alexandre : Framework (MVC, router, scripts/stylesheets communs) et page d'accueil
+      (lecture/écriture/modification/suppression de messages, pagination, réactions, tags, dons, upload d'images).
+
+URL du site Web : https://vanestarreiutinfo.alwaysdata.net/
+
+Présentation du projet :
+    Le projet Vanéstarre consiste à faire un réseau social comme Instagram,
+    mais où une seule personne (Vanéstarre) peut poster du texte, accompagné
+    éventuellement d'une image.
+
+Choix techniques :
+    - Mesures de sécurité pour le mot de passe : Le mot de passe est stocké hashé dans
+      la base de données à l'aide de la fonction password_hash() de PHP qui utilise un
+      algorithme de hashage moderne. Cette fonction s'occupe aussi automatiquement du
+      salting.
+      Le site web est configuré pour upgrade les connexions HTTP vers HTTPS afin que
+      la transmission du mot de passe vers le serveur soit plus compliquée à être
+      interceptée sur le réseau.
+    - Nous avons choisi de router toutes les requêtes vers le fichier index.php
+      afin d'avoir une cohérence sur la présentation de toutes les pages du site
+      web, de pouvoir présenter une URL "propre" à l'utilisateur (sans extension
+      .php a la fin) ainsi que de pouvoir restructurer le site web en interne
+      sans que cela n'ait d'impact sur les liens vers les différentes pages.
+    - Nous utilisons l'architecture MVC afin de séparer les différentes
+      responsabilités de notre programme.
+    - Pour la fonctionnalité d'upload d'image, nous utilisons l'API d'Imgur
+      afin d'uploader des images chez eux afin d'avoir des performances plus
+      élevées que si nous les stockions chez nous. Cela évite aussi d'utiliser
+      notre espace disque limité. Nous laissons faire Imgur quand à la vérification
+      de la validité de l'image côté serveur, si l'upload échoue, alors
+      l'opération est simplement annulée et un message d'erreur est présenté.
+
+Configuration logicielle minimale (Pré-requis) :
+    - Apache2
+    - PHP 7.3 avec cURL
+    - MariaDB 10.5
+
+Configuration logicielle conseillée :
+    + Pré-requis
+    - sendmail (envoi de mails de réinitialisation de mot de passe)
+
+Identifiants de connexion :
+    - Site Web : <redacted>
+    - Base de données: <redacted>
+    - Hébergement : <redacted>
+    - GitHub: https://github.com/SOLLIER-Alexandre/Vanestarre

@@ -1,0 +1,155 @@
+/**
+ * style for the account page
+ *
+ * @author CHATEAUX Adrien
+ */
+
+h2 {
+    margin-top: 0;
+    color: #FFFFFFDE;
+}
+
+h3 {
+    display: inline;
+    color: #FFFFFFDE;
+}
+
+label {
+    display: flex;
+}
+
+#error-box-title {
+    display: flex;
+    align-items: center;
+}
+
+#error-box-title > .material-icons {
+    margin-right: 8px;
+}
+
+.text-line {
+    margin-bottom: 16px;
+}
+
+.div-form {
+    margin-bottom: 12px;
+}
+
+.card {
+    display: flex;
+    padding: 24px;
+    width: 100%;
+    max-width: 768px;
+    box-sizing: border-box;
+}
+
+.delete {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.new-username {
+    margin-right: 5px;
+}
+
+.new-email-address {
+    margin-right: 5px;
+}
+
+.hidden-button {
+    opacity: 0;
+    position: absolute;
+    z-index: -1000;
+}
+
+.hidden-line .material-icons {
+    padding-top: 4px;
+}
+
+.submit-button {
+    justify-self: flex-end;
+    align-self: center;
+}
+
+#submit-config-change {
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+#submit-config-change:hover {
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    background-color: #DEDEDE;
+}
+
+#form-modif-config input[type="number"] {
+    width: 185px;
+}
+
+#configuration-card {
+    margin-bottom: 12px;
+}
+
+#members-table {
+    display: flex;
+    border: #7E7E7E 1px solid;
+    flex-direction: column;
+}
+
+.form-modif-membre {
+    display: flex;
+    align-content: center;
+}
+
+.shown-line {
+    display: flex;
+    flex-wrap: wrap;
+    color: #FFFFFFDE;
+}
+
+.shown-line > :first-child {
+    margin-right: 6px;
+}
+
+.shown-line > a {
+    color: #9C4ABD;
+}
+
+.hidden-line {
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.table-line {
+    padding: 6px 4px;
+}
+
+.table-line:nth-child(2n) {
+    background-color: #525252;
+}
+
+.table-line.expanded > .hidden-line {
+    display: flex;
+}
+
+.arrow-down {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.arrow-down-icon {
+    transition: transform 500ms ease-in-out;
+}
+
+.table-line.expanded .arrow-down-icon {
+    transform: rotate(180deg);
+}

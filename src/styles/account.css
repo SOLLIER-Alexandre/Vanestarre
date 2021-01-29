@@ -1,0 +1,98 @@
+/**
+ * style for the account page
+ *
+ * @author CHATEAUX Adrien
+ */
+
+p {
+    margin: 0;
+}
+
+h2 {
+    margin-top: 0;
+    color: white;
+}
+
+h3 {
+    display: inline;
+    color: white;
+    margin: 0;
+}
+
+label {
+    display: flex;
+}
+
+.div-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.card {
+    padding: 24px;
+    width: 100%;
+    max-width: 768px;
+    box-sizing: border-box;
+}
+
+.card:not(:first-child) {
+    margin-top: 12px;
+}
+
+.password-message-title {
+    display: flex;
+    align-items: center;
+}
+
+.password-message-title > :first-child {
+    margin-right: 8px;
+}
+
+.submit-button {
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 200px;
+}
+
+.submit-button:hover {
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    background-color: #dedede;
+}
+
+#config-link-container {
+    display: flex;
+    align-items: center;
+}
+
+#config-link-container > span {
+    margin-right: 8px;
+}
+
+#config-link-container > a {
+    text-decoration-style: dotted;
+    color: #9C4ABD;
+}
+
+#delete-account-button {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.input-button {
+    align-self: flex-end;
+    padding: 6px 24px;
+    width: max-content;
+    border: none;
+    border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+    .text-line > p {
+        display: inline;
+    }
+}

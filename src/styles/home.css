@@ -1,0 +1,211 @@
+/**
+ * Stylesheet for the home page
+ *
+ * @author SOLLIER Alexandre
+ */
+
+main > .card {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+main > .card:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+#error-box-title {
+    display: flex;
+    align-items: center;
+}
+
+#error-box-title > .material-icons {
+    margin-right: 8px;
+}
+
+.input-button {
+    align-self: flex-end;
+    padding: 6px 24px;
+    width: max-content;
+    border: none;
+    border-radius: 4px;
+}
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.message-form > textarea {
+    flex: 1;
+    resize: none;
+    background-color: #313131;
+    margin-bottom: 8px;
+}
+
+.message-form input[type="submit"] {
+    background-color: #9C4ABD;
+    color: #FFFFFFDE;
+}
+
+.message-form-buttons,
+.message-form-buttons > div {
+    display: flex;
+    align-items: center;
+}
+
+.message-form-buttons > :first-child {
+    flex: 1;
+}
+
+.message-form-file-label {
+    margin-right: 8px;
+}
+
+.message-form-file-remove.disabled,
+.message-form-file-remove.disabled:hover {
+    color: #FFFFFF60;
+    cursor: default;
+}
+
+.beta-insert-button {
+    margin-right: 16px;
+}
+
+.message-form-file {
+    position: absolute;
+    opacity: 0;
+    z-index: -1000;
+}
+
+.message-length-counter {
+    margin-right: 8px;
+}
+
+.send-message-button[disabled] {
+    opacity: 0.5;
+}
+
+.warning-chars-left {
+    color: #F57C0099;
+}
+
+.critical-chars-left {
+    color: #E64A1999;
+}
+
+.post-title {
+    font-family: 'Ubuntu', sans-serif;
+    margin: 0 0 8px;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.post-message {
+    color: #FFFFFFDE;
+}
+
+.post-tag {
+    text-decoration-style: dotted;
+    color: #9C4ABD;
+}
+
+.search-query {
+    color: #FFFFFFDE;
+}
+
+.card img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.message-image-container {
+    position: relative;
+    margin-top: 6px;
+}
+
+.message-remove-image-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
+    text-shadow: #000000 0 0 16px;
+    color: #FFFFFFDE;
+}
+
+.message-remove-image-button:hover {
+    color: #FFFFFF;
+}
+
+.message-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 8px;
+    text-shadow: #00000099 0 0 8px;
+}
+
+.message-footer > div {
+    display: flex;
+    align-items: center;
+}
+
+.message-footer-reaction > span:not(:last-child) {
+    margin-right: 6px;
+}
+
+.message-footer-reaction[data-reaction-type="love"].selected {
+    color: #D94179;
+    text-shadow: #D9417999 0 0 8px;
+}
+
+.message-footer-reaction[data-reaction-type="cute"].selected {
+    color: #1E88E5;
+    text-shadow: #1E88E599 0 0 8px;
+}
+
+.message-footer-reaction[data-reaction-type="style"].selected {
+    color: #43A047;
+    text-shadow: #43A04799 0 0 8px;
+}
+
+.message-footer-reaction[data-reaction-type="swag"].selected {
+    color: #9C4ABD;
+    text-shadow: #9C4ABD99 0 0 8px;
+}
+
+#pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pager > a {
+    padding: 6px;
+    text-decoration: none;
+}
+
+#pager > a:not(:last-child) {
+    margin-right: 4px;
+}
+
+#pager > a.selected {
+    color: #8F23BB;
+    font-weight: bold;
+}
+
+#modal-edit-message .modal-container {
+    height: 256px;
+}
+
+#modal-donate p {
+    text-align: justify;
+}
+
+#modal-donate input[type="button"] {
+    margin-top: 16px;
+    background-color: #9C4ABD;
+    color: #FFFFFFDE;
+}

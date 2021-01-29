@@ -1,0 +1,40 @@
+/**
+ * style for the login page
+ *
+ * @author RADJA Samy
+ */
+
+main {
+    justify-content: center;
+}
+
+h2 {
+    margin: 0;
+    color: #FFFFFFDE;
+}
+
+label {
+    display: flex;
+}
+
+.card {
+    display: flex;
+    width: 100%;
+    max-width: 768px;
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+.input-zone {
+    width: 185px;
+    margin-bottom: 12px;
+}
+
+.submit-button {
+    border: none;
+    background-color: #9C4ABD;
+    color: #FFFFFFDE;
+    padding: 6px 24px;
+    border-radius: 4px;
+    margin-top: 12px;
+}
